@@ -1,0 +1,75 @@
+# Kulturhaus Bortfeld - Git Ignore
+
+# Sensitive Configuration Files
+.ssh-config
+**/password*
+**/credentials*
+**/*password*
+**/*credential*
+
+# Environment specific files
+.env
+.env.local
+.env.production
+
+# Log files
+*.log
+logs/
+*.log.*
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Backup files
+*.bak
+*.backup
+backup_*
+*.sql.gz
+
+# System files
+.DS_Store
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# Python specific (if custom Odoo modules)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Database dumps
+*.sql
+*.dump
+
+# SSL certificates (should not be in repo)
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Documentation builds
+_build/
+docs/_build/
+
+# Temporary documentation
+*_TEMP.md
+*_DRAFT.md
