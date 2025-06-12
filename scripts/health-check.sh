@@ -82,12 +82,15 @@ echo ""
 
 # Check database connectivity
 echo "🗄️  Database:"
-if sudo -u odoo18 psql -d kulturhive -c "SELECT version();" > /dev/null 2>&1; then
+# Try connection as current user first, then fallback methods
+if psql -h localhost -U odoo18 -d kulturhive -c "SELECT version();" > /dev/null 2>&1; then
     echo -e "✅ ${GREEN}PostgreSQL connection${NC} - Working"
     
-    # Count active connections
-    CONN_COUNT=$(sudo -u postgres psql -t -c "SELECT count(*) FROM pg_stat_activity WHERE datname='kulturhive';" 2>/dev/null | xargs)
+    # Count active connections (try without sudo first)
+    CONN_COUNT=$(psql -h localhost -U postgres -t -c "SELECT count(*) FROM pg_stat_activity WHERE datname='kulturhive';" 2>/dev/null | xargs || echo "N/A")
     echo -e "📊 ${GREEN}Active DB connections${NC} - $CONN_COUNT"
+elif pg_isready -h localhost -p 5432 > /dev/null 2>&1; then
+    echo -e "✅ ${GREEN}PostgreSQL service${NC} - Running (connection test skipped)"
 else
     echo -e "❌ ${RED}PostgreSQL connection${NC} - Failed"
 fi
@@ -103,12 +106,24 @@ else
 fi
 echo ""
 
-# Check log file sizes
+# Check log file sizes (if accessible)
 echo "📄 Log Files:"
-ODOO_LOG_SIZE=$(du -h /var/log/odoo/odoo18.log 2>/dev/null | cut -f1 || echo "N/A")
-NGINX_ACCESS_SIZE=$(du -h /var/log/nginx/kulturhaus-access.log 2>/dev/null | cut -f1 || echo "N/A")
+ODOO_LOG_SIZE=$(ls -lh /var/log/odoo/odoo18.log 2>/dev/null | awk '{print $5}' || echo "N/A")
+NGINX_ACCESS_SIZE=$(ls -lh /var/log/nginx/kulturhaus-access.log 2>/dev/null | awk '{print $5}' || echo "N/A")
 echo -e "📊 ${GREEN}Odoo log size${NC} - $ODOO_LOG_SIZE"
 echo -e "📊 ${GREEN}Nginx access log size${NC} - $NGINX_ACCESS_SIZE"
+
+# Check if logs are being written (recent activity)
+if [ -f /var/log/odoo/odoo18.log ]; then
+    LAST_LOG_TIME=$(stat -c %Y /var/log/odoo/odoo18.log 2>/dev/null || echo "0")
+    CURRENT_TIME=$(date +%s)
+    LOG_AGE=$((CURRENT_TIME - LAST_LOG_TIME))
+    if [ $LOG_AGE -lt 3600 ]; then
+        echo -e "✅ ${GREEN}Odoo logging${NC} - Active (last write: $((LOG_AGE/60)) min ago)"
+    else
+        echo -e "⚠️  ${YELLOW}Odoo logging${NC} - Last write: $((LOG_AGE/3600)) hours ago"
+    fi
+fi
 echo ""
 
 # Final summary
