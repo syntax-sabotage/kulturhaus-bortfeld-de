@@ -43,9 +43,10 @@ check_url() {
 # Check system services
 echo "🔧 System Services:"
 check_service "odoo18"
-check_service "postgresql"
+check_service "postgresql@16-main"
 check_service "nginx"
 check_service "ssh"
+check_service "fail2ban"
 echo ""
 
 # Check web endpoints
@@ -59,7 +60,8 @@ echo "💾 System Resources:"
 
 # Memory usage
 MEMORY_USAGE=$(free | grep Mem | awk '{printf "%.1f", $3/$2 * 100.0}')
-if (( $(echo "$MEMORY_USAGE > 80" | bc -l) )); then
+MEMORY_THRESHOLD=80
+if (( $(echo "$MEMORY_USAGE > $MEMORY_THRESHOLD" | awk '{print ($1 > $2)}') )); then
     echo -e "⚠️  ${YELLOW}Memory usage${NC} - ${MEMORY_USAGE}% (High)"
 else
     echo -e "✅ ${GREEN}Memory usage${NC} - ${MEMORY_USAGE}%"

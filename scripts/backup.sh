@@ -45,12 +45,16 @@ fi
 log_message "Starting Odoo filestore backup..."
 FILESTORE_BACKUP="$BACKUP_DIR/odoo_filestore_${BACKUP_TYPE}_${DATE}.tar.gz"
 
-if sudo tar -czf $FILESTORE_BACKUP -C /opt/odoo18 filestore/ 2>/dev/null; then
-    log_message "✅ Odoo filestore backup completed: $FILESTORE_BACKUP"
-    FILESTORE_SIZE=$(du -h $FILESTORE_BACKUP | cut -f1)
-    log_message "Filestore backup size: $FILESTORE_SIZE"
+if sudo test -d /opt/odoo18/filestore/; then
+    if sudo tar -czf $FILESTORE_BACKUP -C /opt/odoo18 filestore/ 2>/dev/null; then
+        log_message "✅ Odoo filestore backup completed: $FILESTORE_BACKUP"
+        FILESTORE_SIZE=$(du -h $FILESTORE_BACKUP | cut -f1)
+        log_message "Filestore backup size: $FILESTORE_SIZE"
+    else
+        log_message "⚠️ Odoo filestore backup failed"
+    fi
 else
-    log_message "⚠️ Odoo filestore backup failed or no filestore found"
+    log_message "ℹ️ Odoo filestore directory not found (normal for new installations)"
 fi
 
 # Configuration backup
