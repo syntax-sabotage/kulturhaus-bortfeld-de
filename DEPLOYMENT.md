@@ -32,7 +32,6 @@ kulturhaus-bortfeld-de/
 │   └── ssl/                       # SSL setup scripts
 ├── scripts/                       # Deployment & maintenance scripts
 │   ├── backup.sh                  # Database backup script
-│   ├── deploy.sh                  # Deployment automation
 │   └── health-check.sh            # Server health monitoring
 └── docs/                          # Additional documentation
     ├── user-guides/               # End-user documentation
@@ -82,7 +81,7 @@ kulturhaus-bortfeld-de/
 ### 1. Local Development
 ```bash
 # Clone repository
-git clone https://github.com/your-org/kulturhaus-bortfeld-de.git
+git clone https://github.com/syntax-sabotage/kulturhaus-bortfeld-de.git
 cd kulturhaus-bortfeld-de
 
 # Make changes to documentation, scripts, or custom modules
@@ -109,12 +108,17 @@ git push origin main
 # SSH into production server
 ssh kulturhaus
 
-# Pull latest documentation/scripts
-cd /opt/kulturhaus-deployment/
+# Clone repository to server (first time only)
+cd /opt/
+sudo git clone https://github.com/syntax-sabotage/kulturhaus-bortfeld-de.git kulturhaus-docs
+sudo chown -R khaus:khaus /opt/kulturhaus-docs/
+
+# Or pull latest documentation/scripts (subsequent updates)
+cd /opt/kulturhaus-docs/
 git pull origin main
 
 # Apply configuration changes (manually)
-sudo cp configurations/nginx/kulturhaus.conf /etc/nginx/sites-available/
+sudo cp configurations/nginx/kulturhaus-bortfeld.conf.template /etc/nginx/sites-available/kulturhaus-bortfeld.conf
 sudo systemctl reload nginx
 
 # Run maintenance scripts
@@ -164,29 +168,24 @@ jobs:
 
 ## 🛠️ Setting Up GitHub Repository
 
-### Step 1: Create GitHub Repository
+### ✅ Step 1: GitHub Repository (COMPLETED)
+Repository already created at: https://github.com/syntax-sabotage/kulturhaus-bortfeld-de
+
+### ✅ Step 2: Repository Setup (COMPLETED)
 ```bash
-# On GitHub.com:
-# 1. Create new repository "kulturhaus-bortfeld-de"
-# 2. Choose "Private" for security
-# 3. Don't initialize with README (we have one)
+# Repository is linked and operational
+git remote -v
+# origin https://github.com/syntax-sabotage/kulturhaus-bortfeld-de.git
+
+# Current status
+git status
+# On branch main, up to date with origin/main
 ```
 
-### Step 2: Link Local Repository
-```bash
-# Add GitHub as remote origin
-git remote add origin https://github.com/your-username/kulturhaus-bortfeld-de.git
-
-# Initial commit and push
-git add .
-git commit -m "feat: Initial project setup with complete server documentation"
-git branch -M main
-git push -u origin main
-```
-
-### Step 3: Set Up Team Access
+### Step 3: Team Access Setup
 ```bash
 # On GitHub.com:
+# Go to: https://github.com/syntax-sabotage/kulturhaus-bortfeld-de
 # Settings → Manage access → Invite collaborators
 # Add team members with appropriate permissions
 ```
@@ -238,11 +237,15 @@ tar -czf "/backup/odoo_filestore_${DATE}.tar.gz" /opt/odoo18/filestore/
 
 ## 🎯 Recommended Next Steps
 
-### Immediate Setup
-1. **Create GitHub repository** (private)
-2. **Initial commit** with current documentation
-3. **Set up team access** for collaborators
-4. **Document deployment procedures**
+### ✅ Completed Setup
+1. ✅ **GitHub repository created** (private) - https://github.com/syntax-sabotage/kulturhaus-bortfeld-de
+2. ✅ **Initial commit completed** with comprehensive documentation
+3. ✅ **Repository structure established** with scripts and configurations
+4. ✅ **Deployment procedures documented** in this guide
+
+### Remaining Setup
+1. **Set up team access** for additional collaborators
+2. **Clone repository to production server** for script deployment
 
 ### Future Enhancements
 1. **Custom Odoo modules** development workflow
