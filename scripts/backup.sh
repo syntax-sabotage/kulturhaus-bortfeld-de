@@ -5,28 +5,28 @@
 
 BACKUP_TYPE=${1:-manual}
 DATE=$(date +%Y%m%d_%H%M%S)
-BACKUP_DIR="/backup/kulturhaus"
-LOG_FILE="/var/log/backup/kulturhaus_backup.log"
+BACKUP_DIR="$HOME/backups/kulturhaus"
+LOG_FILE="$HOME/backups/kulturhaus_backup.log"
 
 # Create backup directory if it doesn't exist
 sudo mkdir -p $BACKUP_DIR
-sudo mkdir -p /var/log/backup/
+mkdir -p $(dirname $LOG_FILE)
 
 echo "🔄 Starting Kulturhaus Bortfeld backup - Type: $BACKUP_TYPE"
-echo "Date: $(date)" | sudo tee -a $LOG_FILE
+echo "Date: $(date)" | tee -a $LOG_FILE
 
 # Function to log messages
 log_message() {
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" | sudo tee -a $LOG_FILE
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a $LOG_FILE
 }
 
 # Database backup
 log_message "Starting database backup..."
 DB_BACKUP_FILE="$BACKUP_DIR/kulturhive_${BACKUP_TYPE}_${DATE}.sql"
 
-if sudo -u postgres pg_dump kulturhive > $DB_BACKUP_FILE; then
+if sudo -u postgres pg_dump kulturhive > $DB_BACKUP_FILE 2>/dev/null; then
     log_message "✅ Database backup completed: $DB_BACKUP_FILE"
-    DB_SIZE=$(du -h $DB_BACKUP_FILE | cut -f1)
+    DB_SIZE=$(sudo du -h $DB_BACKUP_FILE | cut -f1)
     log_message "Database backup size: $DB_SIZE"
 else
     log_message "❌ Database backup failed"
@@ -35,7 +35,7 @@ fi
 
 # Compress database backup
 log_message "Compressing database backup..."
-if gzip $DB_BACKUP_FILE; then
+if sudo gzip $DB_BACKUP_FILE; then
     log_message "✅ Database backup compressed: ${DB_BACKUP_FILE}.gz"
 else
     log_message "⚠️ Database compression failed, but backup exists"
@@ -48,7 +48,7 @@ FILESTORE_BACKUP="$BACKUP_DIR/odoo_filestore_${BACKUP_TYPE}_${DATE}.tar.gz"
 if sudo test -d /opt/odoo18/filestore/; then
     if sudo tar -czf $FILESTORE_BACKUP -C /opt/odoo18 filestore/ 2>/dev/null; then
         log_message "✅ Odoo filestore backup completed: $FILESTORE_BACKUP"
-        FILESTORE_SIZE=$(du -h $FILESTORE_BACKUP | cut -f1)
+        FILESTORE_SIZE=$(sudo du -h $FILESTORE_BACKUP | cut -f1)
         log_message "Filestore backup size: $FILESTORE_SIZE"
     else
         log_message "⚠️ Odoo filestore backup failed"
