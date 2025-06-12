@@ -228,25 +228,49 @@ ssh kulturhaus "sudo -u postgres psql -c \"SELECT datname, numbackends FROM pg_s
 ### Automated Tasks
 - ✅ **SSL Renewal**: Automatic via certbot
 - ✅ **Log Rotation**: System-managed log rotation
-- 🔄 **Database Backups**: Needs setup (recommended daily)
+- ✅ **Backup Scripts**: Available (`./scripts/backup.sh`)
+- ✅ **Health Monitoring**: Available (`./scripts/health-check.sh`)
 - 🔄 **System Updates**: Consider unattended-upgrades
 
 ---
 
 ## 🔄 Development Workflow
 
+### GitHub-Based Workflow
+1. **Local Changes**: Edit documentation, scripts, configurations
+2. **Version Control**: Commit and push to GitHub repository
+3. **Server Deployment**: SSH into server and pull latest changes
+4. **Apply Changes**: Deploy configurations or run updated scripts
+5. **Document**: Update relevant documentation files
+
 ### Working with the Server
 1. **Connect**: `ssh kulturhaus`
 2. **Check Status**: Verify all services running
-3. **Make Changes**: Edit configurations as needed
-4. **Test**: Verify changes work correctly
-5. **Document**: Update this CLAUDE.md if configurations change
+3. **Run Scripts**: Use `./scripts/health-check.sh` or `./scripts/backup.sh`
+4. **Monitor**: Check logs and performance
+5. **Update Docs**: Commit changes to GitHub
 
 ### Configuration Changes
 - Always backup configurations before changes
+- Make changes in GitHub repository first
 - Test changes in staging first (if available)
 - Document all changes in version control
 - Monitor logs after changes
+
+### Repository Commands
+```bash
+# Clone repository to server (first time)
+cd /opt/
+sudo git clone https://github.com/syntax-sabotage/kulturhaus-bortfeld-de.git kulturhaus-docs
+
+# Pull latest changes
+cd /opt/kulturhaus-docs/
+git pull origin main
+
+# Run maintenance scripts
+./scripts/health-check.sh
+./scripts/backup.sh
+```
 
 ---
 
@@ -257,6 +281,7 @@ ssh kulturhaus "sudo -u postgres psql -c \"SELECT datname, numbackends FROM pg_s
 - **Server Provider**: LuckySrv
 - **Domain Registrar**: TBD
 - **SSL Provider**: Let's Encrypt (free)
+- **GitHub Repository**: https://github.com/syntax-sabotage/kulturhaus-bortfeld-de
 
 ### Emergency Procedures
 1. **Server Down**: Check LuckySrv status page
@@ -275,24 +300,29 @@ ssh kulturhaus "sudo -u postgres psql -c \"SELECT datname, numbackends FROM pg_s
 - ✅ Domain and DNS properly configured
 - ✅ Multi-worker performance optimization
 - ✅ Monitoring and logging setup
+- ✅ GitHub repository and documentation workflow
+- ✅ Backup and health check scripts available
 
 ### Future Enhancements
-- [ ] Automated database backup system
-- [ ] Application performance monitoring
-- [ ] User training and documentation
-- [ ] Custom Odoo modules (if needed)
+- [ ] Schedule automated database backups (scripts ready)
+- [ ] Application performance monitoring integration
+- [ ] User training and end-user documentation
+- [ ] Custom Odoo modules development (if needed)
 - [ ] Integration with external systems
-- [ ] Disaster recovery procedures
+- [ ] Disaster recovery procedures and testing
 
 ---
 
 ## 📚 Documentation References
 
 ### Project Documentation
-- **Technical Documentation**: `TECHNICAL_DOCUMENTATION.md` (comprehensive server details)
-- **Server Info**: `server-info.md` (basic server information)
-- **SSH Setup**: `ssh-setup.md` (SSH configuration history)
-- **IP Whitelist**: `ip-whitelist-config.md` (security configuration)
+- **README.md**: Project overview and quick start guide
+- **CLAUDE.md**: This file - project context and quick reference
+- **TECHNICAL_DOCUMENTATION.md**: Comprehensive server details and procedures
+- **DEPLOYMENT.md**: GitHub workflow and deployment procedures
+- **server-info.md**: Current server specifications and status
+- **ssh-setup.md**: SSH configuration (completed setup)
+- **ip-whitelist-config.md**: Security configuration and IP whitelisting
 
 ### External References
 - **Odoo Documentation**: https://www.odoo.com/documentation/18.0/
