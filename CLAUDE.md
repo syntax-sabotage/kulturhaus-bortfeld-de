@@ -1,7 +1,7 @@
 # CLAUDE.md - Kulturhaus Bortfeld e.V. Project Context
 
-**Version**: 1.0  
-**Date**: 2025-06-12  
+**Version**: 1.1  
+**Date**: 2025-09-11  
 **Project**: Kulturhaus Bortfeld e.V. - Odoo ERP System  
 **Status**: ✅ PRODUCTION OPERATIONAL  
 
@@ -48,21 +48,31 @@ Host kulturhaus
 
 ## 🚀 Application Stack
 
-### Odoo 18 ERP System
+### Odoo 18 Community Edition ERP System
 - **Status**: ✅ PRODUCTION RUNNING
 - **URL**: https://kulturhaus-bortfeld.de
-- **Version**: Odoo 18 (latest stable)
+- **Version**: Odoo 18 Community Edition
 - **Database**: PostgreSQL 16 (database: kulturhive)
-- **Configuration**: Multi-worker setup (8 workers)
+- **Configuration**: Multi-worker setup (8 workers + 1 gevent)
 - **Admin Password**: `khaus`
+- **Custom Modules**: 5 installed (see below)
 
 ### Core Services Status
 | Service | Status | Port | Purpose |
 |---------|--------|------|---------|
-| **Odoo 18** | ✅ Running | 8069 | ERP Application |
+| **Odoo 18 CE** | ✅ Running | 8069 | ERP Application |
 | **PostgreSQL 16** | ✅ Running | 5432 | Database |
 | **Nginx** | ✅ Running | 80/443 | Web Server/SSL |
 | **SSH** | ✅ Running | 22 | Remote Access |
+
+### Custom Odoo Modules
+| Module | Purpose | Status |
+|--------|---------|--------|
+| **kulturhaus_dashboard** | Custom dashboard for operations | ✅ Installed |
+| **kulturhaus_calendar_subscription** | Calendar subscription features | ✅ Installed |
+| **kulturhaus_simplified_checkout** | Simplified checkout process | ✅ Installed |
+| **kh_menu_organizer** | Menu organization tool | ✅ Installed |
+| **ce_communication_enhancements** | PWA & mobile notifications | ✅ Deployed |
 
 ---
 
@@ -106,6 +116,9 @@ Host kulturhaus
 ```bash
 # Odoo Installation
 /opt/odoo18/
+
+# Odoo Addons (including custom modules)
+/opt/odoo18/odoo/addons/
 
 # Database Data
 /var/lib/postgresql/16/main/

@@ -1,7 +1,7 @@
 # Server Information
 
 **Status**: ✅ PRODUCTION OPERATIONAL  
-**Last Updated**: 2025-06-12  
+**Last Updated**: 2025-09-11  
 **Environment**: Production  
 
 ## VPS Details
@@ -27,12 +27,19 @@
 - **Architecture**: x86_64
 
 ## ✅ Deployed Services (OPERATIONAL)
-- **Odoo 18 ERP**: ✅ Running (8 workers, port 8069)
+- **Odoo 18 Community Edition**: ✅ Running (8 workers + 1 gevent, port 8069)
 - **PostgreSQL 16**: ✅ Running (database: kulturhive)
 - **Nginx**: ✅ Running (reverse proxy, SSL termination)
 - **Let's Encrypt SSL**: ✅ Active (auto-renewal configured)
 - **Fail2ban**: ✅ Active (IP: 94.31.75.76 whitelisted)
 - **SSH**: ✅ Active (key + password authentication)
+
+## 📦 Custom Odoo Modules (INSTALLED)
+- **kulturhaus_dashboard**: Custom dashboard for Kulturhaus operations
+- **kulturhaus_calendar_subscription**: Calendar subscription features
+- **kulturhaus_simplified_checkout**: Simplified checkout process
+- **kh_menu_organizer**: Menu organization tool
+- **ce_communication_enhancements**: PWA notifications & mobile connectivity (NEW)
 
 ## ✅ Security Configuration (IMPLEMENTED)
 - **Firewall**: UFW configured and active
