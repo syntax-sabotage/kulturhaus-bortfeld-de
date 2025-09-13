@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  kulturhaus-db:
+    image: postgres:15-alpine
+    container_name: kulturhaus-db
+    environment:
+      - POSTGRES_DB=kulturhaus_dev
+      - POSTGRES_PASSWORD=kultur2024
+      - POSTGRES_USER=odoo18
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - kulturhaus-network
+
+  kulturhaus-odoo:
+    image: odoo:18.0
+    container_name: kulturhaus-odoo
+    depends_on:
+      - kulturhaus-db
+    ports:
+      - "8070:8069"
+      - "8072:8072"  # longpolling port
+    environment:
+      - HOST=kulturhaus-db
+      - USER=odoo18
+      - PASSWORD=kultur2024
+      - DATABASE=kulturhaus_dev
+    volumes:
+      - ./data/odoo:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
+      - ../../sas-products/mitmach_portal:/mnt/extra-addons/mitmach_portal
+    restart: unless-stopped
+    networks:
+      - kulturhaus-network
+    command: odoo --dev=all
+
+networks:
+  kulturhaus-network:
+    driver: bridge
+
+volumes:
+  odoo-db-data:
+  odoo-web-data:

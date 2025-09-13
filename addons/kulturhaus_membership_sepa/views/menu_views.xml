@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Main menu item under Membership -->
+    <menuitem id="menu_sepa_main" 
+              name="SEPA-Verarbeitung" 
+              parent="membership.menu_membership"
+              sequence="50"/>
+    
+    <!-- Single menu entry for SEPA batch generation -->
+    <menuitem id="menu_sepa_batch_generate" 
+              name="SEPA-Lastschrift generieren" 
+              parent="menu_sepa_main"
+              action="action_sepa_batch_wizard"
+              sequence="10"/>
+    
+    <!-- SEPA Members List -->
+    <record id="action_sepa_members" model="ir.actions.act_window">
+        <field name="name">SEPA-Mitglieder</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_partner_search_sepa_enhanced"/>
+        <field name="domain">[('member_lines', '!=', False)]</field>
+        <field name="context">{'search_default_active_members': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                SEPA-Mitglieder hinzufügen
+            </p>
+            <p>
+                Verwalten Sie hier Mitglieder mit SEPA-Lastschriftmandaten.
+            </p>
+        </field>
+    </record>
+    
+    <!-- Specify our custom list view for the action -->
+    <record id="action_sepa_members_view_list" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_partner_list_sepa_members"/>
+        <field name="act_window_id" ref="action_sepa_members"/>
+    </record>
+    
+    <menuitem id="menu_sepa_members" 
+              name="SEPA-Mitglieder" 
+              parent="menu_sepa_main"
+              action="action_sepa_members"
+              sequence="30"/>
+</odoo>

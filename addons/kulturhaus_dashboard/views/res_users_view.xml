@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Extend Admin User Form with Full Dashboard Configuration -->
+        <record id="view_users_form_dashboard" model="ir.ui.view">
+            <field name="name">res.users.form.dashboard</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Dashboard Configuration" groups="base.group_user">
+                        <!-- Dashboard Settings -->
+                        <group string="Dashboard Settings" col="2">
+                            <field name="use_dashboard" help="Enable the Kulturhaus Dashboard as your home page"/>
+                            <field name="dashboard_theme" help="Choose your dashboard color theme"/>
+                            <field name="dashboard_layout" help="Select the dashboard layout style"/>
+                            <field name="show_kpis" help="Show/hide KPI widgets on the dashboard"/>
+                        </group>
+                        
+                        <!-- Quick Setup Actions -->
+                        <group string="Quick Setup" col="4">
+                            <button name="setup_default_cards" type="object" string="Setup Default Cards" 
+                                    class="btn-primary" help="Create default dashboard cards for this user"/>
+                            <button name="reset_dashboard_config" type="object" string="Reset Configuration" 
+                                    class="btn-warning" help="Reset dashboard to default settings"/>
+                            <button name="duplicate_cards_from_admin" type="object" string="Copy Admin Cards" 
+                                    class="btn-info" help="Copy card configuration from admin user"/>
+                            <button name="export_dashboard_config" type="object" string="Export Config" 
+                                    class="btn-secondary" help="Export dashboard configuration for backup"/>
+                        </group>
+                        
+                        <!-- Card Configuration -->
+                        <group string="Dashboard Cards">
+                            <field name="dashboard_card_ids" nolabel="1">
+                                <list string="Dashboard Cards" editable="bottom">
+                                    <field name="section_sequence" widget="handle"/>
+                                    <field name="section_name" string="Section"/>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name" string="Card Name"/>
+                                    <field name="description" string="Description"/>
+                                    <field name="icon" string="Icon"/>
+                                    <field name="color" string="Color"/>
+                                    <field name="action_type" string="Action Type"/>
+                                    <field name="action_window_id" string="Window Action" 
+                                           invisible="action_type != 'window'"/>
+                                    <field name="action_url" string="URL" 
+                                           invisible="action_type != 'url'"/>
+                                    <field name="is_active" string="Active"/>
+                                </list>
+                                <form string="Dashboard Card">
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="description"/>
+                                                <field name="sequence"/>
+                                                <field name="is_active"/>
+                                            </group>
+                                            <group>
+                                                <field name="section_name"/>
+                                                <field name="section_sequence"/>
+                                                <field name="icon"/>
+                                                <field name="color"/>
+                                                <field name="action_type"/>
+                                            </group>
+                                        </group>
+                                        <group string="Action Configuration">
+                                            <field name="action_window_id" invisible="action_type != 'window'"/>
+                                            <field name="action_url" invisible="action_type != 'url'"/>
+                                            <field name="custom_action_code" invisible="action_type != 'custom'"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+                
+                <!-- Add basic preference in existing preferences section -->
+                <xpath expr="//group[@name='preferences']" position="inside">
+                    <group name="dashboard_preferences" string="Dashboard" col="2">
+                        <field name="use_dashboard" help="Enable the Kulturhaus Dashboard as your home page"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- User Profile Form (for self-editing with full Dashboard Configuration) -->
+        <record id="view_users_form_simple_modif_dashboard" model="ir.ui.view">
+            <field name="name">res.users.form.simple.modif.dashboard</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Dashboard Configuration" groups="base.group_user">
+                        <!-- Dashboard Settings -->
+                        <group string="Dashboard Settings" col="2">
+                            <field name="use_dashboard" help="Enable the Kulturhaus Dashboard as your home page"/>
+                            <field name="dashboard_theme" help="Choose your dashboard color theme"/>
+                            <field name="dashboard_layout" help="Select the dashboard layout style"/>
+                            <field name="show_kpis" help="Show/hide KPI widgets on the dashboard"/>
+                        </group>
+                        
+                        <!-- Quick Setup Actions -->
+                        <group string="Quick Setup" col="4">
+                            <button name="setup_default_cards" type="object" string="Setup Default Cards" 
+                                    class="btn-primary" help="Create default dashboard cards for this user"/>
+                            <button name="reset_dashboard_config" type="object" string="Reset Configuration" 
+                                    class="btn-warning" help="Reset dashboard to default settings"/>
+                            <button name="duplicate_cards_from_admin" type="object" string="Copy Admin Cards" 
+                                    class="btn-info" help="Copy card configuration from admin user"/>
+                            <button name="export_dashboard_config" type="object" string="Export Config" 
+                                    class="btn-secondary" help="Export dashboard configuration for backup"/>
+                        </group>
+                        
+                        <!-- Card Configuration -->
+                        <group string="Dashboard Cards">
+                            <field name="dashboard_card_ids" nolabel="1">
+                                <list string="Dashboard Cards" editable="bottom">
+                                    <field name="section_sequence" widget="handle"/>
+                                    <field name="section_name" string="Section"/>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name" string="Card Name"/>
+                                    <field name="description" string="Description"/>
+                                    <field name="icon" string="Icon"/>
+                                    <field name="color" string="Color"/>
+                                    <field name="action_type" string="Action Type"/>
+                                    <field name="action_window_id" string="Window Action" 
+                                           invisible="action_type != 'window'"/>
+                                    <field name="action_url" string="URL" 
+                                           invisible="action_type != 'url'"/>
+                                    <field name="is_active" string="Active"/>
+                                </list>
+                                <form string="Dashboard Card">
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="description"/>
+                                                <field name="sequence"/>
+                                                <field name="is_active"/>
+                                            </group>
+                                            <group>
+                                                <field name="section_name"/>
+                                                <field name="section_sequence"/>
+                                                <field name="icon"/>
+                                                <field name="color"/>
+                                                <field name="action_type"/>
+                                            </group>
+                                        </group>
+                                        <group string="Action Configuration">
+                                            <field name="action_window_id" invisible="action_type != 'window'"/>
+                                            <field name="action_url" invisible="action_type != 'url'"/>
+                                            <field name="custom_action_code" invisible="action_type != 'custom'"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+                
+                <!-- Add basic preference in existing preferences section -->
+                <xpath expr="//group[@name='preferences']" position="inside">
+                    <group name="dashboard_preferences" string="Dashboard" col="2">
+                        <field name="use_dashboard" help="Enable the Kulturhaus Dashboard as your home page"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

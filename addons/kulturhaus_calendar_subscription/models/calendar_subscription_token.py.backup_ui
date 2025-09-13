@@ -1,0 +1,201 @@
+# -*- coding: utf-8 -*-
+import secrets
+import hashlib
+import logging
+from datetime import datetime, timedelta
+from odoo import models, fields, api
+from odoo.exceptions import UserError
+
+_logger = logging.getLogger(__name__)
+
+
+class CalendarSubscriptionToken(models.Model):
+    _name = 'calendar.subscription.token'
+    _description = 'Calendar Subscription Tokens'
+    _rec_name = 'name'
+    _order = 'create_date desc'
+    
+    name = fields.Char(
+        string='Description',
+        required=True,
+        help='Friendly name to identify this subscription (e.g., "Apple Calendar", "Work Phone")'
+    )
+    user_id = fields.Many2one(
+        'res.users',
+        string='User',
+        required=True,
+        ondelete='cascade',
+        default=lambda self: self.env.user
+    )
+    token = fields.Char(
+        string='Token',
+        copy=False,
+        readonly=True,
+        groups='base.group_system'  # Only system admins can see raw token
+    )
+    token_hash = fields.Char(
+        string='Token Hash',
+        copy=False,
+        readonly=True,
+        index=True  # Index for faster lookups
+    )
+    active = fields.Boolean(
+        string='Active',
+        default=True,
+        help='Deactivate to temporarily disable this subscription'
+    )
+    
+    # Privacy and filtering options
+    include_private = fields.Boolean(
+        string='Include Private Events',
+        default=False,
+        help='Include events marked as private in the calendar feed'
+    )
+    calendar_types = fields.Many2many(
+        'calendar.event.type',
+        string='Event Types',
+        help='Leave empty to include all event types'
+    )
+    
+    # Time range options
+    days_past = fields.Integer(
+        string='Days in Past',
+        default=60,
+        help='Number of days in the past to include events from'
+    )
+    days_future = fields.Integer(
+        string='Days in Future',
+        default=365,
+        help='Number of days in the future to include events until'
+    )
+    
+    # Usage tracking
+    last_accessed = fields.Datetime(
+        string='Last Accessed',
+        readonly=True
+    )
+    access_count = fields.Integer(
+        string='Access Count',
+        default=0,
+        readonly=True
+    )
+    last_user_agent = fields.Char(
+        string='Last User Agent',
+        readonly=True,
+        help='Calendar application that last accessed this feed'
+    )
+    
+    # URLs
+    subscription_url = fields.Char(
+        string='Subscription URL',
+        compute='_compute_subscription_url',
+        readonly=True,
+        store=False
+    )
+    webcal_url = fields.Char(
+        string='Webcal URL',
+        compute='_compute_subscription_url',
+        readonly=True,
+        store=False
+    )
+    
+    @api.model_create_multi
+    def create(self, vals_list):
+        # Handle both single dict and list of dicts
+        if isinstance(vals_list, dict):
+            vals_list = [vals_list]
+            
+        for vals in vals_list:
+            if not vals.get('token'):
+                # Generate cryptographically secure token
+                raw_token = secrets.token_urlsafe(32)
+                vals['token'] = raw_token
+                vals['token_hash'] = hashlib.sha256(raw_token.encode()).hexdigest()
+        return super().create(vals_list)
+    
+    @api.depends('token')
+    def _compute_subscription_url(self):
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        for record in self:
+            if record.token:
+                https_url = f"{base_url}/calendar/ics/{record.token}.ics"
+                record.subscription_url = https_url
+                record.webcal_url = https_url.replace('https://', 'webcal://').replace('http://', 'webcal://')
+            else:
+                record.subscription_url = False
+                record.webcal_url = False
+    
+    def action_copy_subscription_url(self):
+        """Action to copy subscription URL to clipboard"""
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f"javascript:navigator.clipboard.writeText('{self.subscription_url}').then(function() {{ alert('Calendar URL copied to clipboard!'); }});",
+            'target': 'self',
+        }
+    
+    def action_copy_webcal_url(self):
+        """Action to copy webcal URL to clipboard"""
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f"javascript:navigator.clipboard.writeText('{self.webcal_url}').then(function() {{ alert('Webcal URL copied to clipboard!'); }});",
+            'target': 'self',
+        }
+    
+    def action_revoke_token(self):
+        """Revoke (delete) this token"""
+        self.ensure_one()
+        self.unlink()
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'type': 'success',
+                'message': 'Calendar subscription revoked successfully',
+                'next': {'type': 'ir.actions.act_window_close'},
+            }
+        }
+    
+    @api.model
+    def cleanup_old_unused_tokens(self):
+        """Cron job to cleanup tokens not used in 180 days"""
+        cutoff_date = datetime.now() - timedelta(days=180)
+        unused_tokens = self.search([
+            ('last_accessed', '<', cutoff_date),
+            ('access_count', '=', 0)
+        ])
+        if unused_tokens:
+            _logger.info(f"Cleaning up {len(unused_tokens)} unused calendar subscription tokens")
+            unused_tokens.unlink()
+    
+    def get_calendar_domain(self):
+        """Build domain for calendar events based on token settings"""
+        self.ensure_one()
+        
+        # Base domain with user and time range
+        domain = [
+            '|',
+            ('user_id', '=', self.user_id.id),
+            ('partner_ids', 'in', self.user_id.partner_id.id),
+            ('start', '>=', datetime.now() - timedelta(days=self.days_past)),
+            ('start', '<=', datetime.now() + timedelta(days=self.days_future)),
+        ]
+        
+        # Privacy filter
+        if not self.include_private:
+            domain.append(('privacy', '!=', 'private'))
+        
+        # Event type filter
+        if self.calendar_types:
+            domain.append(('categ_ids', 'in', self.calendar_types.ids))
+        
+        return domain
+    
+    @api.constrains('days_past', 'days_future')
+    def _check_days_range(self):
+        for record in self:
+            if record.days_past < 0 or record.days_past > 365:
+                raise UserError('Days in past must be between 0 and 365')
+            if record.days_future < 0 or record.days_future > 730:
+                raise UserError('Days in future must be between 0 and 730')

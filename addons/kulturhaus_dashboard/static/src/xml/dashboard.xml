@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    
+    <!-- Main Dashboard Template -->
+    <t t-name="kulturhaus_dashboard.Dashboard" owl="1">
+        <div t-att-class="'kulturhaus-dashboard theme-' + (state.theme || 'blue') + ' layout-' + (state.layout || 'grid')">
+            
+            <!-- Loading State -->
+            <div t-if="state.loading" class="dashboard-loading">
+                <i class="fa fa-spinner fa-spin"/> Loading Dashboard...
+            </div>
+            
+            <!-- Dashboard Content -->
+            <div t-else="">
+                
+                <!-- KPI Section -->
+                <div t-if="state.show_kpis" class="kpi-section">
+                    <div class="kpi-container">
+                        <div class="kpi-card" t-on-click="openWebsite">
+                            <div class="kpi-icon">
+                                <i class="fa fa-globe"/>
+                            </div>
+                            <div class="kpi-content">
+                                <div class="kpi-value" t-esc="state.kpis.website_info"/>
+                                <div class="kpi-label">Website</div>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon">
+                                <i class="fa fa-users"/>
+                            </div>
+                            <div class="kpi-content">
+                                <div class="kpi-value" t-esc="state.kpis.total_members"/>
+                                <div class="kpi-label">Mitglieder</div>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon">
+                                <i class="fa fa-calendar-check-o"/>
+                            </div>
+                            <div class="kpi-content">
+                                <div class="kpi-value" t-esc="state.kpis.upcoming_events"/>
+                                <div class="kpi-label">Kommende Events</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card Sections -->
+                <div class="card-sections">
+                    <div t-foreach="orderedSections" t-as="section" t-key="section.name" 
+                         class="dashboard-section">
+                        <h2 class="section-title" t-esc="section.name"/>
+                        <div t-att-class="'card-container layout-' + (state.layout || 'grid')">
+                            <div t-foreach="section.cards" t-as="card" t-key="card.id" 
+                                 class="dashboard-card" 
+                                 t-on-click="() => this.handleCardClick(card)">
+                                <div class="card-icon">
+                                    <i t-att-class="'fa ' + card.icon"/>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-title" t-esc="card.title"/>
+                                    <p class="card-description" t-esc="card.description"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </t>
+    
+</templates>
