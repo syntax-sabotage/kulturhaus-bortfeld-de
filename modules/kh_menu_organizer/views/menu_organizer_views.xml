@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu Organizer List View -->
+    <record id="view_kh_menu_organizer_list" model="ir.ui.view">
+        <field name="name">kh.menu.organizer.list</field>
+        <field name="model">ir.ui.menu</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <list string="Menu Organizer" create="false" delete="false" editable="top" default_order="kh_menu_sequence, sequence, id">
+                <field name="kh_menu_sequence" widget="handle"/>
+                <field name="complete_name" string="Menu Name" readonly="1"/>
+                <field name="kh_menu_category" string="Category"/>
+                <field name="sequence" string="Original Sequence" readonly="1" optional="hide"/>
+                <field name="kh_show_separator" string="Separator"/>
+                <field name="kh_is_hidden" string="Hidden"/>
+                <field name="active" string="Active" readonly="1" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Menu Organizer Action -->
+    <record id="action_kh_menu_organizer" model="ir.actions.act_window">
+        <field name="name">Menu Organizer</field>
+        <field name="res_model">ir.ui.menu</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_kh_menu_organizer_list"/>
+        <field name="domain">[('parent_id', '=', False)]</field>
+        <field name="context">{'create': False, 'delete': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Organize Your Menus
+            </p>
+            <p>
+                <b>How to use:</b><br/>
+                • Drag the handle (≡) to reorder menus<br/>
+                • Set categories to group related items<br/>
+                • Check "Separator" to mark where dividers should appear<br/>
+                • Check "Hidden" to temporarily hide a menu<br/>
+                • Changes are saved automatically
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem 
+        id="menu_kh_menu_organizer"
+        name="Menu Organizer"
+        parent="base.menu_administration"
+        action="action_kh_menu_organizer"
+        sequence="100"
+        groups="base.group_system"/>
+</odoo>

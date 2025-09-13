@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="german_checkout_fix" inherit_id="website_sale.address" priority="99">
+            <xpath expr="//form" position="before">
+                <div style="background:#e8f5e9;border:2px solid #4caf50;border-radius:8px;padding:20px;margin:20px 0;color:#2e7d32;">
+                    <h3 style="margin:0 0 15px 0;color:#1b5e20;font-size:18px;">Ihre Bestellung in 2 einfachen Schritten</h3>
+                    <div style="display:flex;align-items:center;margin:10px 0;">
+                        <div style="background:#4caf50;color:white;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-weight:bold;margin-right:12px;font-size:12px;">1</div>
+                        <div>Adresse bestaetigen</div>
+                    </div>
+                    <div style="display:flex;align-items:center;margin:10px 0;">
+                        <div style="background:#81c784;color:white;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-weight:bold;margin-right:12px;font-size:12px;">2</div>
+                        <div>Zur Kasse gehen</div>
+                    </div>
+                    <p style="margin:12px 0 0 0;font-size:14px;font-weight:bold;color:#1b5e20;">Bitte klicken Sie nicht auf Confirm\!</p>
+                </div>
+            </xpath>
+            
+            <xpath expr="//button[@id='save_address']" position="replace">
+                <button id="save_address" class="btn btn-primary w-100 w-md-auto order-1 order-md-3">
+                    <t t-if="is_anonymous_cart">Zur Kasse gehen</t>
+                    <t t-else="">Adresse speichern</t>
+                    <i class="fw-light fa fa-angle-right ms-2"/>
+                </button>
+            </xpath>
+            
+        </template>
+        
+        <template id="grey_confirm_button" inherit_id="payment.submit_button" priority="99">
+            <xpath expr="//button[@name='o_payment_submit_button']" position="attributes">
+                <attribute name="class">btn btn-secondary w-100 w-md-auto ms-auto px-5</attribute>
+            </xpath>
+        </template>
+        
+    </data>
+</odoo>
