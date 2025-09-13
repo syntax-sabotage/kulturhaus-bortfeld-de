@@ -2,7 +2,7 @@
 
 **Status**: ✅ **PRODUCTION OPERATIONAL**  
 **Live Website**: https://kulturhaus-bortfeld.de  
-**Last Updated**: 2025-06-12  
+**Last Updated**: 2025-09-13  
 
 ## 🏢 Project Overview
 - **Customer**: Kulturhaus Bortfeld e.V.
@@ -69,7 +69,7 @@ kulturhaus-bortfeld-de/
 https://kulturhaus-bortfeld.de
 
 # SSH into server
-ssh kulturhaus
+ssh -i ~/.ssh/kulturhaus_vps khaus@193.30.120.108
 
 # Run health check
 ./scripts/health-check.sh
@@ -99,15 +99,18 @@ ssh kulturhaus "systemctl status odoo18 nginx postgresql"
 4. **[server-info.md](server-info.md)** - Current server status
 
 ### Quick References
-- **SSH Access**: `ssh kulturhaus` (key + password auth)
+- **SSH Access**: `ssh -i ~/.ssh/kulturhaus_vps khaus@193.30.120.108`
 - **Admin User**: khaus 
 - **Database**: kulturhive (PostgreSQL 16)
 - **Logs**: `/var/log/odoo/odoo18.log`
+- **Monitoring**: http://193.30.120.108:19999 (Netdata)
 
 ## 🔐 Security Features
 - ✅ **SSL/TLS**: A+ grade encryption with Let's Encrypt
 - ✅ **Firewall**: UFW configured with service rules
 - ✅ **SSH**: ed25519 key authentication + fail2ban
+- ✅ **Monitoring**: Netdata real-time monitoring
+- ✅ **Auto-Updates**: Unattended security updates enabled
 - ✅ **IP Whitelist**: Permanent whitelist for admin IP
 - ✅ **Security Headers**: Nginx security headers active
 - ✅ **Database**: Local access only (no external exposure)
@@ -127,7 +130,9 @@ ssh kulturhaus "systemctl status odoo18 nginx postgresql"
 ## 📞 Support
 
 ### Technical Access
-- **SSH**: `ssh kulturhaus` 
+- **SSH**: `ssh -i ~/.ssh/kulturhaus_vps khaus@193.30.120.108`
+- **Vaultwarden**: https://sec.kulturhausbortfeld.de
+- **Netdata Monitoring**: http://193.30.120.108:19999 
 - **GitHub**: https://github.com/syntax-sabotage/kulturhaus-bortfeld-de
 - **Server Provider**: LuckySrv
 
@@ -147,6 +152,8 @@ The Kulturhaus Bortfeld e.V. server is fully operational with:
 - ✅ Complete documentation and development workflow
 - ✅ GitHub integration for team collaboration
 - ✅ Automated monitoring and backup capabilities
+- ✅ Vaultwarden password manager for secure credential management
+- ✅ Enhanced security with automatic updates and monitoring alerts
 
 **Ready for business operations at https://kulturhaus-bortfeld.de** 🚀
 
