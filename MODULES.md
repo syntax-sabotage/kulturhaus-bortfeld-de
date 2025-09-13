@@ -1,8 +1,9 @@
 # Kulturhaus Bortfeld - Custom Odoo Modules
 
-**Last Updated**: 2025-09-11  
+**Last Updated**: 2025-09-13  
 **Odoo Version**: 18.0 Community Edition  
-**Location**: `/opt/odoo18/odoo/addons/`
+**Location**: `/opt/odoo18/odoo/addons/`  
+**Repository**: Module source code now in `/modules/` directory
 
 ## 📦 Installed Custom Modules
 
@@ -30,7 +31,17 @@
 - **Features**: Reorganize and customize Odoo menus
 - **Dependencies**: Base modules
 
-### 5. ce_communication_enhancements
+### 5. kulturhaus_membership_sepa
+- **Purpose**: SEPA direct debit management for memberships
+- **Status**: ✅ Installed and operational
+- **Features**:
+  - SEPA mandate management for members
+  - Configurable membership periods (full year/half year)
+  - Manual batch generation with buttons
+  - SEPA XML export for bank processing
+- **Dependencies**: `base`, `membership`, `account`, `contacts`
+
+### 6. ce_communication_enhancements
 - **Purpose**: PWA support and mobile push notifications
 - **Status**: ✅ Deployed (2025-09-11)
 - **Features**:
@@ -119,8 +130,8 @@ done
 
 ## 📊 Module Statistics
 - **Total Odoo Modules**: 663
-- **Custom Modules**: 5
-- **Latest Addition**: ce_communication_enhancements (2025-09-11)
+- **Custom Modules**: 6
+- **Latest Addition**: All modules now in GitHub repository (2025-09-13)
 - **Python Virtual Env**: `/opt/odoo18/odoo/venv/`
 
 ---
