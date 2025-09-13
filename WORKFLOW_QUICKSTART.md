@@ -93,7 +93,7 @@ docker-compose up -d
 ### Nach PR-Merge zu main
 ```bash
 # Auf VPS einloggen
-ssh khaus@193.30.120.108  # PW: Basf1$Khaus
+ssh -i ~/.ssh/kulturhaus_vps khaus@193.30.120.108
 
 # Module updaten
 cd /opt/kulturhaus-docs

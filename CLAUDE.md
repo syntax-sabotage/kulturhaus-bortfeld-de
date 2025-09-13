@@ -84,7 +84,7 @@ git push origin feature/new-feature
 ### VPS Production
 - URL: https://kulturhaus-bortfeld.de
 - Server: 193.30.120.108
-- User: khaus (PW: Basf1$Khaus)
+- User: khaus (SSH-Key: ~/.ssh/kulturhaus_vps)
 - Branch: main
 - DB: kulturhive
 
@@ -139,10 +139,20 @@ docker exec -it kulturhaus-db psql -U odoo18 -d kulturhaus_dev
 - Follow Odoo 18 best practices
 - Document all module changes
 
+## 🌐 Domain Structure
+**WICHTIG - Domain Konvention:**
+- **Öffentlich**: `kulturhaus-bortfeld.de` (MIT Bindestrich)
+  - Hauptwebsite, Odoo ERP
+- **Intern**: `kulturhausbortfeld.de` (OHNE Bindestrich)
+  - Nextcloud, Vaultwarden, interne Services
+  - sec.kulturhausbortfeld.de (Passwortmanager)
+
 ## 🚨 Emergency Contacts
 - VPS Issues: Check LuckySrv status
 - GitHub: @syntax-sabotage
 - Production DB: kulturhive (not erp!)
+- Vaultwarden Admin Token: Check ~/vaultwarden/.env on VPS
+- System-Benachrichtigungen: it@kulturhaus-bortfeld.de
 
 ## 🎬 Session Context
 Working on Kulturhaus module development with focus on membership management and SEPA integration. Docker environment configured, Git workflow established with develop/main branches.

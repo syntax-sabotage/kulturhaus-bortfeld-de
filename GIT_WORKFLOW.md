@@ -56,7 +56,7 @@ git merge develop
 git push origin main
 
 # Auf VPS deployen
-ssh khaus@193.30.120.108
+ssh -i ~/.ssh/kulturhaus_vps khaus@193.30.120.108
 cd /opt/kulturhaus-docs
 git pull origin main
 # Module zu Odoo kopieren und neustarten
