@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Tree View -->
+    <!-- List View (Odoo 18 uses 'list' instead of 'tree') -->
     <record id="view_sepa_batch_history_tree" model="ir.ui.view">
         <field name="name">sepa.batch.history.tree</field>
         <field name="model">sepa.batch.history</field>
         <field name="arch" type="xml">
-            <tree string="SEPA-Einzugshistorie" decoration-success="state=='processed'" decoration-warning="state=='sent'" decoration-danger="state=='cancelled'">
+            <list string="SEPA-Einzugshistorie" decoration-success="state=='processed'" decoration-warning="state=='sent'" decoration-danger="state=='cancelled'">
                 <field name="batch_reference"/>
                 <field name="batch_type"/>
                 <field name="collection_date"/>
@@ -15,7 +15,7 @@
                 <field name="notification_sent" widget="boolean_toggle"/>
                 <field name="created_by"/>
                 <field name="create_date"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -197,7 +197,7 @@
     <record id="action_sepa_batch_history" model="ir.actions.act_window">
         <field name="name">SEPA-Einzugshistorie</field>
         <field name="res_model">sepa.batch.history</field>
-        <field name="view_mode">tree,kanban,form,graph,pivot</field>
+        <field name="view_mode">list,kanban,form,graph,pivot</field>
         <field name="context">{'search_default_this_year': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
