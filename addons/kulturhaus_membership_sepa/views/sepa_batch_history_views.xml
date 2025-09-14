@@ -213,7 +213,7 @@
     <!-- Menu -->
     <menuitem id="menu_sepa_batch_history"
               name="Einzugshistorie"
-              parent="menu_kulturhaus_sepa"
+              parent="kulturhaus_membership_sepa.menu_sepa_main"
               action="action_sepa_batch_history"
               sequence="20"/>
 </odoo>
