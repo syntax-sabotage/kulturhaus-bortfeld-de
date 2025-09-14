@@ -64,7 +64,7 @@
                                 <field name="monthly_ticket_revenue" readonly="1"/>
                             </group>
                         </page>
-                        <page string="Website & Social">
+                        <page string="Website &amp; Social">
                             <group>
                                 <field name="quarterly_visitors" readonly="1"/>
                                 <field name="visitor_change_percent" readonly="1"/>
