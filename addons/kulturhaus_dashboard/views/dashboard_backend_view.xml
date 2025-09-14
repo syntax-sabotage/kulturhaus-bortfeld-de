@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Dashboard Kanban View -->
+    <record id="view_kulturhaus_dashboard_kanban" model="ir.ui.view">
+        <field name="name">kulturhaus.dashboard.kanban</field>
+        <field name="model">kulturhaus.dashboard</field>
+        <field name="arch" type="xml">
+            <kanban create="false" edit="false" class="o_dashboard_kanban">
+                <field name="active_members_count"/>
+                <field name="member_delta"/>
+                <field name="next_sepa_date"/>
+                <field name="next_sepa_amount"/>
+                <field name="sepa_status"/>
+                <field name="next_event_name"/>
+                <field name="next_event_date"/>
+                <field name="next_event_tickets_sold"/>
+                <field name="next_event_capacity"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="container-fluid mt-4">
+                            <h2 class="text-center mb-4">
+                                <i class="fa fa-home"/> Kulturhaus Dashboard
+                            </h2>
+                            
+                            <!-- First Row -->
+                            <div class="row mb-3">
+                                <!-- Active Members -->
+                                <div class="col-lg-4 col-md-6 mb-3">
+                                    <div class="card text-center h-100">
+                                        <div class="card-header bg-primary text-white">
+                                            <i class="fa fa-users"/> Aktive Mitglieder
+                                        </div>
+                                        <div class="card-body">
+                                            <h1 class="display-4">
+                                                <field name="active_members_count"/>
+                                            </h1>
+                                            <p class="lead">
+                                                <t t-if="record.member_delta.raw_value > 0">
+                                                    <span class="text-success">
+                                                        <i class="fa fa-arrow-up"/> +<field name="member_delta"/>
+                                                    </span>
+                                                </t>
+                                                <t t-elif="record.member_delta.raw_value &lt; 0">
+                                                    <span class="text-danger">
+                                                        <i class="fa fa-arrow-down"/> <field name="member_delta"/>
+                                                    </span>
+                                                </t>
+                                                <t t-else="">
+                                                    <span class="text-muted">
+                                                        <i class="fa fa-minus"/> 0
+                                                    </span>
+                                                </t>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- SEPA Status -->
+                                <div class="col-lg-4 col-md-6 mb-3">
+                                    <div class="card text-center h-100">
+                                        <div class="card-header bg-success text-white">
+                                            <i class="fa fa-euro"/> SEPA Status
+                                        </div>
+                                        <div class="card-body">
+                                            <h5>Nächste Abbuchung:</h5>
+                                            <p class="lead"><field name="next_sepa_date"/></p>
+                                            <h2 class="text-success">€ <field name="next_sepa_amount"/></h2>
+                                            <p>
+                                                <t t-if="record.sepa_status.raw_value == 'ready'">
+                                                    <span class="badge bg-success">
+                                                        <i class="fa fa-check"/> Bereit
+                                                    </span>
+                                                </t>
+                                                <t t-elif="record.sepa_status.raw_value == 'pending'">
+                                                    <span class="badge bg-warning">
+                                                        <i class="fa fa-clock"/> Ausstehend
+                                                    </span>
+                                                </t>
+                                                <t t-else="">
+                                                    <span class="badge bg-danger">
+                                                        <i class="fa fa-exclamation"/> Probleme
+                                                    </span>
+                                                </t>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Next Event -->
+                                <div class="col-lg-4 col-md-6 mb-3">
+                                    <div class="card text-center h-100">
+                                        <div class="card-header bg-info text-white">
+                                            <i class="fa fa-calendar"/> Nächstes Event
+                                        </div>
+                                        <div class="card-body">
+                                            <h5><field name="next_event_name"/></h5>
+                                            <p class="text-muted"><field name="next_event_date"/></p>
+                                            <div class="progress mb-2" style="height: 25px;">
+                                                <div class="progress-bar" 
+                                                     t-att-style="'width: ' + (record.next_event_tickets_sold.raw_value * 100 / (record.next_event_capacity.raw_value or 1)) + '%'">
+                                                    <field name="next_event_tickets_sold"/> / <field name="next_event_capacity"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Quick Actions -->
+                            <div class="row mt-4">
+                                <div class="col-12 text-center">
+                                    <button name="openMemberList" type="object" class="btn btn-primary me-2">
+                                        <i class="fa fa-users"/> Mitglieder verwalten
+                                    </button>
+                                    <button name="openEventList" type="object" class="btn btn-info me-2">
+                                        <i class="fa fa-calendar"/> Events anzeigen
+                                    </button>
+                                    <button name="quick_action_telegram" type="object" class="btn btn-success">
+                                        <i class="fa fa-paper-plane"/> Telegram senden
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Dashboard Action -->
+    <record id="action_kulturhaus_dashboard_backend" model="ir.actions.act_window">
+        <field name="name">Kulturhaus Dashboard</field>
+        <field name="res_model">kulturhaus.dashboard</field>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="view_kulturhaus_dashboard_kanban"/>
+        <field name="context">{'create': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Dashboard wird geladen...
+            </p>
+        </field>
+    </record>
+
+    <!-- Replace Main Menu Item -->
+    <menuitem 
+        id="menu_kulturhaus_dashboard_main"
+        name="Dashboard"
+        sequence="1"
+        web_icon="kulturhaus_dashboard,static/description/icon.png"
+        action="action_kulturhaus_dashboard_backend"/>
+</odoo>

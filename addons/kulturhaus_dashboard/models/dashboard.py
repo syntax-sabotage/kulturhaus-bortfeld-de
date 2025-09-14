@@ -304,8 +304,29 @@ class KulturhausDashboard(models.Model):
         _logger.info(f"Instagram post: {message}")
         return {'success': True, 'message': 'Posted to Instagram'}
     
+    def openMemberList(self):
+        """Open member list action"""
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Mitglieder',
+            'res_model': 'res.partner',
+            'view_mode': 'list,form',
+            'domain': [('is_company', '=', False)],
+            'target': 'current',
+        }
+    
+    def openEventList(self):
+        """Open event list action"""
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Veranstaltungen',
+            'res_model': 'event.event',
+            'view_mode': 'list,kanban,form,calendar',
+            'target': 'current',
+        }
+    
     @api.model
-    def quick_action_telegram(self, message):
+    def quick_action_telegram(self, message=None):
         """Quick action: Send to Telegram channel"""
         # Integration with existing Telegram bot
         try:

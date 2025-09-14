@@ -39,7 +39,8 @@ while preserving all existing functionality.
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
-        'views/dashboard_mvp_view.xml',
+        'data/dashboard_data.xml',
+        'views/dashboard_backend_view.xml',
         'views/dashboard_view.xml',
         'views/dashboard_card_config_views.xml',
         'views/res_users_view.xml',

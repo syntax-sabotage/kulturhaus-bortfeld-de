@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Create default dashboard record -->
+        <record id="dashboard_main" model="kulturhaus.dashboard">
+            <field name="name">Main Dashboard</field>
+            <field name="user_id" ref="base.user_admin"/>
+        </record>
+    </data>
+</odoo>
