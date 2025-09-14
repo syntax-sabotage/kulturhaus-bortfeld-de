@@ -22,6 +22,9 @@
         'views/menu_views.xml',
         'views/sepa_batch_history_views.xml',
     ],
+    'demo': [
+        'demo/demo_members.xml',
+    ],
     'installable': True,
     'application': False,
     'auto_install': False,

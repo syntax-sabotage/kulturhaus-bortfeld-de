@@ -109,10 +109,11 @@ git push origin feature/new-feature
 - **Status**: Fully developed
 
 ## 🎯 Current Tasks
-- Enhance SEPA membership module
-- Add automatic batch generation
-- Improve member communication features
-- Integrate with existing systems
+- ✅ Demo data created (50 members with SEPA mandates)
+- ⏳ Add automatic batch generation
+- ⏳ Improve member communication features
+- ⏳ Integrate with existing systems
+- ⏳ Implement SEPA XML export validation
 
 ## 🔧 Development Tips
 

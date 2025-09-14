@@ -70,6 +70,15 @@ docker exec kulturhaus-odoo python3 /usr/bin/odoo \
   -u kulturhaus_membership_sepa -d kulturhaus_dev
 ```
 
+### Demo-Daten laden
+```bash
+# Script zum Laden der Demo-Daten (50 Mitglieder mit SEPA)
+python3 scripts/upgrade_with_demo.py
+
+# Status prüfen
+python3 scripts/load_demo_data.py
+```
+
 ## 🔍 Debugging
 
 ### Logs anzeigen
