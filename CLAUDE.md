@@ -154,8 +154,55 @@ docker exec -it kulturhaus-db psql -U odoo18 -d kulturhaus_dev
 - Vaultwarden Admin Token: Check ~/vaultwarden/.env on VPS
 - System-Benachrichtigungen: it@kulturhaus-bortfeld.de
 
+## 🤖 Telegram Bot Development
+
+### Bot Details
+- **Bot Name**: @taktgeber_bot
+- **Token**: 8232267547:AAEZJ8sl4WhjY2jz61SZCpotCHsLhjsF1zM
+- **Channel**: https://t.me/+U_DXMrXdz8BjN2Ni
+- **Admin Chat ID**: 160606654
+
+### Connect VPS Bot to Local Development
+```bash
+# 1. Start local Docker environment
+cd /Users/larsweiler/Development/docker-environments/kulturhaus-dev
+docker-compose up -d
+
+# 2. Create SSH reverse tunnel (local port 8070 → VPS port 9069)
+sshpass -p 'Basf1$Khaus' ssh -R 9069:localhost:8070 -N -f khaus@193.30.120.108
+
+# 3. Bot will connect to local Odoo via localhost:9069
+# Test with: /status, /registrieren, /punkte commands
+```
+
+### Bot Files on VPS
+- **Location**: `/home/khaus/mitmach_bot/`
+- **Config**: `/home/khaus/mitmach_bot/.env`
+- **Start/Stop**: `/home/khaus/mitmach_bot/start_bot.sh {start|stop|restart|status}`
+- **Logs**: `/home/khaus/mitmach_bot/bot.log`
+
+### Switch Between Environments
+```bash
+# For Development (local Docker)
+ODOO_URL=http://localhost:9069
+ODOO_DB=kulturhaus_dev
+ODOO_USERNAME=admin
+ODOO_PASSWORD=admin
+
+# For Production
+ODOO_URL=http://localhost:8069
+ODOO_DB=kulturhive
+ODOO_USERNAME=admin
+ODOO_PASSWORD=Khausb2024
+```
+
+### Kill SSH Tunnel
+```bash
+ps aux | grep "ssh -R 9069" | awk '{print $2}' | xargs kill
+```
+
 ## 🎬 Session Context
-Working on Kulturhaus module development with focus on membership management and SEPA integration. Docker environment configured, Git workflow established with develop/main branches.
+Working on Kulturhaus module development with focus on membership management and SEPA integration. Docker environment configured, Git workflow established with develop/main branches. Telegram bot configured to connect to local development environment via SSH tunnel.
 
 ---
 **Quick Help**: See WORKFLOW_QUICKSTART.md for commands
