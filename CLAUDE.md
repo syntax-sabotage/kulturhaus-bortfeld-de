@@ -143,22 +143,36 @@ docker exec -it kulturhaus-db psql -U odoo18 -d kulturhaus_dev
    <!-- RICHTIG (Odoo 18) -->
    <list string="My View">
    ```
+   - Fehler: "Invalid view type: 'tree'" → alle `<tree>` durch `<list>` ersetzen
+   - Auch in Actions: `<field name="view_mode">list,kanban,form</field>`
    
 2. **Attrs Deprecated (Odoo 17+)**: `attrs` → direkte Attribute
    ```xml
    <!-- FALSCH (Odoo < 17) -->
    <field name="field" attrs="{'invisible': [('state', '=', 'done')]}"/>
+   <button attrs="{'invisible': [('state', 'in', ['done', 'cancel'])]}"/>
    
    <!-- RICHTIG (Odoo 17+) -->
    <field name="field" invisible="state == 'done'"/>
+   <button invisible="state in ['done', 'cancel']"/>
    ```
+   - Fehler: "Ab 17.0, werden die Attribute „attrs" und „states" nicht mehr verwendet"
+   - Syntax-Änderungen:
+     - `[('field', '=', value)]` → `field == value`
+     - `[('field', '!=', value)]` → `field != value`
+     - `[('field', 'in', [...])]` → `field in [...]`
+     - `[('field', '=', False)]` → `not field`
+     - Kombinationen mit `and`/`or` statt Listen
    
 3. **Chatter benötigt mail.thread**:
    ```python
    class MyModel(models.Model):
+       _name = 'my.model'
        _inherit = ['mail.thread', 'mail.activity.mixin']
    ```
-   Dependency: `'depends': [..., 'mail']`
+   - Fehler: "Das Feld „message_follower_ids" existiert nicht"
+   - Lösung: Model muss von `mail.thread` erben
+   - Manifest: `'depends': [..., 'mail']` hinzufügen
 
 ## 📝 Important Notes
 - NEVER commit directly to main
