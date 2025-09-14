@@ -17,7 +17,7 @@ services:
       - kulturhaus-network
 
   kulturhaus-odoo:
-    image: odoo:18.0
+    build: .
     container_name: kulturhaus-odoo
     depends_on:
       - kulturhaus-db
