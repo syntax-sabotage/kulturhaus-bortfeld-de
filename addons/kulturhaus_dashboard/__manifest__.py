@@ -40,7 +40,7 @@ while preserving all existing functionality.
         'security/groups.xml',
         'security/ir.model.access.csv',
         'data/dashboard_data.xml',
-        'views/dashboard_backend_view.xml',
+        'views/dashboard_proper_view.xml',
         'views/dashboard_view.xml',
         'views/dashboard_card_config_views.xml',
         'views/res_users_view.xml',

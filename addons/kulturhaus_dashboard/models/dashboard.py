@@ -10,6 +10,7 @@ _logger = logging.getLogger(__name__)
 class KulturhausDashboard(models.Model):
     _name = 'kulturhaus.dashboard'
     _description = 'Kulturhaus Dashboard MVP'
+    _rec_name = 'name'
     _order = 'create_date desc'
     
     name = fields.Char(string='Dashboard Name', default='Main Dashboard')
