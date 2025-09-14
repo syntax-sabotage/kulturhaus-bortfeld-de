@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Complete Instagram Configuration Form -->
+    <record id="view_instagram_complete_form" model="ir.ui.view">
+        <field name="name">kulturhaus.instagram.complete.form</field>
+        <field name="model">kulturhaus.instagram.config</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <form string="Instagram Configuration">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_sync_now" type="object" class="oe_stat_button" icon="fa-refresh">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Manual Sync</span>
+                            </div>
+                        </button>
+                        <button name="fetch_instagram_business_data" type="object" class="oe_stat_button" icon="fa-instagram">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">API Sync</span>
+                            </div>
+                        </button>
+                    </div>
+                    
+                    <notebook>
+                        <!-- Tab 1: Basic Settings -->
+                        <page string="Account Settings">
+                            <group>
+                                <group string="Instagram Account">
+                                    <field name="account_name" placeholder="kulturhaus_bortfeld"/>
+                                    <field name="active"/>
+                                    <field name="auto_sync"/>
+                                    <field name="last_sync" readonly="1"/>
+                                </group>
+                                <group string="Current Statistics">
+                                    <field name="followers_count" string="Followers"/>
+                                    <field name="following_count" string="Following"/>
+                                    <field name="media_count" string="Posts"/>
+                                    <field name="engagement_rate" widget="percentage"/>
+                                </group>
+                            </group>
+                            <group string="Profile Information">
+                                <field name="biography"/>
+                                <field name="website" widget="url"/>
+                            </group>
+                        </page>
+                        
+                        <!-- Tab 2: Business Account API -->
+                        <page string="Business Account API">
+                            <group>
+                                <group string="Facebook App Setup">
+                                    <field name="facebook_app_id" placeholder="Your Facebook App ID"/>
+                                    <field name="facebook_app_secret" placeholder="Your App Secret" password="True"/>
+                                    <button name="action_setup_facebook_app" type="object" 
+                                            string="📖 Setup Guide" 
+                                            class="btn-link" 
+                                            icon="fa-external-link"
+                                            colspan="2"/>
+                                </group>
+                                <group string="Connection Status">
+                                    <field name="api_connected" readonly="1" widget="boolean_toggle"/>
+                                    <field name="facebook_page_id" readonly="1" invisible="not facebook_page_id"/>
+                                    <field name="instagram_business_id" readonly="1" invisible="not instagram_business_id"/>
+                                    <field name="api_last_error" readonly="1" invisible="not api_last_error"/>
+                                </group>
+                            </group>
+                            
+                            <separator string="Access Token"/>
+                            <group>
+                                <field name="facebook_access_token" 
+                                       placeholder="Paste your Facebook Access Token here" 
+                                       widget="text"
+                                       nolabel="1"
+                                       colspan="2"/>
+                            </group>
+                            
+                            <group>
+                                <button name="action_get_access_token" 
+                                        type="object" 
+                                        string="Get Access Token" 
+                                        class="btn-primary" 
+                                        icon="fa-key"/>
+                                <button name="fetch_instagram_business_data" 
+                                        type="object" 
+                                        string="Fetch Business Data" 
+                                        class="btn-success" 
+                                        icon="fa-download"
+                                        invisible="not facebook_access_token"/>
+                            </group>
+                            
+                            <div class="alert alert-info mt-3">
+                                <h5>Quick Setup Guide:</h5>
+                                <ol>
+                                    <li>Visit <a href="https://developers.facebook.com/apps/" target="_blank">Facebook Developers</a></li>
+                                    <li>Create App → Business Type → Name: "Kulturhaus Instagram"</li>
+                                    <li>Add Products: Instagram Graph API + Instagram Basic Display</li>
+                                    <li>Copy App ID and Secret from Settings → Basic</li>
+                                    <li>Use Graph API Explorer to get Access Token</li>
+                                    <li>Paste credentials above and click "Fetch Business Data"</li>
+                                </ol>
+                            </div>
+                        </page>
+                        
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Override the action to use new view -->
+    <record id="action_instagram_config" model="ir.actions.act_window">
+        <field name="name">Instagram Configuration</field>
+        <field name="res_model">kulturhaus.instagram.config</field>
+        <field name="view_mode">form,list</field>
+        <field name="view_id" ref="view_instagram_complete_form"/>
+    </record>
+</odoo>

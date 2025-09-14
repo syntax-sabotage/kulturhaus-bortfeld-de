@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Instagram Config Form View -->
+    <record id="view_instagram_config_form" model="ir.ui.view">
+        <field name="name">kulturhaus.instagram.config.form</field>
+        <field name="model">kulturhaus.instagram.config</field>
+        <field name="arch" type="xml">
+            <form string="Instagram Configuration">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_sync_now" type="object" class="oe_stat_button" icon="fa-refresh">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Sync Now</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group string="Account Settings">
+                            <field name="account_name" placeholder="kulturhaus_bortfeld"/>
+                            <field name="active"/>
+                            <field name="auto_sync"/>
+                            <field name="last_sync" readonly="1"/>
+                        </group>
+                        <group string="Optional: Login Credentials">
+                            <field name="instagram_password" placeholder="Instagram Password (for private accounts)" password="True"/>
+                            <div colspan="2" class="text-muted">
+                                <i class="fa fa-info-circle"/> Password is stored securely. Leave empty to fetch only public data.
+                            </div>
+                        </group>
+                    </group>
+                    <group string="Current Statistics" col="4">
+                        <field name="followers_count" string="Followers" help="Enter current follower count"/>
+                        <field name="following_count" string="Following" help="Enter following count"/>
+                        <field name="media_count" string="Posts" help="Enter number of posts"/>
+                        <field name="engagement_rate" widget="percentage" help="Enter engagement rate"/>
+                    </group>
+                    <group string="Profile Information">
+                        <field name="biography" placeholder="Enter your Instagram bio"/>
+                        <field name="website" widget="url" placeholder="https://kulturhaus-bortfeld.de"/>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading">Instagram Data Management</h4>
+                        <p>Due to Instagram API restrictions, please manually update your statistics:</p>
+                        <ol>
+                            <li>Check your Instagram profile for current stats</li>
+                            <li>Enter the values in the fields above</li>
+                            <li>Click "Save" to update the dashboard</li>
+                            <li>Use "Sync Now" to simulate small daily changes</li>
+                        </ol>
+                        <hr/>
+                        <p class="mb-0">
+                            <strong>Tip:</strong> Visit <a href="https://www.instagram.com/kulturhaus_bortfeld" target="_blank">@kulturhaus_bortfeld</a> to see current stats.
+                            For automated tracking, consider Instagram Business Account with Facebook Graph API.
+                        </p>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Instagram Config List View -->
+    <record id="view_instagram_config_list" model="ir.ui.view">
+        <field name="name">kulturhaus.instagram.config.list</field>
+        <field name="model">kulturhaus.instagram.config</field>
+        <field name="arch" type="xml">
+            <list string="Instagram Accounts">
+                <field name="account_name"/>
+                <field name="followers_count"/>
+                <field name="following_count"/>
+                <field name="media_count"/>
+                <field name="engagement_rate" widget="percentage"/>
+                <field name="last_sync"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_instagram_config" model="ir.actions.act_window">
+        <field name="name">Instagram Configuration</field>
+        <field name="res_model">kulturhaus.instagram.config</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure Instagram Account
+            </p>
+            <p>
+                Connect your Instagram account to display follower counts and engagement metrics on the dashboard.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item under Dashboard -->
+    <menuitem 
+        id="menu_instagram_config"
+        name="Instagram Settings"
+        parent="menu_kulturhaus_dashboard_root"
+        action="action_instagram_config"
+        sequence="50"/>
+</odoo>
