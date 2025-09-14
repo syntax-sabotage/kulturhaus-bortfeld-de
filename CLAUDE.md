@@ -132,6 +132,22 @@ docker exec -it kulturhaus-odoo bash
 docker exec -it kulturhaus-db psql -U odoo18 -d kulturhaus_dev
 ```
 
+### ⚠️ Odoo 18 Breaking Changes
+**WICHTIG für Odoo 18 Kompatibilität:**
+- **View Type Change**: `tree` → `list`
+  ```xml
+  <!-- FALSCH (Odoo < 18) -->
+  <tree string="My View">
+  
+  <!-- RICHTIG (Odoo 18) -->
+  <list string="My View">
+  ```
+- **Action view_mode**: Auch in Actions `tree` → `list` ändern
+  ```xml
+  <field name="view_mode">list,kanban,form</field>
+  ```
+- Fehler: "Invalid view type: 'tree'" bedeutet immer: tree durch list ersetzen!
+
 ## 📝 Important Notes
 - NEVER commit directly to main
 - ALWAYS test in Docker first
