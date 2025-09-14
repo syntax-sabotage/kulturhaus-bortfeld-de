@@ -132,21 +132,33 @@ docker exec -it kulturhaus-odoo bash
 docker exec -it kulturhaus-db psql -U odoo18 -d kulturhaus_dev
 ```
 
-### ⚠️ Odoo 18 Breaking Changes
-**WICHTIG für Odoo 18 Kompatibilität:**
-- **View Type Change**: `tree` → `list`
-  ```xml
-  <!-- FALSCH (Odoo < 18) -->
-  <tree string="My View">
-  
-  <!-- RICHTIG (Odoo 18) -->
-  <list string="My View">
-  ```
-- **Action view_mode**: Auch in Actions `tree` → `list` ändern
-  ```xml
-  <field name="view_mode">list,kanban,form</field>
-  ```
-- Fehler: "Invalid view type: 'tree'" bedeutet immer: tree durch list ersetzen!
+### ⚠️ Odoo 17+ Breaking Changes
+**WICHTIG für Odoo 17/18 Kompatibilität:**
+
+1. **View Type Change (Odoo 18)**: `tree` → `list`
+   ```xml
+   <!-- FALSCH (Odoo < 18) -->
+   <tree string="My View">
+   
+   <!-- RICHTIG (Odoo 18) -->
+   <list string="My View">
+   ```
+   
+2. **Attrs Deprecated (Odoo 17+)**: `attrs` → direkte Attribute
+   ```xml
+   <!-- FALSCH (Odoo < 17) -->
+   <field name="field" attrs="{'invisible': [('state', '=', 'done')]}"/>
+   
+   <!-- RICHTIG (Odoo 17+) -->
+   <field name="field" invisible="state == 'done'"/>
+   ```
+   
+3. **Chatter benötigt mail.thread**:
+   ```python
+   class MyModel(models.Model):
+       _inherit = ['mail.thread', 'mail.activity.mixin']
+   ```
+   Dependency: `'depends': [..., 'mail']`
 
 ## 📝 Important Notes
 - NEVER commit directly to main
