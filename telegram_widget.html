@@ -1,0 +1,88 @@
+<!-- Telegram Channel Widget für Kulturhaus Webseite -->
+<!-- Option 1: Einfacher Button mit Icon -->
+<div class="telegram-widget" style="margin: 20px 0; text-align: center;">
+    <a href="https://t.me/KulturhausBortfeld" 
+       target="_blank" 
+       class="btn btn-primary"
+       style="background-color: #0088cc; color: white; padding: 12px 24px; text-decoration: none; border-radius: 25px; display: inline-flex; align-items: center; gap: 10px; font-size: 16px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121L8.32 13.617l-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+        </svg>
+        📢 Telegram Channel beitreten
+    </a>
+    <p style="margin-top: 10px; color: #666; font-size: 14px;">
+        Bleiben Sie informiert über alle Veranstaltungen!
+    </p>
+</div>
+
+<!-- Option 2: Info-Box mit QR-Code -->
+<div class="telegram-info-box" style="border: 2px solid #0088cc; border-radius: 10px; padding: 20px; margin: 20px 0; background-color: #f0f8ff;">
+    <h3 style="color: #0088cc; margin-top: 0;">📱 Immer informiert bleiben!</h3>
+    <p>Treten Sie unserem Telegram-Channel bei und verpassen Sie keine Veranstaltung mehr:</p>
+    
+    <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+        <!-- Telegram Button -->
+        <div>
+            <a href="https://t.me/KulturhausBortfeld" 
+               target="_blank" 
+               class="telegram-button"
+               style="background-color: #0088cc; color: white; padding: 12px 24px; text-decoration: none; border-radius: 25px; display: inline-block;">
+                🚀 Jetzt beitreten
+            </a>
+        </div>
+        
+        <!-- QR Code (generiert mit API) -->
+        <div>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://t.me/KulturhausBortfeld" 
+                 alt="QR Code Telegram Channel"
+                 style="border: 1px solid #ddd; padding: 5px; background: white;">
+            <p style="font-size: 12px; color: #666; margin: 5px 0;">QR-Code scannen</p>
+        </div>
+    </div>
+    
+    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd;">
+        <p style="font-size: 14px; color: #666; margin: 5px 0;">
+            <strong>Was erwartet Sie?</strong>
+        </p>
+        <ul style="font-size: 14px; color: #666;">
+            <li>Ankündigungen zu allen Veranstaltungen</li>
+            <li>Helferaufrufe für Events</li>
+            <li>Wichtige Vereinsinformationen</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Option 3: Floating Widget (rechts unten) -->
+<div id="telegram-floating" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <a href="https://t.me/KulturhausBortfeld" 
+       target="_blank"
+       style="display: flex; align-items: center; gap: 10px; background-color: #0088cc; color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121L8.32 13.617l-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+        </svg>
+        <span style="font-weight: bold;">Telegram</span>
+    </a>
+</div>
+
+<!-- Für Helfer-Registrierung -->
+<div class="volunteer-telegram" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin: 20px 0;">
+    <h2 style="margin-top: 0;">🤝 Helfer gesucht!</h2>
+    <p>Möchten Sie bei unseren Veranstaltungen mithelfen?</p>
+    
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
+        <a href="https://t.me/KulturhausBortfeld" 
+           target="_blank"
+           style="background: white; color: #667eea; padding: 12px 24px; text-decoration: none; border-radius: 25px; font-weight: bold;">
+            📢 Channel beitreten
+        </a>
+        <a href="https://t.me/kulturhaus_mitmach_bot" 
+           target="_blank"
+           style="background: rgba(255,255,255,0.2); color: white; padding: 12px 24px; text-decoration: none; border-radius: 25px; font-weight: bold; border: 2px solid white;">
+            🤖 Helfer-Bot starten
+        </a>
+    </div>
+    
+    <p style="font-size: 14px; margin-top: 20px; opacity: 0.9;">
+        Nach dem Beitritt: Schreiben Sie <code>/start</code> an unseren Bot!
+    </p>
+</div>

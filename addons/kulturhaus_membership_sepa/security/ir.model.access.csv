@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_sepa_batch_wizard,sepa.batch.wizard,model_sepa_batch_wizard,base.group_user,1,1,1,1
+access_sepa_batch_history,sepa.batch.history,model_sepa_batch_history,base.group_user,1,1,1,0
+access_sepa_batch_history_manager,sepa.batch.history.manager,model_sepa_batch_history,base.group_system,1,1,1,1

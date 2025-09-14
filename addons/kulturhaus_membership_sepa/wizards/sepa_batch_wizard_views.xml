@@ -43,6 +43,11 @@
                         </group>
                     </group>
                     
+                    <!-- Email Notification Option -->
+                    <group string="Benachrichtigungen" invisible="state == 'generated'">
+                        <field name="send_notifications" widget="boolean_toggle"/>
+                    </group>
+                    
                     <notebook>
                         <page string="Ausgewählte Mitglieder">
                             <field name="member_ids"/>

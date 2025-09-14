@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Telegram Channel Widget für Odoo Website -->
+    <template id="telegram_channel_widget" name="Telegram Channel Widget">
+        <section class="s_telegram_channel pt32 pb32">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Hauptwidget -->
+                        <div class="card shadow-sm">
+                            <div class="card-body text-center" style="background: linear-gradient(135deg, #0088cc 0%, #0066aa 100%); color: white; border-radius: 10px;">
+                                <h2 class="mb-3">
+                                    <i class="fa fa-telegram"/> Bleiben Sie informiert!
+                                </h2>
+                                <p class="lead mb-4">
+                                    Treten Sie unserem Telegram-Channel bei und verpassen Sie keine Veranstaltung des Kulturhaus Bortfeld mehr.
+                                </p>
+                                
+                                <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+                                    <a href="https://t.me/KulturhausBortfeld" 
+                                       target="_blank" 
+                                       class="btn btn-light btn-lg">
+                                        <i class="fa fa-telegram"/> Channel beitreten
+                                    </a>
+                                    <a href="https://t.me/kulturhaus_mitmach_bot" 
+                                       target="_blank" 
+                                       class="btn btn-outline-light btn-lg">
+                                        <i class="fa fa-robot"/> Helfer werden
+                                    </a>
+                                </div>
+                                
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <i class="fa fa-calendar-check-o fa-2x mb-2"/>
+                                        <p>Alle Veranstaltungen</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <i class="fa fa-users fa-2x mb-2"/>
+                                        <p>Helferaufrufe</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <i class="fa fa-info-circle fa-2x mb-2"/>
+                                        <p>Wichtige Infos</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- Website Snippet Definition -->
+    <template id="snippet_telegram_channel" inherit_id="website.snippets">
+        <xpath expr="//div[@id='snippet_structure']//t[@t-snippet]" position="after">
+            <t t-snippet="telegram_channel_widget" t-thumbnail="/website/static/src/img/snippets_thumbs/s_text_image.svg">
+                <keywords>telegram,channel,social,kommunikation</keywords>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- Einfacher Footer Link -->
+    <template id="telegram_footer_link" inherit_id="website.footer_custom">
+        <xpath expr="//div[@id='footer']" position="inside">
+            <div class="text-center mt-3">
+                <a href="https://t.me/KulturhausBortfeld" 
+                   target="_blank" 
+                   class="btn btn-sm btn-primary">
+                    <i class="fa fa-telegram"/> Telegram Channel
+                </a>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Sidebar Widget für Events -->
+    <template id="event_telegram_sidebar" inherit_id="website_event.event_details">
+        <xpath expr="//div[@id='event_details_sidebar']" position="inside">
+            <div class="card mt-3">
+                <div class="card-body text-center" style="background-color: #0088cc; color: white;">
+                    <h5 class="card-title">
+                        <i class="fa fa-telegram"/> Helfer gesucht!
+                    </h5>
+                    <p class="card-text small">
+                        Möchten Sie bei dieser Veranstaltung helfen?
+                    </p>
+                    <a href="https://t.me/kulturhaus_mitmach_bot" 
+                       target="_blank" 
+                       class="btn btn-light btn-sm">
+                        Jetzt melden
+                    </a>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

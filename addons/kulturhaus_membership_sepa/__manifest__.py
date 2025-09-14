@@ -19,6 +19,7 @@
         'wizards/sepa_batch_wizard_views.xml',
         'views/res_partner_views.xml',
         'views/membership_views.xml',
+        'views/sepa_batch_history_views.xml',
         'views/menu_views.xml',
     ],
     'installable': True,

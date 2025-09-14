@@ -101,6 +101,13 @@ class SepaBatchWizard(models.TransientModel):
         ('generated', 'Generiert')
     ], default='draft')
     
+    # Email notification option
+    send_notifications = fields.Boolean(
+        string='E-Mail-Benachrichtigungen senden',
+        default=True,
+        help='Mitglieder per E-Mail über die anstehende Lastschrift informieren'
+    )
+    
     @api.depends('member_ids')
     def _compute_member_count(self):
         for wizard in self:
@@ -309,12 +316,29 @@ class SepaBatchWizard(models.TransientModel):
             'sepa_last_debit_date': self.collection_date
         })
         
+        # Create history record
+        history = self.env['sepa.batch.history'].create_from_wizard(self)
+        
+        # Send notifications if requested
+        if self.send_notifications:
+            history.action_send_notifications()
+        
+        # Show success message
         return {
-            'type': 'ir.actions.act_window',
-            'res_model': self._name,
-            'res_id': self.id,
-            'view_mode': 'form',
-            'target': 'new',
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'SEPA-Einzug erfolgreich generiert',
+                'message': f'Die SEPA-Datei wurde erfolgreich erstellt. {len(self.member_ids)} Mitglieder wurden einbezogen.',
+                'type': 'success',
+                'sticky': False,
+                'next': {
+                    'type': 'ir.actions.act_window',
+                    'res_model': 'sepa.batch.history',
+                    'res_id': history.id,
+                    'view_mode': 'form',
+                }
+            }
         }
     
     def _generate_sepa_xml(self):

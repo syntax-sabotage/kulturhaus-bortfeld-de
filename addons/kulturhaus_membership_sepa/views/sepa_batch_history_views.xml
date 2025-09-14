@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_sepa_batch_history_tree" model="ir.ui.view">
+        <field name="name">sepa.batch.history.tree</field>
+        <field name="model">sepa.batch.history</field>
+        <field name="arch" type="xml">
+            <tree string="SEPA-Einzugshistorie" decoration-success="state=='processed'" decoration-warning="state=='sent'" decoration-danger="state=='cancelled'">
+                <field name="batch_reference"/>
+                <field name="batch_type"/>
+                <field name="collection_date"/>
+                <field name="member_count"/>
+                <field name="total_amount" widget="monetary"/>
+                <field name="state" widget="badge" decoration-success="state=='processed'" decoration-warning="state=='sent'" decoration-danger="state=='cancelled'"/>
+                <field name="notification_sent" widget="boolean_toggle"/>
+                <field name="created_by"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_sepa_batch_history_form" model="ir.ui.view">
+        <field name="name">sepa.batch.history.form</field>
+        <field name="model">sepa.batch.history</field>
+        <field name="arch" type="xml">
+            <form string="SEPA-Einzug">
+                <header>
+                    <button name="action_mark_sent" string="Als gesendet markieren" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'generated')]}"/>
+                    <button name="action_mark_processed" string="Als verarbeitet markieren" type="object" class="btn-success" attrs="{'invisible': [('state', '!=', 'sent')]}"/>
+                    <button name="action_send_notifications" string="📧 E-Mail-Benachrichtigungen senden" type="object" class="btn-info" attrs="{'invisible': [('notification_sent', '=', True)]}"/>
+                    <button name="action_download_xml" string="⬇️ XML herunterladen" type="object" class="btn-secondary" attrs="{'invisible': [('xml_file', '=', False)]}"/>
+                    <button name="action_cancel" string="Stornieren" type="object" class="btn-danger" attrs="{'invisible': [('state', 'in', ['processed', 'cancelled'])]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="generated,sent,processed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="batch_reference" readonly="1"/>
+                        </h1>
+                    </div>
+                    
+                    <group>
+                        <group string="Allgemeine Informationen">
+                            <field name="batch_type"/>
+                            <field name="collection_date"/>
+                            <field name="member_count"/>
+                            <field name="total_amount" widget="monetary"/>
+                        </group>
+                        <group string="Status">
+                            <field name="state"/>
+                            <field name="created_by"/>
+                            <field name="create_date"/>
+                            <field name="sent_date" attrs="{'invisible': [('sent_date', '=', False)]}"/>
+                            <field name="processed_date" attrs="{'invisible': [('processed_date', '=', False)]}"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Mitglieder-Details">
+                            <group>
+                                <field name="member_details" widget="text" readonly="1"/>
+                            </group>
+                        </page>
+                        
+                        <page string="E-Mail-Benachrichtigungen">
+                            <group>
+                                <group>
+                                    <field name="notification_sent"/>
+                                    <field name="notification_date" attrs="{'invisible': [('notification_date', '=', False)]}"/>
+                                </group>
+                            </group>
+                            <group string="Fehlgeschlagene Benachrichtigungen" attrs="{'invisible': [('failed_notifications', '=', False)]}">
+                                <field name="failed_notifications" widget="text" readonly="1" nolabel="1"/>
+                            </group>
+                        </page>
+                        
+                        <page string="XML-Datei">
+                            <group>
+                                <field name="xml_filename"/>
+                                <field name="xml_file" filename="xml_filename" widget="binary"/>
+                            </group>
+                        </page>
+                        
+                        <page string="Notizen">
+                            <field name="notes" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_sepa_batch_history_search" model="ir.ui.view">
+        <field name="name">sepa.batch.history.search</field>
+        <field name="model">sepa.batch.history</field>
+        <field name="arch" type="xml">
+            <search string="SEPA-Einzüge suchen">
+                <field name="batch_reference"/>
+                <field name="collection_date"/>
+                
+                <filter string="Generiert" name="generated" domain="[('state', '=', 'generated')]"/>
+                <filter string="Gesendet" name="sent" domain="[('state', '=', 'sent')]"/>
+                <filter string="Verarbeitet" name="processed" domain="[('state', '=', 'processed')]"/>
+                <filter string="Storniert" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <separator/>
+                <filter string="Mit Benachrichtigung" name="notified" domain="[('notification_sent', '=', True)]"/>
+                <filter string="Ohne Benachrichtigung" name="not_notified" domain="[('notification_sent', '=', False)]"/>
+                <separator/>
+                <filter string="Dieses Jahr" name="this_year" domain="[('collection_date', '&gt;=', context_today().strftime('%Y-01-01')), ('collection_date', '&lt;=', context_today().strftime('%Y-12-31'))]"/>
+                <filter string="Letzter Monat" name="last_month" domain="[('collection_date', '&gt;=', (context_today() - relativedelta(months=1)).strftime('%Y-%m-01')), ('collection_date', '&lt;', context_today().strftime('%Y-%m-01'))]"/>
+                
+                <group expand="0" string="Gruppieren nach">
+                    <filter name="group_by_type" string="Beitragsart" context="{'group_by': 'batch_type'}"/>
+                    <filter name="group_by_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_by_month" string="Monat" context="{'group_by': 'collection_date:month'}"/>
+                    <filter name="group_by_user" string="Erstellt von" context="{'group_by': 'created_by'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="view_sepa_batch_history_kanban" model="ir.ui.view">
+        <field name="name">sepa.batch.history.kanban</field>
+        <field name="model">sepa.batch.history</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="batch_reference"/>
+                <field name="batch_type"/>
+                <field name="collection_date"/>
+                <field name="total_amount"/>
+                <field name="member_count"/>
+                <field name="state"/>
+                <field name="notification_sent"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_record_top mb16">
+                                <div class="o_kanban_record_headings mt4">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="batch_reference"/>
+                                    </strong>
+                                </div>
+                                <field name="state" widget="label_selection" options="{'classes': {'generated': 'info', 'sent': 'warning', 'processed': 'success', 'cancelled': 'danger'}}"/>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div class="text-muted">
+                                    <i class="fa fa-calendar"/> <field name="collection_date"/><br/>
+                                    <i class="fa fa-users"/> <field name="member_count"/> Mitglieder<br/>
+                                    <i class="fa fa-euro"/> <field name="total_amount"/> EUR
+                                </div>
+                                <div t-if="record.notification_sent.raw_value" class="mt8">
+                                    <span class="badge badge-success"><i class="fa fa-envelope"/> Benachrichtigt</span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Graph View -->
+    <record id="view_sepa_batch_history_graph" model="ir.ui.view">
+        <field name="name">sepa.batch.history.graph</field>
+        <field name="model">sepa.batch.history</field>
+        <field name="arch" type="xml">
+            <graph string="SEPA-Einzüge Analyse" type="bar">
+                <field name="collection_date" interval="month"/>
+                <field name="total_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot View -->
+    <record id="view_sepa_batch_history_pivot" model="ir.ui.view">
+        <field name="name">sepa.batch.history.pivot</field>
+        <field name="model">sepa.batch.history</field>
+        <field name="arch" type="xml">
+            <pivot string="SEPA-Einzüge Analyse">
+                <field name="batch_type" type="row"/>
+                <field name="collection_date" interval="month" type="col"/>
+                <field name="total_amount" type="measure"/>
+                <field name="member_count" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_sepa_batch_history" model="ir.actions.act_window">
+        <field name="name">SEPA-Einzugshistorie</field>
+        <field name="res_model">sepa.batch.history</field>
+        <field name="view_mode">tree,kanban,form,graph,pivot</field>
+        <field name="context">{'search_default_this_year': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Noch keine SEPA-Einzüge generiert
+            </p>
+            <p>
+                Hier sehen Sie alle generierten SEPA-Einzüge mit ihrem aktuellen Status.
+                Sie können E-Mail-Benachrichtigungen senden und den Fortschritt verfolgen.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_sepa_batch_history"
+              name="Einzugshistorie"
+              parent="menu_kulturhaus_sepa"
+              action="action_sepa_batch_history"
+              sequence="20"/>
+</odoo>
