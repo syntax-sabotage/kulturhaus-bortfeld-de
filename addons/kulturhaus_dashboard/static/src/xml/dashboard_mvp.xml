@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="kulturhaus_dashboard.DashboardMVP">
+        <div class="kulturhaus-dashboard-mvp">
+            <!-- Loading State -->
+            <div t-if="state.loading" class="dashboard-loading">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Lädt...</span>
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div t-else="" class="dashboard-content">
+                <!-- Header -->
+                <div class="dashboard-header">
+                    <h1 class="dashboard-title">
+                        <i class="fa fa-home me-2"/>Kulturhaus Dashboard
+                    </h1>
+                    <div class="dashboard-actions">
+                        <button class="btn btn-sm btn-outline-secondary" t-on-click="() => this.loadDashboardData()">
+                            <i class="fa fa-refresh"/> Aktualisieren
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cards Grid -->
+                <div class="dashboard-grid">
+                    <!-- Row 1: Key Metrics -->
+                    <div class="dashboard-row">
+                        <!-- Active Members Card -->
+                        <div class="dashboard-card card-members" t-on-click="openMemberList">
+                            <div class="card-header">
+                                <i class="fa fa-users"/> Aktive Mitglieder
+                            </div>
+                            <div class="card-body">
+                                <div class="metric-value">
+                                    <t t-esc="state.data.members.active"/>
+                                </div>
+                                <div class="metric-delta">
+                                    <i t-att-class="'fa ' + getDeltaIcon(state.data.members.delta)"/>
+                                    <span t-esc="Math.abs(state.data.members.delta)"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SEPA Status Card -->
+                        <div class="dashboard-card card-sepa" t-on-click="openSepaModule">
+                            <div class="card-header">
+                                <i class="fa fa-euro"/> SEPA Status
+                            </div>
+                            <div class="card-body">
+                                <div class="sepa-date">
+                                    <t t-esc="formatDate(state.data.sepa.next_date)"/>
+                                </div>
+                                <div class="sepa-amount">
+                                    <t t-esc="formatCurrency(state.data.sepa.amount)"/>
+                                </div>
+                                <div t-att-class="'sepa-status ' + getSepaStatusClass(state.data.sepa.status)">
+                                    <i t-att-class="'fa ' + getSepaStatusIcon(state.data.sepa.status)"/>
+                                    <t t-esc="state.data.sepa.status === 'ready' ? 'Bereit' : state.data.sepa.status === 'pending' ? 'Ausstehend' : 'Probleme'"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Next Event Card -->
+                        <div class="dashboard-card card-event" t-on-click="openEventList">
+                            <div class="card-header">
+                                <i class="fa fa-calendar"/> Nächstes Event
+                            </div>
+                            <div class="card-body">
+                                <div class="event-name">
+                                    <t t-esc="state.data.events.next_event"/>
+                                </div>
+                                <div class="event-date">
+                                    <t t-esc="formatDateTime(state.data.events.event_date)"/>
+                                </div>
+                                <div class="event-tickets">
+                                    <div class="progress">
+                                        <div class="progress-bar" 
+                                             t-att-style="'width: ' + getTicketProgress() + '%'"
+                                             t-att-aria-valuenow="state.data.events.tickets_sold"
+                                             t-att-aria-valuemax="state.data.events.capacity">
+                                            <t t-esc="state.data.events.tickets_sold"/>/<t t-esc="state.data.events.capacity"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="event-countdown">
+                                    <t t-esc="getTimeUntilEvent()"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Analytics -->
+                    <div class="dashboard-row">
+                        <!-- Member Churn Card -->
+                        <div class="dashboard-card card-churn">
+                            <div class="card-header">
+                                <i class="fa fa-chart-line"/> Mitglieder Quartalsübersicht
+                            </div>
+                            <div class="card-body">
+                                <div class="churn-data">
+                                    <t t-foreach="state.data.members.quarterly_churn" t-as="quarter" t-key="quarter_index">
+                                        <div class="churn-quarter">
+                                            <span class="quarter-label"><t t-esc="quarter.quarter"/></span>
+                                            <span class="quarter-new text-success">+<t t-esc="quarter.new"/></span>
+                                            <span class="quarter-lost text-danger">-<t t-esc="quarter.lost"/></span>
+                                            <span t-att-class="'quarter-net ' + (quarter.net > 0 ? 'text-success' : 'text-danger')">
+                                                <t t-esc="quarter.net > 0 ? '+' : ''"/><t t-esc="quarter.net"/>
+                                            </span>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ticket Sales Card -->
+                        <div class="dashboard-card card-tickets">
+                            <div class="card-header">
+                                <i class="fa fa-ticket"/> Ticketverkauf
+                            </div>
+                            <div class="card-body">
+                                <div class="ticket-month">Februar Events</div>
+                                <div class="ticket-revenue">
+                                    <t t-esc="formatCurrency(state.data.events.monthly_revenue)"/>
+                                </div>
+                                <div class="ticket-count">
+                                    3 Veranstaltungen
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Website Visitors Card -->
+                        <div class="dashboard-card card-visitors">
+                            <div class="card-header">
+                                <i class="fa fa-globe"/> Website Besucher
+                            </div>
+                            <div class="card-body">
+                                <div class="visitor-count">
+                                    Q1: <t t-esc="state.data.website.quarterly_visitors"/>
+                                </div>
+                                <div t-att-class="'visitor-change ' + (state.data.website.change_percent > 0 ? 'text-success' : 'text-danger')">
+                                    <i t-att-class="'fa ' + (state.data.website.change_percent > 0 ? 'fa-arrow-up' : 'fa-arrow-down')"/>
+                                    <t t-esc="Math.abs(state.data.website.change_percent).toFixed(1)"/>% vs Q4
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Social & Actions -->
+                    <div class="dashboard-row">
+                        <!-- Instagram/Social Feed Card -->
+                        <div class="dashboard-card card-social card-wide">
+                            <div class="card-header">
+                                <i class="fa fa-instagram"/> Instagram / Social Feed
+                            </div>
+                            <div class="card-body">
+                                <div class="social-stats">
+                                    <div class="social-stat">
+                                        <span class="stat-label">Letzter Post:</span>
+                                        <span class="stat-value"><t t-esc="getTimeSincePost()"/></span>
+                                    </div>
+                                    <div class="social-stat">
+                                        <span class="stat-label">Follower:</span>
+                                        <span class="stat-value"><t t-esc="state.data.social.instagram_followers"/> <span class="text-success">↑12</span></span>
+                                    </div>
+                                    <div class="social-stat">
+                                        <span class="stat-label">Engagement:</span>
+                                        <span class="stat-value"><t t-esc="state.data.social.engagement_rate.toFixed(1)"/>%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions Bar -->
+                    <div class="dashboard-quick-actions">
+                        <button class="btn btn-primary" t-on-click="() => this.showQuickAction('instagram')">
+                            <i class="fa fa-camera"/> Post Instagram
+                        </button>
+                        <button class="btn btn-primary" t-on-click="() => this.showQuickAction('telegram')">
+                            <i class="fa fa-paper-plane"/> Send Telegram
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Action Modal -->
+            <div t-if="state.quickActionModal" class="modal-backdrop show"/>
+            <div t-if="state.quickActionModal" class="modal show d-block">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">
+                                <t t-if="state.quickActionType === 'instagram'">Instagram Post</t>
+                                <t t-else="">Telegram Nachricht</t>
+                            </h5>
+                            <button type="button" class="btn-close" t-on-click="closeQuickAction"/>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">Nachricht</label>
+                                <textarea 
+                                    class="form-control" 
+                                    rows="4"
+                                    t-model="state.quickActionMessage"
+                                    placeholder="Nachricht eingeben..."/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" t-on-click="closeQuickAction">
+                                Abbrechen
+                            </button>
+                            <button type="button" class="btn btn-primary" t-on-click="sendQuickAction">
+                                <i t-att-class="'fa ' + (state.quickActionType === 'instagram' ? 'fa-camera' : 'fa-paper-plane')"/>
+                                Senden
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

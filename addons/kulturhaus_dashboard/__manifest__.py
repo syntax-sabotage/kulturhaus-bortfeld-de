@@ -33,10 +33,13 @@ while preserving all existing functionality.
     'depends': [
         'base',
         'web',
+        'event',
+        'kulturhaus_membership_sepa',
     ],
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
+        'views/dashboard_mvp_view.xml',
         'views/dashboard_view.xml',
         'views/dashboard_card_config_views.xml',
         'views/res_users_view.xml',
@@ -46,8 +49,11 @@ while preserving all existing functionality.
     'assets': {
         'web.assets_backend': [
             'kulturhaus_dashboard/static/src/css/dashboard.css',
+            'kulturhaus_dashboard/static/src/css/dashboard_mvp.css',
             'kulturhaus_dashboard/static/src/js/dashboard.js',
+            'kulturhaus_dashboard/static/src/js/dashboard_mvp.js',
             'kulturhaus_dashboard/static/src/xml/dashboard.xml',
+            'kulturhaus_dashboard/static/src/xml/dashboard_mvp.xml',
         ],
     },
     'images': [

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Dashboard User Group -->
+        <record id="group_dashboard_user" model="res.groups">
+            <field name="name">Dashboard User</field>
+            <field name="comment">Users who can access the Kulturhaus Dashboard</field>
+            <field name="category_id" ref="base.module_category_extra_tools"/>
+        </record>
+        
+        <!-- Dashboard Admin Group -->
+        <record id="group_dashboard_admin" model="res.groups">
+            <field name="name">Dashboard Administrator</field>
+            <field name="comment">Administrators who can configure dashboard settings</field>
+            <field name="category_id" ref="base.module_category_administration"/>
+            <field name="implied_ids" eval="[(4, ref('group_dashboard_user'))]"/>
+        </record>
+        
+    </data>
+</odoo>

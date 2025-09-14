@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Membership Products -->
+        <record id="membership_product_full_year" model="product.template">
+            <field name="name">Jahresmitgliedschaft</field>
+            <field name="membership">True</field>
+            <field name="membership_date_from" eval="time.strftime('%Y-01-01')"/>
+            <field name="membership_date_to" eval="time.strftime('%Y-12-31')"/>
+            <field name="list_price">60.00</field>
+            <field name="membership_period_type">full_year</field>
+        </record>
+        
+        <record id="membership_product_half_year" model="product.template">
+            <field name="name">Halbjahres-Mitgliedschaft</field>
+            <field name="membership">True</field>
+            <field name="membership_date_from" eval="time.strftime('%Y-01-01')"/>
+            <field name="membership_date_to" eval="time.strftime('%Y-06-30')"/>
+            <field name="list_price">30.00</field>
+            <field name="membership_period_type">half_year</field>
+        </record>
+
+        <!-- Demo Members with SEPA -->
+        <record id="demo_member_001" model="res.partner">
+            <field name="name">Hans Müller</field>
+            <field name="street">Hauptstraße 12</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">hans.mueller@example.de</field>
+            <field name="phone">+49 5307 123456</field>
+            <field name="bank_account_iban">DE89370400440532013001</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-001</field>
+            <field name="sepa_mandate_date">2024-01-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_002" model="res.partner">
+            <field name="name">Anna Schmidt</field>
+            <field name="street">Kirchweg 8</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">anna.schmidt@example.de</field>
+            <field name="phone">+49 5307 234567</field>
+            <field name="bank_account_iban">DE89370400440532013002</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-002</field>
+            <field name="sepa_mandate_date">2024-01-20</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_003" model="res.partner">
+            <field name="name">Peter Weber</field>
+            <field name="street">Gartenstraße 15</field>
+            <field name="city">Wendeburg</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">peter.weber@example.de</field>
+            <field name="phone">+49 5307 345678</field>
+            <field name="bank_account_iban">DE89370400440532013003</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-003</field>
+            <field name="sepa_mandate_date">2024-02-01</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_004" model="res.partner">
+            <field name="name">Maria Wagner</field>
+            <field name="street">Schulstraße 22</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">maria.wagner@example.de</field>
+            <field name="phone">+49 5307 456789</field>
+            <field name="bank_account_iban">DE89370400440532013004</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-004</field>
+            <field name="sepa_mandate_date">2024-02-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_005" model="res.partner">
+            <field name="name">Thomas Becker</field>
+            <field name="street">Dorfplatz 3</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">thomas.becker@example.de</field>
+            <field name="phone">+49 5307 567890</field>
+            <field name="bank_account_iban">DE89370400440532013005</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-005</field>
+            <field name="sepa_mandate_date">2024-02-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_006" model="res.partner">
+            <field name="name">Sabine Fischer</field>
+            <field name="street">Bergstraße 18</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">sabine.fischer@example.de</field>
+            <field name="phone">+49 5307 678901</field>
+            <field name="bank_account_iban">DE89370400440532013006</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-006</field>
+            <field name="sepa_mandate_date">2024-03-01</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_007" model="res.partner">
+            <field name="name">Michael Schulz</field>
+            <field name="street">Lindenweg 7</field>
+            <field name="city">Wendeburg</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">michael.schulz@example.de</field>
+            <field name="phone">+49 5307 789012</field>
+            <field name="bank_account_iban">DE89370400440532013007</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-007</field>
+            <field name="sepa_mandate_date">2024-03-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_008" model="res.partner">
+            <field name="name">Claudia Hoffmann</field>
+            <field name="street">Rosenweg 11</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">claudia.hoffmann@example.de</field>
+            <field name="phone">+49 5307 890123</field>
+            <field name="bank_account_iban">DE89370400440532013008</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-008</field>
+            <field name="sepa_mandate_date">2024-03-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_009" model="res.partner">
+            <field name="name">Wolfgang Schneider</field>
+            <field name="street">Ahornstraße 25</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">wolfgang.schneider@example.de</field>
+            <field name="phone">+49 5307 901234</field>
+            <field name="bank_account_iban">DE89370400440532013009</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-009</field>
+            <field name="sepa_mandate_date">2024-04-01</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_010" model="res.partner">
+            <field name="name">Petra Klein</field>
+            <field name="street">Buchenweg 14</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">petra.klein@example.de</field>
+            <field name="phone">+49 5307 012345</field>
+            <field name="bank_account_iban">DE89370400440532013010</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-010</field>
+            <field name="sepa_mandate_date">2024-04-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_011" model="res.partner">
+            <field name="name">Frank Meyer</field>
+            <field name="street">Eichenstraße 9</field>
+            <field name="city">Wendeburg</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">frank.meyer@example.de</field>
+            <field name="phone">+49 5307 111111</field>
+            <field name="bank_account_iban">DE89370400440532013011</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-011</field>
+            <field name="sepa_mandate_date">2024-04-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_012" model="res.partner">
+            <field name="name">Monika Wolf</field>
+            <field name="street">Feldweg 6</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">monika.wolf@example.de</field>
+            <field name="phone">+49 5307 222222</field>
+            <field name="bank_account_iban">DE89370400440532013012</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-012</field>
+            <field name="sepa_mandate_date">2024-05-01</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_013" model="res.partner">
+            <field name="name">Jürgen Braun</field>
+            <field name="street">Gartenweg 21</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">juergen.braun@example.de</field>
+            <field name="phone">+49 5307 333333</field>
+            <field name="bank_account_iban">DE89370400440532013013</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-013</field>
+            <field name="sepa_mandate_date">2024-05-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_014" model="res.partner">
+            <field name="name">Susanne Koch</field>
+            <field name="street">Hauptstraße 45</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">susanne.koch@example.de</field>
+            <field name="phone">+49 5307 444444</field>
+            <field name="bank_account_iban">DE89370400440532013014</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-014</field>
+            <field name="sepa_mandate_date">2024-05-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_015" model="res.partner">
+            <field name="name">Andreas Richter</field>
+            <field name="street">Kirchplatz 2</field>
+            <field name="city">Wendeburg</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">andreas.richter@example.de</field>
+            <field name="phone">+49 5307 555555</field>
+            <field name="bank_account_iban">DE89370400440532013015</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-015</field>
+            <field name="sepa_mandate_date">2024-06-01</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_016" model="res.partner">
+            <field name="name">Christine Zimmermann</field>
+            <field name="street">Neue Straße 17</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">christine.zimmermann@example.de</field>
+            <field name="phone">+49 5307 666666</field>
+            <field name="bank_account_iban">DE89370400440532013016</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-016</field>
+            <field name="sepa_mandate_date">2024-06-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_017" model="res.partner">
+            <field name="name">Markus Krüger</field>
+            <field name="street">Parkstraße 8</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">markus.krueger@example.de</field>
+            <field name="phone">+49 5307 777777</field>
+            <field name="bank_account_iban">DE89370400440532013017</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-017</field>
+            <field name="sepa_mandate_date">2024-06-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_018" model="res.partner">
+            <field name="name">Birgit Schmitt</field>
+            <field name="street">Ringstraße 13</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">birgit.schmitt@example.de</field>
+            <field name="phone">+49 5307 888888</field>
+            <field name="bank_account_iban">DE89370400440532013018</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-018</field>
+            <field name="sepa_mandate_date">2024-07-01</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_019" model="res.partner">
+            <field name="name">Stefan Neumann</field>
+            <field name="street">Tannenweg 4</field>
+            <field name="city">Wendeburg</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">stefan.neumann@example.de</field>
+            <field name="phone">+49 5307 999999</field>
+            <field name="bank_account_iban">DE89370400440532013019</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-019</field>
+            <field name="sepa_mandate_date">2024-07-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_020" model="res.partner">
+            <field name="name">Nicole Schwarz</field>
+            <field name="street">Tulpenweg 19</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">nicole.schwarz@example.de</field>
+            <field name="phone">+49 5307 101010</field>
+            <field name="bank_account_iban">DE89370400440532013020</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-020</field>
+            <field name="sepa_mandate_date">2024-07-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_021" model="res.partner">
+            <field name="name">Ralf Hartmann</field>
+            <field name="street">Wiesenstraße 10</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">ralf.hartmann@example.de</field>
+            <field name="phone">+49 5307 212121</field>
+            <field name="bank_account_iban">DE89370400440532013021</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-021</field>
+            <field name="sepa_mandate_date">2024-08-01</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_022" model="res.partner">
+            <field name="name">Anja Lang</field>
+            <field name="street">Bachstraße 5</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">anja.lang@example.de</field>
+            <field name="phone">+49 5307 323232</field>
+            <field name="bank_account_iban">DE89370400440532013022</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-022</field>
+            <field name="sepa_mandate_date">2024-08-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_023" model="res.partner">
+            <field name="name">Dirk Schulze</field>
+            <field name="street">Blumenweg 16</field>
+            <field name="city">Wendeburg</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">dirk.schulze@example.de</field>
+            <field name="phone">+49 5307 434343</field>
+            <field name="bank_account_iban">DE89370400440532013023</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-023</field>
+            <field name="sepa_mandate_date">2024-08-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_024" model="res.partner">
+            <field name="name">Katrin Lehmann</field>
+            <field name="street">Drosselweg 7</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">katrin.lehmann@example.de</field>
+            <field name="phone">+49 5307 545454</field>
+            <field name="bank_account_iban">DE89370400440532013024</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-024</field>
+            <field name="sepa_mandate_date">2024-09-01</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_025" model="res.partner">
+            <field name="name">Bernd Vogel</field>
+            <field name="street">Finkenweg 20</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">bernd.vogel@example.de</field>
+            <field name="phone">+49 5307 656565</field>
+            <field name="bank_account_iban">DE89370400440532013025</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-025</field>
+            <field name="sepa_mandate_date">2024-09-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_026" model="res.partner">
+            <field name="name">Ulrike Friedrich</field>
+            <field name="street">Grünweg 12</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">ulrike.friedrich@example.de</field>
+            <field name="phone">+49 5307 767676</field>
+            <field name="bank_account_iban">DE89370400440532013026</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-026</field>
+            <field name="sepa_mandate_date">2024-09-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_027" model="res.partner">
+            <field name="name">Christian Bauer</field>
+            <field name="street">Hafenstraße 3</field>
+            <field name="city">Wendeburg</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">christian.bauer@example.de</field>
+            <field name="phone">+49 5307 878787</field>
+            <field name="bank_account_iban">DE89370400440532013027</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-027</field>
+            <field name="sepa_mandate_date">2024-10-01</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_028" model="res.partner">
+            <field name="name">Sandra Keller</field>
+            <field name="street">Industriestraße 18</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">sandra.keller@example.de</field>
+            <field name="phone">+49 5307 989898</field>
+            <field name="bank_account_iban">DE89370400440532013028</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-028</field>
+            <field name="sepa_mandate_date">2024-10-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_029" model="res.partner">
+            <field name="name">Oliver Peters</field>
+            <field name="street">Jahnstraße 9</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">oliver.peters@example.de</field>
+            <field name="phone">+49 5307 090909</field>
+            <field name="bank_account_iban">DE89370400440532013029</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-029</field>
+            <field name="sepa_mandate_date">2024-10-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_030" model="res.partner">
+            <field name="name">Julia Mayer</field>
+            <field name="street">Kastanienweg 14</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">julia.mayer@example.de</field>
+            <field name="phone">+49 5307 191919</field>
+            <field name="bank_account_iban">DE89370400440532013030</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-030</field>
+            <field name="sepa_mandate_date">2024-11-01</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_031" model="res.partner">
+            <field name="name">Martin Sommer</field>
+            <field name="street">Lessingstraße 6</field>
+            <field name="city">Wendeburg</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">martin.sommer@example.de</field>
+            <field name="phone">+49 5307 292929</field>
+            <field name="bank_account_iban">DE89370400440532013031</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-031</field>
+            <field name="sepa_mandate_date">2024-11-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_032" model="res.partner">
+            <field name="name">Simone Winter</field>
+            <field name="street">Mittelweg 11</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">simone.winter@example.de</field>
+            <field name="phone">+49 5307 393939</field>
+            <field name="bank_account_iban">DE89370400440532013032</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-032</field>
+            <field name="sepa_mandate_date">2024-11-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_033" model="res.partner">
+            <field name="name">Tobias Herrmann</field>
+            <field name="street">Nordstraße 22</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">tobias.herrmann@example.de</field>
+            <field name="phone">+49 5307 494949</field>
+            <field name="bank_account_iban">DE89370400440532013033</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-033</field>
+            <field name="sepa_mandate_date">2024-12-01</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_034" model="res.partner">
+            <field name="name">Daniela Frank</field>
+            <field name="street">Oststraße 15</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">daniela.frank@example.de</field>
+            <field name="phone">+49 5307 595959</field>
+            <field name="bank_account_iban">DE89370400440532013034</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-034</field>
+            <field name="sepa_mandate_date">2024-12-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_035" model="res.partner">
+            <field name="name">Robert Kaiser</field>
+            <field name="street">Poststraße 4</field>
+            <field name="city">Wendeburg</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">robert.kaiser@example.de</field>
+            <field name="phone">+49 5307 696969</field>
+            <field name="bank_account_iban">DE89370400440532013035</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202401-035</field>
+            <field name="sepa_mandate_date">2024-12-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_036" model="res.partner">
+            <field name="name">Karin Ludwig</field>
+            <field name="street">Quellenweg 17</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">karin.ludwig@example.de</field>
+            <field name="phone">+49 5307 797979</field>
+            <field name="bank_account_iban">DE89370400440532013036</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202402-001</field>
+            <field name="sepa_mandate_date">2025-01-05</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_037" model="res.partner">
+            <field name="name">Sven Berger</field>
+            <field name="street">Rathausplatz 1</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">sven.berger@example.de</field>
+            <field name="phone">+49 5307 898989</field>
+            <field name="bank_account_iban">DE89370400440532013037</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202402-002</field>
+            <field name="sepa_mandate_date">2025-01-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_038" model="res.partner">
+            <field name="name">Marion Graf</field>
+            <field name="street">Steinweg 13</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">marion.graf@example.de</field>
+            <field name="phone">+49 5307 909090</field>
+            <field name="bank_account_iban">DE89370400440532013038</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202402-003</field>
+            <field name="sepa_mandate_date">2025-01-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_039" model="res.partner">
+            <field name="name">Uwe Werner</field>
+            <field name="street">Talstraße 8</field>
+            <field name="city">Wendeburg</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">uwe.werner@example.de</field>
+            <field name="phone">+49 5307 808080</field>
+            <field name="bank_account_iban">DE89370400440532013039</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202402-004</field>
+            <field name="sepa_mandate_date">2025-02-01</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_040" model="res.partner">
+            <field name="name">Heike Otto</field>
+            <field name="street">Uhlandstraße 23</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">heike.otto@example.de</field>
+            <field name="phone">+49 5307 707070</field>
+            <field name="bank_account_iban">DE89370400440532013040</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202402-005</field>
+            <field name="sepa_mandate_date">2025-02-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_041" model="res.partner">
+            <field name="name">Matthias Schäfer</field>
+            <field name="street">Veilchenweg 5</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">matthias.schaefer@example.de</field>
+            <field name="phone">+49 5307 606060</field>
+            <field name="bank_account_iban">DE89370400440532013041</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202402-006</field>
+            <field name="sepa_mandate_date">2025-02-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_042" model="res.partner">
+            <field name="name">Gisela Bach</field>
+            <field name="street">Waldstraße 19</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">gisela.bach@example.de</field>
+            <field name="phone">+49 5307 505050</field>
+            <field name="bank_account_iban">DE89370400440532013042</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202402-007</field>
+            <field name="sepa_mandate_date">2025-03-01</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_043" model="res.partner">
+            <field name="name">Klaus Heinrich</field>
+            <field name="street">Zeppelinstraße 7</field>
+            <field name="city">Wendeburg</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">klaus.heinrich@example.de</field>
+            <field name="phone">+49 5307 404040</field>
+            <field name="bank_account_iban">DE89370400440532013043</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202402-008</field>
+            <field name="sepa_mandate_date">2025-03-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_044" model="res.partner">
+            <field name="name">Eva Dietrich</field>
+            <field name="street">Am Bahnhof 2</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">eva.dietrich@example.de</field>
+            <field name="phone">+49 5307 303030</field>
+            <field name="bank_account_iban">DE89370400440532013044</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202402-009</field>
+            <field name="sepa_mandate_date">2025-03-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_045" model="res.partner">
+            <field name="name">Werner Simon</field>
+            <field name="street">Bahnhofstraße 24</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">werner.simon@example.de</field>
+            <field name="phone">+49 5307 202020</field>
+            <field name="bank_account_iban">DE89370400440532013045</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202402-010</field>
+            <field name="sepa_mandate_date">2025-04-01</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_046" model="res.partner">
+            <field name="name">Helga Krause</field>
+            <field name="street">Brunnenweg 10</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">helga.krause@example.de</field>
+            <field name="phone">+49 5307 151515</field>
+            <field name="bank_account_iban">DE89370400440532013046</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202402-011</field>
+            <field name="sepa_mandate_date">2025-04-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_047" model="res.partner">
+            <field name="name">Dieter Engelmann</field>
+            <field name="street">Dammstraße 16</field>
+            <field name="city">Wendeburg</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">dieter.engelmann@example.de</field>
+            <field name="phone">+49 5307 141414</field>
+            <field name="bank_account_iban">DE89370400440532013047</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202402-012</field>
+            <field name="sepa_mandate_date">2025-04-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+        </record>
+
+        <record id="demo_member_048" model="res.partner">
+            <field name="name">Ingrid Ziegler</field>
+            <field name="street">Erlenweg 9</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">ingrid.ziegler@example.de</field>
+            <field name="phone">+49 5307 131313</field>
+            <field name="bank_account_iban">DE89370400440532013048</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202402-013</field>
+            <field name="sepa_mandate_date">2025-05-01</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_049" model="res.partner">
+            <field name="name">Georg Meier</field>
+            <field name="street">Friedhofstraße 3</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">georg.meier@example.de</field>
+            <field name="phone">+49 5307 121212</field>
+            <field name="bank_account_iban">DE89370400440532013049</field>
+            <field name="bank_account_bic">DEUTDEDBHAN</field>
+            <field name="sepa_mandate_id">KH-SEPA-202402-014</field>
+            <field name="sepa_mandate_date">2025-05-10</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">full_year</field>
+        </record>
+
+        <record id="demo_member_050" model="res.partner">
+            <field name="name">Renate Albrecht</field>
+            <field name="street">Goethestraße 21</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">renate.albrecht@example.de</field>
+            <field name="phone">+49 5307 161616</field>
+            <field name="bank_account_iban">DE89370400440532013050</field>
+            <field name="bank_account_bic">COBADEFFXXX</field>
+            <field name="sepa_mandate_id">KH-SEPA-202402-015</field>
+            <field name="sepa_mandate_date">2025-05-15</field>
+            <field name="sepa_mandate_state">valid</field>
+            <field name="membership_payment_method">sepa</field>
+            <field name="membership_period_preference">half_year</field>
+            <field name="sepa_last_debit_date">2024-07-01</field>
+        </record>
+
+        <!-- Ein paar Mitglieder ohne gültiges SEPA-Mandat für Testzwecke -->
+        <record id="demo_member_051" model="res.partner">
+            <field name="name">Test Ohne SEPA</field>
+            <field name="street">Testweg 99</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">test.ohne@example.de</field>
+            <field name="membership_payment_method">transfer</field>
+        </record>
+
+        <record id="demo_member_052" model="res.partner">
+            <field name="name">Test Abgelaufen</field>
+            <field name="street">Ablaufstraße 88</field>
+            <field name="city">Bortfeld</field>
+            <field name="zip">38176</field>
+            <field name="country_id" ref="base.de"/>
+            <field name="email">test.abgelaufen@example.de</field>
+            <field name="bank_account_iban">DE89370400440532013052</field>
+            <field name="sepa_mandate_id">KH-SEPA-202301-052</field>
+            <field name="sepa_mandate_date">2023-01-01</field>
+            <field name="sepa_mandate_state">expired</field>
+            <field name="membership_payment_method">sepa</field>
+        </record>
+    </data>
+</odoo>
