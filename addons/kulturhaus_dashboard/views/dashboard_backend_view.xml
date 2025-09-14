@@ -141,11 +141,18 @@
         </field>
     </record>
 
+    <!-- Dashboard URL Action -->
+    <record id="action_dashboard_url" model="ir.actions.act_url">
+        <field name="name">Dashboard</field>
+        <field name="url">/dashboard</field>
+        <field name="target">self</field>
+    </record>
+    
     <!-- Replace Main Menu Item -->
     <menuitem 
         id="menu_kulturhaus_dashboard_main"
         name="Dashboard"
         sequence="1"
         web_icon="kulturhaus_dashboard,static/description/icon.png"
-        action="action_kulturhaus_dashboard_backend"/>
+        action="action_dashboard_url"/>
 </odoo>
