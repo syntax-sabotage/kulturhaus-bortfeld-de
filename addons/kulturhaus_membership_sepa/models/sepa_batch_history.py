@@ -5,6 +5,7 @@ from datetime import datetime
 class SepaBatchHistory(models.Model):
     _name = 'sepa.batch.history'
     _description = 'SEPA Batch History'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'create_date desc'
     _rec_name = 'batch_reference'
     

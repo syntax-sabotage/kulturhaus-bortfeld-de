@@ -13,7 +13,7 @@
         - SEPA XML export for bank processing
     """,
     'author': 'Kulturhaus Bortfeld',
-    'depends': ['base', 'membership', 'account', 'contacts'],
+    'depends': ['base', 'membership', 'account', 'contacts', 'mail'],
     'data': [
         'security/ir.model.access.csv',
         'wizards/sepa_batch_wizard_views.xml',
