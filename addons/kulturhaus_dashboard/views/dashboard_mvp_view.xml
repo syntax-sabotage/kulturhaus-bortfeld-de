@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Dashboard Action -->
-    <record id="action_kulturhaus_dashboard_mvp" model="ir.actions.client">
+    <!-- Dashboard Action (Simple) -->
+    <record id="action_kulturhaus_dashboard_simple" model="ir.actions.client">
         <field name="name">Kulturhaus Dashboard</field>
+        <field name="tag">kulturhaus_dashboard_simple</field>
+        <field name="target">fullscreen</field>
+    </record>
+    
+    <!-- Dashboard Action (Full MVP) -->
+    <record id="action_kulturhaus_dashboard_mvp" model="ir.actions.client">
+        <field name="name">Kulturhaus Dashboard MVP</field>
         <field name="tag">kulturhaus_dashboard_mvp</field>
         <field name="target">fullscreen</field>
     </record>
@@ -13,7 +20,7 @@
         name="Dashboard"
         sequence="1"
         web_icon="kulturhaus_dashboard,static/description/icon.png"
-        action="action_kulturhaus_dashboard_mvp"/>
+        action="action_kulturhaus_dashboard_simple"/>
 
     <!-- Dashboard Tree View (for backend management) -->
     <record id="view_kulturhaus_dashboard_tree" model="ir.ui.view">
