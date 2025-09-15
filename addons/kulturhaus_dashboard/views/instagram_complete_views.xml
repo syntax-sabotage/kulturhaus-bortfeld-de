@@ -48,7 +48,7 @@
                         <page string="Business Account API">
                             <group>
                                 <group string="Facebook App Setup">
-                                    <field name="facebook_app_id" placeholder="Your Facebook App ID"/>
+                                    <field name="facebook_app_id" placeholder="1123308493238410"/>
                                     <field name="facebook_app_secret" placeholder="Your App Secret" password="True"/>
                                     <button name="action_setup_facebook_app" type="object" 
                                             string="📖 Setup Guide" 
