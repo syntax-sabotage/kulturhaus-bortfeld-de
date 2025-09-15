@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Actions -->
+    <record id="action_account_fiscal_year" model="ir.actions.act_window">
+        <field name="name">Geschäftsjahre</field>
+        <field name="res_model">account.fiscal.year</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Geschäftsjahr anlegen
+            </p>
+            <p>
+                Verwalten Sie hier die Geschäftsjahre und Perioden für Ihre Buchhaltung.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_account_setup_wizard" model="ir.actions.act_window">
+        <field name="name">Buchhaltung einrichten</field>
+        <field name="res_model">account.setup.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_kulturhaus_accounting"
+              name="Vereinsbuchhaltung"
+              parent="account.menu_finance_configuration"
+              sequence="5"/>
+
+    <menuitem id="menu_account_fiscal_year"
+              name="Geschäftsjahre"
+              parent="menu_kulturhaus_accounting"
+              action="action_account_fiscal_year"
+              sequence="10"/>
+
+    <menuitem id="menu_account_setup_wizard"
+              name="Einrichtungsassistent"
+              parent="menu_kulturhaus_accounting"
+              action="action_account_setup_wizard"
+              sequence="100"/>
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_setup_wizard_form" model="ir.ui.view">
+        <field name="name">account.setup.wizard.form</field>
+        <field name="model">account.setup.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Buchhaltung Einrichtungsassistent">
+                <sheet>
+                    <group>
+                        <p class="text-muted">
+                            Dieser Assistent hilft Ihnen bei der Einrichtung der Buchhaltung für Ihren gemeinnützigen Verein.
+                        </p>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <field name="load_skr49"/>
+                            <field name="setup_taxes"/>
+                        </group>
+                        <group>
+                            <field name="create_fiscal_year"/>
+                            <field name="fiscal_year_start" invisible="not create_fiscal_year"/>
+                            <field name="fiscal_year_end" invisible="not create_fiscal_year"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="migrate_existing"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_setup" string="Einrichten" type="object" class="btn-primary"/>
+                    <button string="Abbrechen" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

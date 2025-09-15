@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Account Account Views -->
+    <record id="view_account_account_kulturhaus_form" model="ir.ui.view">
+        <field name="name">account.account.kulturhaus.form</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="skr49_code"/>
+            </field>
+            <field name="deprecated" position="after">
+                <field name="is_nonprofit_account"/>
+                <field name="nonprofit_type" invisible="not is_nonprofit_account"/>
+                <field name="tax_deductible" invisible="not is_nonprofit_account"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_account_kulturhaus_list" model="ir.ui.view">
+        <field name="name">account.account.kulturhaus.list</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_list"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="skr49_code" optional="show"/>
+            </field>
+            <field name="account_type" position="after">
+                <field name="nonprofit_type" optional="hide"/>
+                <field name="tax_deductible" optional="hide" widget="boolean_toggle"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Fiscal Year Views -->
+    <record id="view_account_fiscal_year_form" model="ir.ui.view">
+        <field name="name">account.fiscal.year.form</field>
+        <field name="model">account.fiscal.year</field>
+        <field name="arch" type="xml">
+            <form string="Geschäftsjahr">
+                <header>
+                    <button name="action_open" string="Öffnen" type="object" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_close" string="Schließen" type="object" class="btn-secondary" invisible="state != 'open'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,open,closed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Perioden">
+                            <field name="period_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_account_fiscal_year_list" model="ir.ui.view">
+        <field name="name">account.fiscal.year.list</field>
+        <field name="model">account.fiscal.year</field>
+        <field name="arch" type="xml">
+            <list string="Geschäftsjahre">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="state" widget="badge" decoration-success="state == 'open'" decoration-warning="state == 'draft'" decoration-danger="state == 'closed'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_account_fiscal_year_search" model="ir.ui.view">
+        <field name="name">account.fiscal.year.search</field>
+        <field name="model">account.fiscal.year</field>
+        <field name="arch" type="xml">
+            <search string="Geschäftsjahre">
+                <field name="name"/>
+                <field name="code"/>
+                <filter string="Offen" name="open" domain="[('state', '=', 'open')]"/>
+                <filter string="Geschlossen" name="closed" domain="[('state', '=', 'closed')]"/>
+                <group expand="0" string="Gruppieren nach">
+                    <filter string="Status" name="state" context="{'group_by': 'state'}"/>
+                    <filter string="Unternehmen" name="company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Company Views -->
+    <record id="view_company_kulturhaus_form" model="ir.ui.view">
+        <field name="name">res.company.kulturhaus.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_info']" position="after">
+                <page string="Gemeinnützigkeit" name="nonprofit">
+                    <group>
+                        <group>
+                            <field name="is_nonprofit"/>
+                            <field name="nonprofit_register_number" invisible="not is_nonprofit"/>
+                            <field name="tax_office" invisible="not is_nonprofit"/>
+                        </group>
+                        <group>
+                            <field name="tax_number" invisible="not is_nonprofit"/>
+                            <field name="nonprofit_certificate_date" invisible="not is_nonprofit"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

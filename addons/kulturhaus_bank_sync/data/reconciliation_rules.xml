@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Default Reconciliation Rules -->
+        <record id="rule_stripe_payments" model="bank.reconciliation.rule">
+            <field name="name">Stripe Zahlungen</field>
+            <field name="sequence">10</field>
+            <field name="rule_type">stripe</field>
+            <field name="reference_pattern">STRIPE|pi_[a-zA-Z0-9]+</field>
+            <field name="auto_reconcile">True</field>
+        </record>
+
+        <record id="rule_sepa_direct_debit" model="bank.reconciliation.rule">
+            <field name="name">SEPA Lastschriften</field>
+            <field name="sequence">20</field>
+            <field name="rule_type">sepa</field>
+            <field name="reference_pattern">SEPA|MANDATE</field>
+            <field name="auto_reconcile">True</field>
+        </record>
+
+        <record id="rule_membership_fees" model="bank.reconciliation.rule">
+            <field name="name">Mitgliedsbeiträge</field>
+            <field name="sequence">30</field>
+            <field name="rule_type">reference</field>
+            <field name="reference_pattern">Mitgliedsbeitrag|Jahresbeitrag|Halbjahresbeitrag</field>
+            <field name="auto_reconcile">True</field>
+            <field name="account_id" ref="kulturhaus_accounting_core.account_4000"/>
+        </record>
+
+        <record id="rule_donations" model="bank.reconciliation.rule">
+            <field name="name">Spenden</field>
+            <field name="sequence">40</field>
+            <field name="rule_type">reference</field>
+            <field name="reference_pattern">Spende|Donation|Zuwendung</field>
+            <field name="auto_reconcile">True</field>
+            <field name="account_id" ref="kulturhaus_accounting_core.account_4100"/>
+        </record>
+    </data>
+</odoo>

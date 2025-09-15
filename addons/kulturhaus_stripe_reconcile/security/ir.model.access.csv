@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stripe_payment_user,stripe.payment.user,model_stripe_payment,base.group_user,1,0,0,0
+access_stripe_payment_manager,stripe.payment.manager,model_stripe_payment,account.group_account_manager,1,1,1,1

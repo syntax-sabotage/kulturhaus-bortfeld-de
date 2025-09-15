@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- German Tax Templates -->
+        <record id="tax_sale_19" model="account.tax.template">
+            <field name="name">MwSt. 19% (Verkauf)</field>
+            <field name="amount">19.0</field>
+            <field name="type_tax_use">sale</field>
+            <field name="chart_template_id" ref="chart_template_skr49"/>
+        </record>
+
+        <record id="tax_sale_7" model="account.tax.template">
+            <field name="name">MwSt. 7% (Verkauf)</field>
+            <field name="amount">7.0</field>
+            <field name="type_tax_use">sale</field>
+            <field name="chart_template_id" ref="chart_template_skr49"/>
+        </record>
+
+        <record id="tax_sale_0" model="account.tax.template">
+            <field name="name">Steuerbefreit (Verkauf)</field>
+            <field name="amount">0.0</field>
+            <field name="type_tax_use">sale</field>
+            <field name="chart_template_id" ref="chart_template_skr49"/>
+        </record>
+
+        <record id="tax_purchase_19" model="account.tax.template">
+            <field name="name">Vorsteuer 19% (Einkauf)</field>
+            <field name="amount">19.0</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="chart_template_id" ref="chart_template_skr49"/>
+        </record>
+
+        <record id="tax_purchase_7" model="account.tax.template">
+            <field name="name">Vorsteuer 7% (Einkauf)</field>
+            <field name="amount">7.0</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="chart_template_id" ref="chart_template_skr49"/>
+        </record>
+    </data>
+</odoo>

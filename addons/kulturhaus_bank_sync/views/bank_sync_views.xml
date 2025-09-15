@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Bank Statement Views -->
+    <record id="view_account_bank_statement_kulturhaus_form" model="ir.ui.view">
+        <field name="name">account.bank.statement.kulturhaus.form</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_form"/>
+        <field name="arch" type="xml">
+            <field name="journal_id" position="after">
+                <field name="import_source"/>
+                <field name="unreconciled_count"/>
+                <field name="auto_reconciled_count"/>
+            </field>
+            <xpath expr="//header" position="inside">
+                <button name="action_auto_reconcile" 
+                        string="Automatisch abstimmen" 
+                        type="object" 
+                        class="btn-primary"
+                        invisible="unreconciled_count == 0"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_bank_statement_line_kulturhaus_form" model="ir.ui.view">
+        <field name="name">account.bank.statement.line.kulturhaus.form</field>
+        <field name="model">account.bank.statement.line</field>
+        <field name="inherit_id" ref="account.view_bank_statement_line_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="suggested_partner_id" invisible="partner_id"/>
+                <field name="reconciliation_status" widget="badge"/>
+                <field name="stripe_payment_id" invisible="not stripe_payment_id"/>
+                <field name="sepa_mandate_id" invisible="not sepa_mandate_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_bank_statement_line_kulturhaus_list" model="ir.ui.view">
+        <field name="name">account.bank.statement.line.kulturhaus.list</field>
+        <field name="model">account.bank.statement.line</field>
+        <field name="inherit_id" ref="account.view_bank_statement_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="amount" position="after">
+                <field name="reconciliation_status" 
+                       widget="badge" 
+                       decoration-success="reconciliation_status == 'reconciled'"
+                       decoration-warning="reconciliation_status == 'partial'"
+                       decoration-danger="reconciliation_status == 'unreconciled'"/>
+            </field>
+            <field name="partner_id" position="after">
+                <field name="suggested_partner_id" optional="show" invisible="partner_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

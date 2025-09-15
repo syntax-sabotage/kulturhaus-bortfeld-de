@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Demo Fiscal Year -->
+        <record id="demo_fiscal_year_2024" model="account.fiscal.year">
+            <field name="name">Geschäftsjahr 2024</field>
+            <field name="code">2024</field>
+            <field name="date_from">2024-01-01</field>
+            <field name="date_to">2024-12-31</field>
+            <field name="state">open</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,39 @@
+name: "SEPA Module Feature"
+description: Feature request for SEPA membership module
+title: "[SEPA] "
+labels: ["enhancement", "module:sepa"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## SEPA Module Feature Request
+  - type: dropdown
+    id: component
+    attributes:
+      label: SEPA Component
+      options:
+        - Mandate Management
+        - Batch Generation
+        - XML Export
+        - Bank Reconciliation
+        - Member Portal
+        - Analytics Dashboard
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Description
+      description: Describe the feature you'd like
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: Define when this feature is complete
+      placeholder: |
+        - [ ] Criterion 1
+        - [ ] Criterion 2
+    validations:
+      required: true

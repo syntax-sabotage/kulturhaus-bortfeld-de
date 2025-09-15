@@ -1,0 +1,51 @@
+{
+  "timestamp": "2025-09-15T15:29:55.927850",
+  "accounting_setup": {
+    "has_german_coa": false,
+    "analytic_accounts": 9,
+    "journal_types": [
+      "bank",
+      "sale",
+      "general",
+      "cash",
+      "purchase"
+    ]
+  },
+  "payment_methods": {
+    "acquirers": [
+      "Wire Transfer",
+      "Stripe"
+    ],
+    "has_sepa": false
+  },
+  "bank_setup": {
+    "bank_accounts": 2,
+    "bank_statements": 0,
+    "unreconciled_items": 167
+  },
+  "tax_configuration": {
+    "tax_rates": [
+      0.0,
+      19.0,
+      7.0
+    ]
+  },
+  "workflows": {
+    "monthly_invoices": 36,
+    "events_count": 5,
+    "pos_configs": 2
+  },
+  "missing_features": [
+    "German Chart of Accounts (SKR03/04/49)",
+    "SEPA Direct Debit functionality",
+    "Automated bank synchronization",
+    "Donation certificates (Spendenbescheinigungen)",
+    "Fiscal year configuration"
+  ],
+  "recommendations": [
+    "Implement German COA (SKR49 for non-profits)",
+    "Add automated bank synchronization (EBICS/FinTS)",
+    "Create donation certificate templates",
+    "Setup Stripe reconciliation automation"
+  ]
+}

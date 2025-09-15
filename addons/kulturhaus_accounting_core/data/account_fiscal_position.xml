@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Fiscal Positions for Non-Profit Organizations -->
+        <record id="fiscal_position_nonprofit" model="account.fiscal.position.template">
+            <field name="name">Gemeinnütziger Bereich</field>
+            <field name="chart_template_id" ref="chart_template_skr49"/>
+            <field name="note">Steuerbefreite Umsätze im ideellen Bereich</field>
+        </record>
+
+        <record id="fiscal_position_economic" model="account.fiscal.position.template">
+            <field name="name">Wirtschaftlicher Geschäftsbetrieb</field>
+            <field name="chart_template_id" ref="chart_template_skr49"/>
+            <field name="note">Steuerpflichtige Umsätze im wirtschaftlichen Geschäftsbetrieb</field>
+        </record>
+
+        <record id="fiscal_position_purpose" model="account.fiscal.position.template">
+            <field name="name">Zweckbetrieb</field>
+            <field name="chart_template_id" ref="chart_template_skr49"/>
+            <field name="note">Ermäßigter Steuersatz für Zweckbetrieb</field>
+        </record>
+    </data>
+</odoo>

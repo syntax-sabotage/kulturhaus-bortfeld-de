@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Reconciliation Rule Views -->
+    <record id="view_bank_reconciliation_rule_form" model="ir.ui.view">
+        <field name="name">bank.reconciliation.rule.form</field>
+        <field name="model">bank.reconciliation.rule</field>
+        <field name="arch" type="xml">
+            <form string="Abstimmungsregel">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Regelname"/></h1>
+                    </div>
+                    <group>
+                        <group string="Allgemein">
+                            <field name="rule_type"/>
+                            <field name="sequence"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group string="Aktionen">
+                            <field name="auto_reconcile"/>
+                            <field name="create_invoice"/>
+                            <field name="account_id" invisible="not auto_reconcile"/>
+                            <field name="journal_id" invisible="not auto_reconcile"/>
+                            <field name="analytic_account_id"/>
+                        </group>
+                    </group>
+                    <group string="Bedingungen">
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="reference_pattern" placeholder="z.B. STRIPE.*|SEPA.*"/>
+                        </group>
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="amount_min"/>
+                            <field name="amount_max"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bank_reconciliation_rule_list" model="ir.ui.view">
+        <field name="name">bank.reconciliation.rule.list</field>
+        <field name="model">bank.reconciliation.rule</field>
+        <field name="arch" type="xml">
+            <list string="Abstimmungsregeln">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="rule_type"/>
+                <field name="partner_id" optional="show"/>
+                <field name="reference_pattern" optional="show"/>
+                <field name="account_id" optional="show"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_bank_reconciliation_rule_search" model="ir.ui.view">
+        <field name="name">bank.reconciliation.rule.search</field>
+        <field name="model">bank.reconciliation.rule</field>
+        <field name="arch" type="xml">
+            <search string="Abstimmungsregeln">
+                <field name="name"/>
+                <field name="rule_type"/>
+                <field name="partner_id"/>
+                <filter string="Aktiv" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Inaktiv" name="inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Stripe" name="stripe" domain="[('rule_type', '=', 'stripe')]"/>
+                <filter string="SEPA" name="sepa" domain="[('rule_type', '=', 'sepa')]"/>
+                <group expand="0" string="Gruppieren nach">
+                    <filter string="Typ" name="type" context="{'group_by': 'rule_type'}"/>
+                    <filter string="Partner" name="partner" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>
