@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Simplest possible dashboard view -->
+    <record id="view_dashboard_simple_form" model="ir.ui.view">
+        <field name="name">Dashboard Simple</field>
+        <field name="model">kulturhaus.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard" create="false" edit="false" delete="false">
+                <sheet>
+                    <h1>Kulturhaus Dashboard</h1>
+                    <group col="2">
+                        <group string="Mitglieder">
+                            <field name="active_members_count"/>
+                            <field name="member_delta"/>
+                        </group>
+                        <group string="SEPA">
+                            <field name="next_sepa_date"/>
+                            <field name="next_sepa_amount"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Simple window action -->
+    <record id="action_dashboard_simple" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">kulturhaus.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_dashboard_simple_form"/>
+        <field name="context">{'create': False}</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+        <field name="limit">1</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem 
+        id="menu_dashboard_simple"
+        name="Simple Dashboard"
+        sequence="2"
+        action="action_dashboard_simple"/>
+</odoo>

@@ -3,3 +3,5 @@
 from . import dashboard
 from . import res_users
 from . import dashboard_card_config
+from . import instagram_config
+from . import instagram_business

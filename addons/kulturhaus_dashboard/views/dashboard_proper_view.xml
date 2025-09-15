@@ -65,15 +65,24 @@
         </field>
     </record>
     
-    <!-- Dashboard Action -->
-    <record id="action_dashboard_proper" model="ir.actions.act_window">
+    <!-- Dashboard Server Action -->
+    <record id="action_dashboard_proper" model="ir.actions.server">
         <field name="name">Dashboard</field>
-        <field name="res_model">kulturhaus.dashboard</field>
-        <field name="view_mode">form</field>
-        <field name="view_id" ref="view_dashboard_form_simple"/>
-        <field name="target">main</field>
-        <field name="res_id" ref="kulturhaus_dashboard.dashboard_main"/>
-        <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
+        <field name="model_id" ref="model_kulturhaus_dashboard"/>
+        <field name="state">code</field>
+        <field name="code">
+dashboard_id = env['kulturhaus.dashboard'].get_or_create_dashboard()
+action = {
+    'type': 'ir.actions.act_window',
+    'name': 'Dashboard',
+    'res_model': 'kulturhaus.dashboard',
+    'view_mode': 'form',
+    'view_id': env.ref('kulturhaus_dashboard.view_dashboard_form_simple').id,
+    'res_id': dashboard_id,
+    'target': 'current',
+    'context': {'create': False, 'edit': False, 'delete': False}
+}
+        </field>
     </record>
     
     <!-- Main Menu -->

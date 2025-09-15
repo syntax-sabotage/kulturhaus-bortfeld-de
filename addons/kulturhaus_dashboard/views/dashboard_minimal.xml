@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="dashboard_minimal_view" model="ir.ui.view">
+        <field name="name">dashboard.minimal</field>
+        <field name="model">kulturhaus.dashboard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="active_members_count"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="dashboard_minimal_action" model="ir.actions.act_window">
+        <field name="name">Minimal Dashboard</field>
+        <field name="res_model">kulturhaus.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="dashboard_minimal_view"/>
+    </record>
+
+    <menuitem id="menu_dashboard_minimal" name="Minimal" action="dashboard_minimal_action" sequence="10"/>
+</odoo>
