@@ -1,6 +1,6 @@
 {
     'name': 'Kulturhaus Vereinsarbeit Core',
-    'version': '18.0.1.0.0',
+    'version': '18.2.1.0.0',
     'category': 'Kulturhaus/Vereinsverwaltung',
     'summary': 'Kernmodul für Kulturhaus Vereinsarbeit - Verwaltung von Vereinsaktivitäten',
     'description': """

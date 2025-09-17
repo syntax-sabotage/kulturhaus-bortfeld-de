@@ -1,221 +1,123 @@
-# Kulturhaus Bortfeld - Custom Odoo Modules
+# Kulturhaus Bortfeld - Installed Odoo Modules
 
-**Last Updated**: 2025-09-13  
-**Odoo Version**: 18.0 Community Edition  
-**Location**: `/opt/odoo18/odoo/addons/`  
-**Repository**: Module source code now in `/modules/` directory
+**Last Updated**: 2025-09-17  
+**Odoo Version**: 18.2a1 Community Edition  
+**Database**: kulturhive  
+**Location**: `/opt/odoo18/odoo/addons/`
 
-## 📦 Installed Modules
+## 📦 Custom Kulturhaus Modules
 
-### Custom Kulturhaus Modules
+### Core Modules
+| Module | Description | Status | Version | Notes |
+|--------|-------------|--------|---------|-------|
+| **kulturhaus_dashboard** | Custom dashboard for operations | ✅ Installed | 1.0.0 | Main operations dashboard |
+| **kulturhaus_calendar_subscription** | Calendar subscription features | ✅ Installed | 1.0.0 | Calendar integration |
+| **kulturhaus_simplified_checkout** | Simplified checkout process | ✅ Installed | 1.0.0 | Streamlined checkout |
+| **kh_menu_organizer** | Menu organization tool | ✅ Installed | 1.0.0 | Menu management |
+| **kulturhaus_vereinsarbeit_core** | Vereinsarbeit & Mitgliederverwaltung | ✅ Installed | 18.2.1.0.0 | Club management system |
 
-#### 1. kulturhaus_dashboard
-- **Purpose**: Custom dashboard for Kulturhaus operations
-- **Status**: ✅ Installed and operational
-- **Features**: Customized views and metrics for cultural center management
-- **Dependencies**: Standard Odoo modules
+### Notification Modules
+| Module | Description | Status | Version | Notes |
+|--------|-------------|--------|---------|-------|
+| **kulturhaus_push** | Push notifications system | ✅ Installed | 1.0.0 | Main notification module |
+| **push_simple** | Base push notification support | ✅ Installed | 1.0.0 | Base module for push |
+| **sttl_channel_notification** | Channel notification system | ✅ Installed | 1.0.0 | Channel notifications |
 
-#### 2. kulturhaus_calendar_subscription
-- **Purpose**: Calendar subscription and synchronization features
-- **Status**: ✅ Installed and operational
-- **Features**: Allow users to subscribe to event calendars
-- **Dependencies**: Standard calendar modules
+## 🌍 OCA (Odoo Community Association) Modules
 
-#### 3. kulturhaus_simplified_checkout
-- **Purpose**: Simplified checkout process
-- **Status**: ✅ Installed and operational
-- **Features**: Streamlined checkout for events and bookings
-- **Dependencies**: Website, sale modules
+### Project Enhancement Modules (Added 2025-09-17)
+| Module | Description | Status | Version | Use Case |
+|--------|-------------|--------|---------|----------|
+| **project_role** | Project roles management | ✅ Installed | 18.2.1.0.0 | Assign roles like Vorstand, AG-Leiter |
+| **project_template** | Project templates | ✅ Installed | 18.2.1.0.0 | Event templates - **Modified*** |
+| **project_task_default_stage** | Default task stages | ✅ Installed | 18.2.1.0.0 | Workflow automation |
+| **project_tag_hierarchy** | Hierarchical project tags | ✅ Installed | 18.2.1.0.0 | Organize events hierarchically |
+| **project_parent_task_filter** | Parent task filtering | ✅ Installed | 18.2.1.0.0 | Task hierarchy management |
+| **project_task_add_very_high** | Very high priority for tasks | ✅ Installed | 18.2.1.0.0 | Critical task prioritization |
+| **project_key** | Project short codes | ✅ Installed | 18.2.1.0.0 | Quick project references (EK2025) |
 
-#### 4. kh_menu_organizer
-- **Purpose**: Menu organization and management tool
-- **Status**: ✅ Installed and operational
-- **Features**: Reorganize and customize Odoo menus
-- **Dependencies**: Base modules
+***Important Note**: The `project_template` module was modified on 2025-09-17 to move the "Use as Template" checkbox from the form header to the Settings tab. This fixed a UI overlap issue with the task statistics button.
 
-#### 5. kulturhaus_membership_sepa
-- **Purpose**: SEPA direct debit management for memberships
-- **Status**: ✅ Installed and operational
-- **Features**:
-  - SEPA mandate management for members
-  - Configurable membership periods (full year/half year)
-  - Manual batch generation with buttons
-  - SEPA XML export for bank processing
-- **Dependencies**: `base`, `membership`, `account`, `contacts`
+## 🗑️ Removed/Cleaned Modules
 
-#### 6. ce_communication_enhancements
-- **Purpose**: PWA support and mobile push notifications
-- **Status**: ✅ Deployed (2025-09-11)
-- **Features**:
-  - Progressive Web App (PWA) manifest
-  - Service Worker for offline functionality
-  - Push notification support for iOS 16.4+
-  - Mobile app connectivity enhancements
-- **Dependencies**: 
-  - Python: `pywebpush`, `cryptography`
-  - Odoo: `base`, `web`, `mail`
-- **Special Notes**: 
-  - Requires HTTPS (already configured)
-  - iOS notifications require PWA installation to home screen
-  - Includes German setup guide for users
-
-#### 7. kulturhaus_vereinsarbeit_core
-- **Purpose**: Kernmodul für Vereinsarbeit und Mitgliederverwaltung
-- **Status**: 🚧 In Entwicklung (2025-09-17)
-- **Features**: 
-  - Mitgliederverwaltung
-  - Veranstaltungsplanung
-  - Ressourcenverwaltung
-  - Aufgabenverwaltung
-  - Dokumentenverwaltung
-- **Dependencies**: base, mail, contacts, calendar, project
-
-### OCA Project Enhancement Modules (2025-09-17)
-
-#### 1. project_role
-- **Purpose**: Rollenverwaltung für Projekte und Teams
-- **Status**: ✅ Installed
-- **Version**: 18.2.1.0.0 (angepasst für Odoo 18.2)
-- **Features**: 
-  - Vereinsrollen (Vorstand, Kassenwart, AG-Leiter)
-  - Projektbezogene Rollen
-  - Rollenbasierte Berechtigungen
-- **Source**: OCA/project
-
-#### 2. project_template  
-- **Purpose**: Vorlagen für wiederkehrende Projekte/Events
-- **Status**: ✅ Installed
-- **Version**: 18.2.1.0.0
-- **Features**:
-  - Event-Vorlagen (Konzert, Theater, Workshop)
-  - Checklisten-Vorlagen
-  - Aufgabenvorlagen mit Standardzeiten
-- **Source**: OCA/project
-
-#### 3. project_task_default_stage
-- **Purpose**: Standard-Stages für Aufgaben
-- **Status**: ✅ Installed
-- **Version**: 18.2.1.0.0
-- **Features**: 
-  - Automatische Aufgaben-Stages
-  - Workflow-Automatisierung
-- **Source**: OCA/project
-
-#### 4. project_tag_hierarchy
-- **Purpose**: Hierarchische Tags für bessere Organisation
-- **Status**: ✅ Installed
-- **Version**: 18.2.1.0.0
-- **Features**:
-  - Verschachtelte Tags (Event→Konzert→Klassik)
-  - Bessere Event-Kategorisierung
-- **Source**: OCA/project
-
-#### 5. project_parent_task_filter
-- **Purpose**: Haupt- und Unteraufgaben-Verwaltung
-- **Status**: ✅ Installed  
-- **Version**: 18.2.1.0.0
-- **Features**:
-  - Strukturierung komplexer Events
-  - Aufgaben-Hierarchien
-- **Source**: OCA/project
-
-#### 6. project_task_add_very_high
-- **Purpose**: Kritische Prioritätsstufe für Aufgaben
-- **Status**: ✅ Installed
-- **Version**: 18.2.1.0.0
-- **Features**:
-  - Kritische Priorität für Deadline-Tasks
-  - Pflichtaufgaben markieren (z.B. GEMA-Meldung)
-- **Source**: OCA/project
-
-#### 7. project_key
-- **Purpose**: Kurzcodes für Projekte
-- **Status**: ✅ Installed
-- **Version**: 18.2.1.0.0
-- **Features**:
-  - Projekt-Kurzcodes (KH-2025-001)
-  - Bessere Referenzierung
-- **Source**: OCA/project
-
-## 🔧 Module Management
-
-### Installation Commands
-```bash
-# Restart Odoo to detect new modules
-sudo systemctl restart odoo18
-
-# Update module list (from Odoo UI)
-Apps > Update Apps List
-
-# Install module (from Odoo UI)
-Apps > Search > Install
-```
-
-### Module Locations
-```bash
-# All modules location
-/opt/odoo18/odoo/addons/
-
-# List custom modules
-ls /opt/odoo18/odoo/addons/ | grep -E '^(kulturhaus|kh_|ce_)'
-
-# Check module status
-grep "kulturhaus\|kh_\|ce_" /var/log/odoo/odoo18.log
-```
-
-### Backup Modules
-```bash
-# Backup individual module
-tar -czf module_name_backup.tar.gz /opt/odoo18/odoo/addons/module_name/
-
-# Backup all custom modules
-for module in kulturhaus_* kh_* ce_*; do
-    tar -czf "${module}_backup_$(date +%Y%m%d).tar.gz" "/opt/odoo18/odoo/addons/$module/"
-done
-```
-
-## 📝 Development Notes
-
-### Adding New Modules
-1. Upload module to `/opt/odoo18/odoo/addons/`
-2. Set proper permissions: `chown -R odoo18:odoo18 module_name/`
-3. Install dependencies if needed: `./venv/bin/pip install package_name`
-4. Restart Odoo: `sudo systemctl restart odoo18`
-5. Update Apps List in Odoo UI
-6. Install module from Apps menu
-
-### Module Dependencies
-- All Python dependencies must be installed in Odoo's virtual environment
-- Path: `/opt/odoo18/odoo/venv/bin/pip`
-- Current special dependencies:
-  - `pywebpush` (for ce_communication_enhancements)
-  - `cryptography` (already installed)
-
-## 🚀 PWA Setup (ce_communication_enhancements)
-
-### For End Users
-1. Open https://kulturhaus-bortfeld.de in Safari (iOS) or Chrome (Android)
-2. Add to Home Screen
-3. Open from home screen icon
-4. Enable notifications when prompted
-
-### For Administrators
-1. Generate VAPID keys (one-time setup)
-2. Configure in System Parameters
-3. Test notifications from user preferences
-
-### Key URLs
-- Manifest: https://kulturhaus-bortfeld.de/manifest.json
-- Service Worker: https://kulturhaus-bortfeld.de/service-worker.js
+### Removed on 2025-09-17
+- `pwa_kulturhaus` - Obsolete PWA module
+- `pwa_kulturhaus.backup.20250912` - Backup module  
+- `pwa_kulturhaus_backup` - Backup module
+- `ce_push_notifications` - Replaced by kulturhaus_push
+- `ce_communication_enhancements` - Replaced by newer notification modules
 
 ## 📊 Module Statistics
-- **Total Odoo Modules**: 670+
-- **Custom Kulturhaus Modules**: 7
-- **OCA Enhancement Modules**: 7
-- **Latest Additions**: OCA Project Modules (2025-09-17)
-- **Python Virtual Env**: `/opt/odoo18/odoo/venv/`
+
+- **Total Custom Modules**: 8
+- **Total OCA Modules**: 7  
+- **Total Active Modules**: 15
+- **Removed Modules**: 5
+
+## 🔧 Module Management Commands
+
+### Check Module Status
+```bash
+ssh kulturhaus "echo 'Basf1\$Khaus' | sudo -S -u odoo18 psql -d kulturhive -c \"SELECT name, state FROM ir_module_module WHERE state='installed' ORDER BY name;\""
+```
+
+### Update Apps List
+1. Go to Apps menu in Odoo
+2. Click "Update Apps List"
+3. Search for specific module
+4. Install/Upgrade as needed
+
+### Clear Module Cache
+```bash
+ssh kulturhaus "echo 'Basf1\$Khaus' | sudo -S rm -rf /opt/odoo18/odoo/.local/share/Odoo/filestore/kulturhive/assets/*"
+ssh kulturhaus "echo 'Basf1\$Khaus' | sudo -S systemctl restart odoo18"
+```
+
+## 📝 Module Development Notes
+
+### Version Compatibility
+All modules have been updated to version 18.2.1.0.0 to match the Odoo 18.2a1 server version. This is critical for proper installation.
+
+### Project Template UI Fix
+The `project_template` module's view file (`/opt/odoo18/odoo/addons/project_template/views/project.xml`) was modified directly on the server:
+- **Problem**: "Use as Template" checkbox overlapped with task statistics
+- **Solution**: Moved checkbox to Settings tab in its own "Template Settings" group
+- **File Modified**: `/opt/odoo18/odoo/addons/project_template/views/project.xml`
+
+### Notification System Architecture
+```
+kulturhaus_push (Main Module)
+    └── push_simple (Base Module)
+        └── sttl_channel_notification (Channel Support)
+```
+
+## 🚀 Next Steps
+
+1. **Configure Project Roles** - Set up roles for Vorstand members
+2. **Create Project Templates** - Build templates for recurring events (Konzerte, Theater)
+3. **Set Up Task Workflows** - Configure default stages for automated workflows
+4. **Implement Project Keys** - Create standardized project codes (KH-2025-xxx)
+5. **Test All OCA Modules** - Verify all features work in production
+
+## 🔍 Quick Troubleshooting
+
+### Module Not Installing
+1. Check version compatibility (must be 18.2.1.0.0)
+2. Clear cache and restart Odoo
+3. Check dependencies are installed
+
+### UI Overlap Issues
+- Template checkbox is now in Settings tab
+- Task button properly positioned in button box
+
+### Missing Modules in Apps List
+```bash
+# Update module list
+ssh kulturhaus "echo 'Basf1\$Khaus' | sudo -S systemctl restart odoo18"
+# Then: Apps > Update Apps List
+```
 
 ---
 
-*For detailed server information, see server-info.md*  
-*For technical documentation, see TECHNICAL_DOCUMENTATION.md*
+*Documentation maintained by Claude Code*  
+*For server details see CLAUDE.md and TECHNICAL_DOCUMENTATION.md*

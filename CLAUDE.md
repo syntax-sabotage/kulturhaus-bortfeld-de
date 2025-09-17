@@ -72,19 +72,21 @@ Host kulturhaus
 | **kulturhaus_calendar_subscription** | Calendar subscription features | ✅ Installed |
 | **kulturhaus_simplified_checkout** | Simplified checkout process | ✅ Installed |
 | **kh_menu_organizer** | Menu organization tool | ✅ Installed |
-| **ce_communication_enhancements** | PWA & mobile notifications | ✅ Deployed |
-| **kulturhaus_vereinsarbeit_core** | Vereinsarbeit & Mitgliederverwaltung | 🚧 Development |
+| **kulturhaus_push** | Push notifications system | ✅ Installed |
+| **push_simple** | Base push notification support | ✅ Installed |
+| **sttl_channel_notification** | Channel notification system | ✅ Installed |
+| **kulturhaus_vereinsarbeit_core** | Vereinsarbeit & Mitgliederverwaltung | ✅ Installed |
 
 ### OCA Enhancement Modules (Added 2025-09-17)
-| Module | Purpose | Status |
-|--------|---------|--------|
-| **project_role** | Rollenverwaltung (Vorstand, AG-Leiter) | ✅ Installed |
-| **project_template** | Event-Vorlagen (Konzert, Theater) | ✅ Installed |
-| **project_task_default_stage** | Workflow-Automatisierung | ✅ Installed |
-| **project_tag_hierarchy** | Hierarchische Event-Tags | ✅ Installed |
-| **project_parent_task_filter** | Aufgaben-Hierarchien | ✅ Installed |
-| **project_task_add_very_high** | Kritische Prioritäten | ✅ Installed |
-| **project_key** | Projekt-Kurzcodes | ✅ Installed |
+| Module | Purpose | Status | Notes |
+|--------|---------|--------|-------|
+| **project_role** | Rollenverwaltung (Vorstand, AG-Leiter) | ✅ Installed | v18.2.1.0.0 |
+| **project_template** | Event-Vorlagen (Konzert, Theater) | ✅ Installed | Modified: Template field moved to Settings tab |
+| **project_task_default_stage** | Workflow-Automatisierung | ✅ Installed | v18.2.1.0.0 |
+| **project_tag_hierarchy** | Hierarchische Event-Tags | ✅ Installed | v18.2.1.0.0 |
+| **project_parent_task_filter** | Aufgaben-Hierarchien | ✅ Installed | v18.2.1.0.0 |
+| **project_task_add_very_high** | Kritische Prioritäten | ✅ Installed | v18.2.1.0.0 |
+| **project_key** | Projekt-Kurzcodes | ✅ Installed | v18.2.1.0.0 |
 
 ---
 
@@ -400,5 +402,5 @@ The Kulturhaus Bortfeld e.V. server is fully operational with:
 
 ---
 
-*Last Updated: 2025-06-12 by Claude Code*  
+*Last Updated: 2025-09-17 by Claude Code*  
 *Status: Production Operational*
