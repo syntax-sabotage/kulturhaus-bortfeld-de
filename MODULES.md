@@ -5,33 +5,35 @@
 **Location**: `/opt/odoo18/odoo/addons/`  
 **Repository**: Module source code now in `/modules/` directory
 
-## 📦 Installed Custom Modules
+## 📦 Installed Modules
 
-### 1. kulturhaus_dashboard
+### Custom Kulturhaus Modules
+
+#### 1. kulturhaus_dashboard
 - **Purpose**: Custom dashboard for Kulturhaus operations
 - **Status**: ✅ Installed and operational
 - **Features**: Customized views and metrics for cultural center management
 - **Dependencies**: Standard Odoo modules
 
-### 2. kulturhaus_calendar_subscription
+#### 2. kulturhaus_calendar_subscription
 - **Purpose**: Calendar subscription and synchronization features
 - **Status**: ✅ Installed and operational
 - **Features**: Allow users to subscribe to event calendars
 - **Dependencies**: Standard calendar modules
 
-### 3. kulturhaus_simplified_checkout
+#### 3. kulturhaus_simplified_checkout
 - **Purpose**: Simplified checkout process
 - **Status**: ✅ Installed and operational
 - **Features**: Streamlined checkout for events and bookings
 - **Dependencies**: Website, sale modules
 
-### 4. kh_menu_organizer
+#### 4. kh_menu_organizer
 - **Purpose**: Menu organization and management tool
 - **Status**: ✅ Installed and operational
 - **Features**: Reorganize and customize Odoo menus
 - **Dependencies**: Base modules
 
-### 5. kulturhaus_membership_sepa
+#### 5. kulturhaus_membership_sepa
 - **Purpose**: SEPA direct debit management for memberships
 - **Status**: ✅ Installed and operational
 - **Features**:
@@ -41,7 +43,7 @@
   - SEPA XML export for bank processing
 - **Dependencies**: `base`, `membership`, `account`, `contacts`
 
-### 6. ce_communication_enhancements
+#### 6. ce_communication_enhancements
 - **Purpose**: PWA support and mobile push notifications
 - **Status**: ✅ Deployed (2025-09-11)
 - **Features**:
@@ -56,6 +58,84 @@
   - Requires HTTPS (already configured)
   - iOS notifications require PWA installation to home screen
   - Includes German setup guide for users
+
+#### 7. kulturhaus_vereinsarbeit_core
+- **Purpose**: Kernmodul für Vereinsarbeit und Mitgliederverwaltung
+- **Status**: 🚧 In Entwicklung (2025-09-17)
+- **Features**: 
+  - Mitgliederverwaltung
+  - Veranstaltungsplanung
+  - Ressourcenverwaltung
+  - Aufgabenverwaltung
+  - Dokumentenverwaltung
+- **Dependencies**: base, mail, contacts, calendar, project
+
+### OCA Project Enhancement Modules (2025-09-17)
+
+#### 1. project_role
+- **Purpose**: Rollenverwaltung für Projekte und Teams
+- **Status**: ✅ Installed
+- **Version**: 18.2.1.0.0 (angepasst für Odoo 18.2)
+- **Features**: 
+  - Vereinsrollen (Vorstand, Kassenwart, AG-Leiter)
+  - Projektbezogene Rollen
+  - Rollenbasierte Berechtigungen
+- **Source**: OCA/project
+
+#### 2. project_template  
+- **Purpose**: Vorlagen für wiederkehrende Projekte/Events
+- **Status**: ✅ Installed
+- **Version**: 18.2.1.0.0
+- **Features**:
+  - Event-Vorlagen (Konzert, Theater, Workshop)
+  - Checklisten-Vorlagen
+  - Aufgabenvorlagen mit Standardzeiten
+- **Source**: OCA/project
+
+#### 3. project_task_default_stage
+- **Purpose**: Standard-Stages für Aufgaben
+- **Status**: ✅ Installed
+- **Version**: 18.2.1.0.0
+- **Features**: 
+  - Automatische Aufgaben-Stages
+  - Workflow-Automatisierung
+- **Source**: OCA/project
+
+#### 4. project_tag_hierarchy
+- **Purpose**: Hierarchische Tags für bessere Organisation
+- **Status**: ✅ Installed
+- **Version**: 18.2.1.0.0
+- **Features**:
+  - Verschachtelte Tags (Event→Konzert→Klassik)
+  - Bessere Event-Kategorisierung
+- **Source**: OCA/project
+
+#### 5. project_parent_task_filter
+- **Purpose**: Haupt- und Unteraufgaben-Verwaltung
+- **Status**: ✅ Installed  
+- **Version**: 18.2.1.0.0
+- **Features**:
+  - Strukturierung komplexer Events
+  - Aufgaben-Hierarchien
+- **Source**: OCA/project
+
+#### 6. project_task_add_very_high
+- **Purpose**: Kritische Prioritätsstufe für Aufgaben
+- **Status**: ✅ Installed
+- **Version**: 18.2.1.0.0
+- **Features**:
+  - Kritische Priorität für Deadline-Tasks
+  - Pflichtaufgaben markieren (z.B. GEMA-Meldung)
+- **Source**: OCA/project
+
+#### 7. project_key
+- **Purpose**: Kurzcodes für Projekte
+- **Status**: ✅ Installed
+- **Version**: 18.2.1.0.0
+- **Features**:
+  - Projekt-Kurzcodes (KH-2025-001)
+  - Bessere Referenzierung
+- **Source**: OCA/project
 
 ## 🔧 Module Management
 
@@ -129,9 +209,10 @@ done
 - Service Worker: https://kulturhaus-bortfeld.de/service-worker.js
 
 ## 📊 Module Statistics
-- **Total Odoo Modules**: 663
-- **Custom Modules**: 6
-- **Latest Addition**: All modules now in GitHub repository (2025-09-13)
+- **Total Odoo Modules**: 670+
+- **Custom Kulturhaus Modules**: 7
+- **OCA Enhancement Modules**: 7
+- **Latest Additions**: OCA Project Modules (2025-09-17)
 - **Python Virtual Env**: `/opt/odoo18/odoo/venv/`
 
 ---

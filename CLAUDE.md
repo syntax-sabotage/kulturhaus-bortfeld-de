@@ -1,7 +1,7 @@
 # CLAUDE.md - Kulturhaus Bortfeld e.V. Project Context
 
-**Version**: 1.1  
-**Date**: 2025-09-11  
+**Version**: 1.2  
+**Date**: 2025-09-17  
 **Project**: Kulturhaus Bortfeld e.V. - Odoo ERP System  
 **Status**: ✅ PRODUCTION OPERATIONAL  
 
@@ -73,6 +73,18 @@ Host kulturhaus
 | **kulturhaus_simplified_checkout** | Simplified checkout process | ✅ Installed |
 | **kh_menu_organizer** | Menu organization tool | ✅ Installed |
 | **ce_communication_enhancements** | PWA & mobile notifications | ✅ Deployed |
+| **kulturhaus_vereinsarbeit_core** | Vereinsarbeit & Mitgliederverwaltung | 🚧 Development |
+
+### OCA Enhancement Modules (Added 2025-09-17)
+| Module | Purpose | Status |
+|--------|---------|--------|
+| **project_role** | Rollenverwaltung (Vorstand, AG-Leiter) | ✅ Installed |
+| **project_template** | Event-Vorlagen (Konzert, Theater) | ✅ Installed |
+| **project_task_default_stage** | Workflow-Automatisierung | ✅ Installed |
+| **project_tag_hierarchy** | Hierarchische Event-Tags | ✅ Installed |
+| **project_parent_task_filter** | Aufgaben-Hierarchien | ✅ Installed |
+| **project_task_add_very_high** | Kritische Prioritäten | ✅ Installed |
+| **project_key** | Projekt-Kurzcodes | ✅ Installed |
 
 ---
 
