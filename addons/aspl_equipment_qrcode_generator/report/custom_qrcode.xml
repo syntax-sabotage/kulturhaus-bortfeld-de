@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_equipment_simple_label2x7">
+            <t t-set="qrcode_size" t-value="'height:14mm'"/>
+            <t t-set="table_style" t-value="'width:97mm;height:37.1mm;margin:inherit;' + table_style"/>
+            <td t-att-style="make_invisible and 'visibility:hidden;'" >
+                <div class="o_label_full" t-att-style="table_style">
+                    <div class="o_label_name">
+                        <strong t-field="equipment.name"/>
+                    </div>
+                    <div class="o_label_data">
+                        <div class="text-center o_label_right_column">
+                            <t t-if="equipment.qr_code">
+                                <div t-field="equipment.qr_code" t-options="{'widget': 'image'}" style="width: 130px;margin-top: -40px;"/>
+                            </t>
+                        </div>
+                        <div class="text-left" style="line-height:normal;word-wrap: break-word;">
+                            <span class="text-nowrap" t-field="equipment.serial_no"/>
+                            <div class="o_label_extra_data">
+                                    <span t-field="equipment.comp_serial_no"/>
+                            </div>
+                            <t t-if="equipment.warranty_date">
+                                <strong t-field="equipment.warranty_date"/>
+                            </t>
+                        </div>
+                        <div class="o_label_clear"></div>
+                    </div>
+                </div>
+            </td>
+        </template>
+
+        <template id="report_equipment_simple_label4x7">
+            <t t-set="barcode_size" t-value="'width:80px;'"/>
+            <t t-set="table_style" t-value="'width:47mm;height:37.1mm;margin:inherit;' + table_style"/>
+            <td t-att-style="make_invisible and 'visibility:hidden;'" >
+                <div class="o_label_full" t-att-style="table_style">
+                    <div class="o_label_name">
+                        <strong t-field="equipment.name"/>
+                    </div>
+                    <div class= "text-center o_label_right_column">
+                        <t t-if="equipment.qr_code">
+                            <div t-field="equipment.qr_code" t-options="{'widget': 'image'}" style="width:95px;padding:0px;margin-top:-10px"/>
+                        </t>
+                    </div>
+                    <div class="text-left o_label_left_column" style="line-height:normal;word-wrap: break-word;">
+                        <div class="o_label_data">
+                            <strong  t-field="equipment.serial_no"/>
+                            <span t-field="equipment.comp_serial_no"/>
+                            <t t-if="equipment.warranty_date">
+                                <strong t-field="equipment.warranty_date"/>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </template>
+
+        <template id="report_equipment_simple_label2x5">
+            <t t-set="barcode_size" t-value="'width:38mm;height:14mm;margin-top:50px;'"/>
+            <t t-set="table_style"
+               t-value="'width:97mm;height:50mm;font-size: 12px;border: 2px solid black;table-layout: fixed;'"/>
+            <td>
+                <table t-att-style="table_style">
+                    <tr>
+                        <td style="width:25%;">Name</td>
+                        <td style="width:5%">:</td>
+                        <td colspan="2" style="width:70%;word-wrap: break-word;">
+                            <t t-esc="equipment.name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:25%">Model</td>
+                        <td style="width:5%">:</td>
+                        <td style="width:35%;word-wrap: break-word;">
+                            <t t-esc="equipment.model"/>
+                        </td>
+                        <td rowspan="5" style="width:35%">
+                            <t t-if="equipment.name">
+                                <div t-field="equipment.qr_code" t-options="{'widget': 'image'}"
+                                     style="width:30mm;height:10mm;"/>
+                            </t>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="width:25%">Mfg Serial</td>
+                        <td style="width:5%">:</td>
+                        <td style="width:35%;font-size:10px;word-wrap: break-word;">
+                            <t t-esc="equipment.serial_no"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:25%">Serial</td>
+                        <td style="width:5%">:</td>
+                        <td style="width:35%;word-wrap: break-word;">
+                            <t t-esc="equipment.comp_serial_no"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:25%">Warranty Date</td>
+                        <td style="width:5%">:</td>
+                        <td style="width:35%;word-wrap: break-word;">
+                            <t t-esc="equipment.warranty_date"/>
+                        </td>
+                        <!-- <td style="width:35%;"></td> -->
+                    </tr>
+                    <tr>
+                        <td style="width:25%"></td>
+                        <td style="width:5%"></td>
+                        <td style="width:35%;word-wrap: break-word;"></td>
+                    </tr>
+                </table>
+            </td>
+        </template>
+
+        <template id="report_quipmentlabel">
+            <t t-call="web.html_container">
+                <t t-if="columns and rows">
+                    <t t-if="columns == 2 and rows == 7">
+                        <t t-set="padding_page" t-value="'padding: 14mm 3mm'"/>
+                        <t t-set="report_to_call" t-value="'aspl_equipment_qrcode_generator.report_equipment_simple_label2x7'"/>
+                    </t>
+                    <t t-if="columns == 4 and rows == 7">
+                        <t t-set="padding_page" t-value="'padding: 14mm 3mm'"/>
+                        <t t-set="report_to_call" t-value="'aspl_equipment_qrcode_generator.report_equipment_simple_label4x7'"/>
+                    </t>
+                    <t t-if="columns == 2 and rows == 5">
+                        <t t-set="padding_page" t-value="'padding: 14mm 3mm'"/>
+                        <t t-set="report_to_call" t-value="'aspl_equipment_qrcode_generator.report_equipment_simple_label2x5'"/>
+                    </t>
+                    <t t-foreach="range(page_numbers)" t-as="page">
+                        <div class="o_label_sheet" t-att-style="padding_page">
+                            <table class="my-0 table table-sm table-borderless">
+                                <t t-foreach="range(rows)" t-as="row">
+                                    <tr>
+                                        <t t-foreach="range(columns)" t-as="column">
+                                            <t t-if="equipment_data">
+                                                <t t-set="current_data" t-value="equipment_data.popitem()"/>
+                                                <t t-set="equipment" t-value="current_data[0]"/>
+                                                <t t-set="table_style" t-value="'border: 1px solid black'"/>
+                                                <t t-call="{{report_to_call}}"/>
+                                            </t>
+                                        </t>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="maintenance_quip">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-call="aspl_equipment_qrcode_generator.report_quipmentlabel">
+                        <t t-set="products" t-value="products"/>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <record id="paperformat_label_sheet_qrcode" model="report.paperformat">
+            <field name="name">A4 Label Sheet</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="disable_shrinking" eval="True"/>
+            <field name="dpi">96</field>
+        </record>
+
+        <record id="report_equipment_label" model="ir.actions.report">
+            <field name="name">Equipment QR-code (PDF)</field>
+            <field name="model">maintenance.equipment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">aspl_equipment_qrcode_generator.maintenance_quip</field>
+            <field name="report_file">aspl_equipment_qrcode_generator.maintenance_quip</field>
+            <field name="paperformat_id" ref="aspl_equipment_qrcode_generator.paperformat_label_sheet_qrcode"/>
+            <field name="print_report_name">'Products Labels - %s' % (object.name)</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

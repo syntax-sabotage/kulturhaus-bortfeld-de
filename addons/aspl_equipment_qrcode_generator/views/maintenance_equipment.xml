@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_extend_equipment_tree" model="ir.ui.view">
+        <field name="name">maintenance.equipment.tree.inherit</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="priority" eval="16"/>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="inside">
+                <header>
+                    <button string="Print QR-code" type="object" name="action_print_qrcode_layout"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_extend_equipment_form" model="ir.ui.view">
+        <field name="name">maintenance.equipment.form.inherit</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="priority" eval="16"/>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='product_information']" position="inside">
+                <group>
+                    <field name="comp_serial_no"/>
+                </group>
+            </xpath>
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button string="Generate Serial Number" type="object" name="generate_serial_no" class="oe_highlight"/>
+                </header>
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="generate_serial_no_action" model="ir.actions.server">
+        <field name="name">Generate Serial Number</field>
+        <field name="model_id" ref="model_maintenance_equipment"/>
+        <field name="binding_model_id" ref="model_maintenance_equipment"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.generate_serial_no()</field>
+    </record>
+
+    <record id="generate_qrcode_no_action" model="ir.actions.server">
+        <field name="name">Print QR-Code</field>
+        <field name="model_id" ref="model_maintenance_equipment"/>
+        <field name="binding_model_id" ref="model_maintenance_equipment"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_print_qrcode_layout()</field>
+    </record>
+
+</odoo>
