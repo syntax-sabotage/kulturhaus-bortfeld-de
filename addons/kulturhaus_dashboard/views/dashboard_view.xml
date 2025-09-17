@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Dashboard Client Action -->
+        <record id="action_kulturhaus_dashboard" model="ir.actions.client">
+            <field name="name">Kulturhaus Dashboard</field>
+            <field name="tag">kulturhaus_dashboard</field>
+            <field name="target">main</field>
+        </record>
+        
+        <!-- Dashboard Home Action for Users -->
+        <record id="action_dashboard_home" model="ir.actions.server">
+            <field name="name">Dashboard Home</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="state">code</field>
+            <field name="code">
+if env.user.use_dashboard:
+    action = {
+        'type': 'ir.actions.client',
+        'tag': 'kulturhaus_dashboard',
+        'name': 'Kulturhaus Dashboard',
+        'target': 'main',
+    }
+else:
+    action = env.ref('base.action_menu_admin').read()[0] if env.user.has_group('base.group_system') else {}
+            </field>
+        </record>
+        
+    </data>
+</odoo>

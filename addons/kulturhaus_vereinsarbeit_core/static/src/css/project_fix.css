@@ -1,0 +1,23 @@
+/* Fix for Project Form Overlap */
+.o_form_view.o_form_project_project .oe_button_box {
+    position: relative;
+    float: right;
+    margin-left: 16px;
+    margin-bottom: 10px;
+}
+
+.o_form_view.o_form_project_project .oe_title {
+    overflow: visible;
+    margin-right: 160px;
+}
+
+/* Ensure the template checkbox doesn't overlap */
+.o_form_view.o_form_project_project .oe_button_box .o_field_boolean {
+    display: block;
+    margin-top: 8px;
+}
+
+/* Fix stat button positioning */
+.o_form_view.o_form_project_project .oe_button_box .oe_stat_button {
+    min-width: 140px;
+}

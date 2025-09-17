@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Fix the overlap by repositioning the template checkbox -->
+    <record id="view_project_form_fix_template_position" model="ir.ui.view">
+        <field name="name">project.project.form.fix.template.position</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project_template.project_template_view_inherit_form"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <!-- Move the template checkbox out of the button box to below the title -->
+            <xpath expr="//field[@name='is_template']" position="replace"/>
+            <xpath expr="//div[@class='oe_title']" position="after">
+                <group>
+                    <field name="is_template" string="Use as Template"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

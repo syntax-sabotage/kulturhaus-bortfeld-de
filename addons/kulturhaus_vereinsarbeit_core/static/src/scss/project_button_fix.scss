@@ -1,0 +1,45 @@
+/* Fix for Project Task Button in Button Box */
+
+.o_form_view.o_form_project_project {
+    /* Fix button box positioning */
+    .oe_button_box {
+        float: right;
+        position: relative;
+        margin-left: 16px;
+        margin-bottom: 8px;
+        
+        /* Fix stat button sizing */
+        .oe_stat_button {
+            min-width: 140px !important;
+            max-width: 140px !important;
+            padding: 8px 4px !important;
+            
+            /* Fix text layout inside button */
+            .o_field_widget.o_stat_info {
+                .o_stat_value {
+                    font-size: 11px !important;
+                    line-height: 1.2 !important;
+                    
+                    /* Make percentage on same line */
+                    field {
+                        display: inline !important;
+                    }
+                }
+                
+                /* Make label smaller */
+                field[name="label_tasks"] {
+                    font-size: 11px !important;
+                }
+            }
+        }
+    }
+    
+    /* Ensure title has space */
+    .oe_title {
+        margin-right: 160px;
+        h1 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}

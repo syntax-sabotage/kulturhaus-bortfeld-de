@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Dashboard Card Configuration List View -->
+        <record id="view_dashboard_card_config_list" model="ir.ui.view">
+            <field name="name">dashboard.card.config.list</field>
+            <field name="model">dashboard.card.config</field>
+            <field name="arch" type="xml">
+                <list string="Dashboard Cards" default_order="user_id, sequence, name">
+                    <field name="user_id"/>
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="icon"/>
+                    <field name="color"/>
+                    <field name="action_type"/>
+                    <field name="is_active"/>
+                </list>
+            </field>
+        </record>
+        
+        <!-- Dashboard Card Configuration Form View -->
+        <record id="view_dashboard_card_config_form" model="ir.ui.view">
+            <field name="name">dashboard.card.config.form</field>
+            <field name="model">dashboard.card.config</field>
+            <field name="arch" type="xml">
+                <form string="Dashboard Card">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="user_id"/>
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="sequence"/>
+                                <field name="is_active"/>
+                            </group>
+                            <group>
+                                <field name="icon"/>
+                                <field name="color"/>
+                                <field name="action_type"/>
+                            </group>
+                        </group>
+                        <group string="Action Configuration">
+                            <field name="action_window_id" invisible="action_type != 'window'"/>
+                            <field name="action_url" invisible="action_type != 'url'"/>
+                            <field name="custom_action_code" invisible="action_type != 'custom'"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Dashboard Card Configuration Action -->
+        <record id="action_dashboard_card" model="ir.actions.act_window">
+            <field name="name">Dashboard Cards</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dashboard.card.config</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first dashboard card!
+                </p>
+                <p>
+                    Dashboard cards provide quick access to important functions and data.
+                </p>
+            </field>
+        </record>
+        
+    </data>
+</odoo>
