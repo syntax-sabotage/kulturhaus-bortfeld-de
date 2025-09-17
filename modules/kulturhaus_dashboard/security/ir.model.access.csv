@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_dashboard_card_config_user,dashboard.card.config user,model_dashboard_card_config,base.group_user,1,1,1,1
-access_dashboard_card_config_admin,dashboard.card.config admin,model_dashboard_card_config,base.group_system,1,1,1,1
