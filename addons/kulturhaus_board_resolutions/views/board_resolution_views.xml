@@ -10,12 +10,12 @@
                 <field name="name" string="Number"/>
                 <field name="title"/>
                 <field name="date"/>
-                <field name="project_id" optional="show"/>
-                <field name="task_id" optional="hide"/>
+                <field name="project_id" column_invisible="False"/>
+                <field name="task_id" column_invisible="True"/>
                 <field name="present_count" string="Present"/>
                 <field name="result" widget="badge" decoration-success="result=='passed'" decoration-danger="result=='rejected'" decoration-warning="result=='tie'"/>
                 <field name="state" widget="badge" decoration-info="state=='draft'" decoration-warning="state in ['voted','to_approve']" decoration-success="state=='approved'" decoration-muted="state=='archived'"/>
-                <field name="approved_by" optional="hide"/>
+                <field name="approved_by" column_invisible="True"/>
             </list>
         </field>
     </record>
