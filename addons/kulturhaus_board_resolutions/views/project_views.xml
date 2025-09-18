@@ -48,13 +48,13 @@
             <xpath expr="//notebook" position="inside">
                 <page string="Board Resolutions" name="board_resolutions" groups="kulturhaus_board_resolutions.group_board_member">
                     <field name="resolution_ids" readonly="1">
-                        <tree string="Board Resolutions" create="0" edit="0">
+                        <list string="Board Resolutions" create="0" edit="0">
                             <field name="name"/>
                             <field name="title"/>
                             <field name="date"/>
                             <field name="state" widget="badge"/>
                             <field name="result" widget="badge"/>
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>
@@ -70,13 +70,13 @@
             <xpath expr="//notebook" position="inside">
                 <page string="Board Resolutions" name="board_resolutions" groups="kulturhaus_board_resolutions.group_board_member">
                     <field name="resolution_ids" readonly="1">
-                        <tree string="Board Resolutions" create="0" edit="0">
+                        <list string="Board Resolutions" create="0" edit="0">
                             <field name="name"/>
                             <field name="title"/>
                             <field name="date"/>
                             <field name="state" widget="badge"/>
                             <field name="result" widget="badge"/>
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>

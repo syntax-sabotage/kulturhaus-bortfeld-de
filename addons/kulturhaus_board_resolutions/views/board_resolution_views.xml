@@ -6,7 +6,7 @@
         <field name="name">board.resolution.tree</field>
         <field name="model">board.resolution</field>
         <field name="arch" type="xml">
-            <tree string="Board Resolutions" decoration-info="state=='draft'" decoration-warning="state=='to_approve'" decoration-success="state=='approved'">
+            <list string="Board Resolutions" decoration-info="state=='draft'" decoration-warning="state=='to_approve'" decoration-success="state=='approved'">
                 <field name="name" string="Number"/>
                 <field name="title"/>
                 <field name="date"/>
@@ -16,7 +16,7 @@
                 <field name="result" widget="badge" decoration-success="result=='passed'" decoration-danger="result=='rejected'" decoration-warning="result=='tie'"/>
                 <field name="state" widget="badge" decoration-info="state=='draft'" decoration-warning="state in ['voted','to_approve']" decoration-success="state=='approved'" decoration-muted="state=='archived'"/>
                 <field name="approved_by" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
 
