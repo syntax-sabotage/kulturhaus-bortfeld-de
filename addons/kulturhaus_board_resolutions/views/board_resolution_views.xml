@@ -220,7 +220,7 @@
         <field name="name">board.resolution.calendar</field>
         <field name="model">board.resolution</field>
         <field name="arch" type="xml">
-            <calendar string="Board Resolutions" date_field="date" color="state" quick_create="False">
+            <calendar string="Board Resolutions" date_field="date" create="0">
                 <field name="title"/>
                 <field name="state"/>
                 <field name="result"/>
