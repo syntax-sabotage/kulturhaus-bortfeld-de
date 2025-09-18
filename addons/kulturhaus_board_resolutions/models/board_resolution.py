@@ -241,6 +241,10 @@ class BoardResolution(models.Model):
         
         self.state = 'draft'
         self.message_post(body=_('Resolution reset to draft.'))
+    
+    def action_print_report(self):
+        """Print PDF report"""
+        return self.env.ref('kulturhaus_board_resolutions.action_report_board_resolution').report_action(self)
 
     def write(self, vals):
         """Prevent editing of approved resolutions"""

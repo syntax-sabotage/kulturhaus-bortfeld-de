@@ -47,7 +47,7 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button class="oe_stat_button" type="object" name="%(report_board_resolution)d" icon="fa-print" attrs="{'invisible': [('state', '=', 'draft')]}">
+                        <button class="oe_stat_button" type="object" name="action_print_report" icon="fa-print" attrs="{'invisible': [('state', '=', 'draft')]}">
                             <div class="o_field_widget o_stat_info">
                                 <span class="o_stat_text">Print PDF</span>
                             </div>
