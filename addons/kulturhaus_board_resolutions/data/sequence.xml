@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Sequence for Board Resolution Numbers -->
+        <record id="board_resolution_sequence" model="ir.sequence">
+            <field name="name">Board Resolution Sequence</field>
+            <field name="code">board.resolution.sequence</field>
+            <field name="prefix">VB-%(year)s-</field>
+            <field name="suffix"></field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+            <field name="number_next_actual">1</field>
+            <field name="implementation">standard</field>
+        </record>
+
+    </data>
+</odoo>

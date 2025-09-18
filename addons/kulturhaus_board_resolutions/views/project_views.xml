@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Inherit Project Form View to add Resolution button -->
+    <record id="view_project_form_inherit_board_resolution" model="ir.ui.view">
+        <field name="name">project.project.form.inherit.board.resolution</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="object" name="action_view_resolutions" icon="fa-gavel" groups="kulturhaus_board_resolutions.group_board_member">
+                    <field string="Resolutions" name="resolution_count" widget="statinfo"/>
+                </button>
+                <button name="action_create_resolution" type="object" class="oe_stat_button" icon="fa-plus" groups="kulturhaus_board_resolutions.group_board_member">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Create Resolution</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit Task Form View to add Resolution button -->
+    <record id="view_task_form_inherit_board_resolution" model="ir.ui.view">
+        <field name="name">project.task.form.inherit.board.resolution</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="object" name="action_view_resolutions" icon="fa-gavel" groups="kulturhaus_board_resolutions.group_board_member">
+                    <field string="Resolutions" name="resolution_count" widget="statinfo"/>
+                </button>
+                <button name="action_create_resolution" type="object" class="oe_stat_button" icon="fa-plus" groups="kulturhaus_board_resolutions.group_board_member">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Create Resolution</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add Resolutions tab to Project Form -->
+    <record id="view_project_form_resolutions_tab" model="ir.ui.view">
+        <field name="name">project.project.form.resolutions.tab</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Board Resolutions" name="board_resolutions" groups="kulturhaus_board_resolutions.group_board_member">
+                    <field name="resolution_ids" readonly="1">
+                        <tree string="Board Resolutions" create="0" edit="0">
+                            <field name="name"/>
+                            <field name="title"/>
+                            <field name="date"/>
+                            <field name="state" widget="badge"/>
+                            <field name="result" widget="badge"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add Resolutions tab to Task Form -->
+    <record id="view_task_form_resolutions_tab" model="ir.ui.view">
+        <field name="name">project.task.form.resolutions.tab</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Board Resolutions" name="board_resolutions" groups="kulturhaus_board_resolutions.group_board_member">
+                    <field name="resolution_ids" readonly="1">
+                        <tree string="Board Resolutions" create="0" edit="0">
+                            <field name="name"/>
+                            <field name="title"/>
+                            <field name="date"/>
+                            <field name="state" widget="badge"/>
+                            <field name="result" widget="badge"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

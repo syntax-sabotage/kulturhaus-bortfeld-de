@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Main Menu -->
+    <menuitem id="menu_board_resolutions_main"
+              name="Board Resolutions"
+              sequence="85"/>
+
+    <!-- Sub Menus -->
+    <menuitem id="menu_board_resolutions_all"
+              name="All Resolutions"
+              parent="menu_board_resolutions_main"
+              action="action_board_resolution"
+              sequence="10"/>
+
+    <menuitem id="menu_board_resolutions_draft"
+              name="Draft Resolutions"
+              parent="menu_board_resolutions_main"
+              action="action_board_resolution_draft"
+              sequence="20"/>
+
+    <menuitem id="menu_board_resolutions_to_approve"
+              name="Pending Approval"
+              parent="menu_board_resolutions_main"
+              action="action_board_resolution_to_approve"
+              sequence="30"
+              groups="group_board_secretary"/>
+
+    <menuitem id="menu_board_resolutions_approved"
+              name="Approved Resolutions"
+              parent="menu_board_resolutions_main"
+              action="action_board_resolution_approved"
+              sequence="40"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_board_resolutions_config"
+              name="Configuration"
+              parent="menu_board_resolutions_main"
+              sequence="100"
+              groups="group_board_secretary"/>
+
+    <menuitem id="menu_board_members"
+              name="Board Members"
+              parent="menu_board_resolutions_config"
+              action="action_board_members"
+              sequence="10"/>
+
+</odoo>

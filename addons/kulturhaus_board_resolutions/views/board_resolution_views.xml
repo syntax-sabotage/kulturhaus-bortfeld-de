@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Board Resolution Tree View -->
+    <record id="view_board_resolution_tree" model="ir.ui.view">
+        <field name="name">board.resolution.tree</field>
+        <field name="model">board.resolution</field>
+        <field name="arch" type="xml">
+            <tree string="Board Resolutions" decoration-info="state=='draft'" decoration-warning="state=='to_approve'" decoration-success="state=='approved'">
+                <field name="name" string="Number"/>
+                <field name="title"/>
+                <field name="date"/>
+                <field name="project_id" optional="show"/>
+                <field name="task_id" optional="hide"/>
+                <field name="present_count" string="Present"/>
+                <field name="result" widget="badge" decoration-success="result=='passed'" decoration-danger="result=='rejected'" decoration-warning="result=='tie'"/>
+                <field name="state" widget="badge" decoration-info="state=='draft'" decoration-warning="state in ['voted','to_approve']" decoration-success="state=='approved'" decoration-muted="state=='archived'"/>
+                <field name="approved_by" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Board Resolution Form View -->
+    <record id="view_board_resolution_form" model="ir.ui.view">
+        <field name="name">board.resolution.form</field>
+        <field name="model">board.resolution</field>
+        <field name="arch" type="xml">
+            <form string="Board Resolution">
+                <header>
+                    <button name="action_vote" string="Mark as Voted" type="object" 
+                            class="btn-primary" 
+                            attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="action_submit_approval" string="Submit for Approval" type="object" 
+                            class="btn-primary" 
+                            attrs="{'invisible': [('state', '!=', 'voted')]}"/>
+                    <button name="action_approve" string="Approve" type="object" 
+                            class="btn-primary" 
+                            attrs="{'invisible': [('state', '!=', 'to_approve')]}" 
+                            groups="group_board_secretary"/>
+                    <button name="action_archive" string="Archive" type="object" 
+                            class="btn-secondary" 
+                            attrs="{'invisible': [('state', '!=', 'approved')]}"/>
+                    <button name="action_reset_to_draft" string="Reset to Draft" type="object" 
+                            class="btn-secondary" 
+                            attrs="{'invisible': ['|', ('state', '=', 'draft'), ('is_approved', '=', True)]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,voted,to_approve,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="%(report_board_resolution)d" icon="fa-print" attrs="{'invisible': [('state', '=', 'draft')]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Print PDF</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <widget name="web_ribbon" title="Approved" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'approved')]}"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-secondary" attrs="{'invisible': [('state', '!=', 'archived')]}"/>
+                    
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <h2>
+                            <field name="title" attrs="{'readonly': [('can_edit', '=', False)]}"/>
+                        </h2>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="date" attrs="{'readonly': [('can_edit', '=', False)]}"/>
+                            <field name="project_id" attrs="{'readonly': [('can_edit', '=', False)]}"/>
+                            <field name="task_id" domain="[('project_id', '=', project_id)]" attrs="{'readonly': [('can_edit', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="result" widget="badge" decoration-success="result=='passed'" decoration-danger="result=='rejected'" decoration-warning="result=='tie'"/>
+                            <field name="approved_by" attrs="{'invisible': [('approved_by', '=', False)]}"/>
+                            <field name="approved_date" attrs="{'invisible': [('approved_date', '=', False)]}"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Description" name="description">
+                            <field name="description" placeholder="Brief description of the resolution..." attrs="{'readonly': [('can_edit', '=', False)]}"/>
+                        </page>
+                        
+                        <page string="Resolution Text" name="resolution">
+                            <field name="resolution_text" attrs="{'readonly': [('can_edit', '=', False)]}"/>
+                        </page>
+
+                        <page string="Attendance &amp; Voting" name="voting">
+                            <group>
+                                <group string="Attendance">
+                                    <field name="total_board_members" readonly="1"/>
+                                    <field name="present_count" readonly="1"/>
+                                    <field name="quorum_met" widget="boolean_toggle" readonly="1"/>
+                                    <field name="present_members" widget="many2many_tags" attrs="{'readonly': [('can_edit', '=', False)]}"/>
+                                </group>
+                                <group string="Voting Results">
+                                    <field name="voting_mode" attrs="{'readonly': [('can_edit', '=', False)]}"/>
+                                    <field name="votes_for" attrs="{'readonly': [('can_edit', '=', False)]}"/>
+                                    <field name="votes_against" attrs="{'readonly': [('can_edit', '=', False)]}"/>
+                                    <field name="votes_abstain" attrs="{'readonly': [('can_edit', '=', False)]}"/>
+                                    <field name="total_votes" readonly="1"/>
+                                </group>
+                            </group>
+                            
+                            <group string="Voting Details" attrs="{'invisible': [('voting_mode', '!=', 'open')]}">
+                                <field name="votes_for_members" widget="many2many_tags" attrs="{'readonly': [('can_edit', '=', False)]}"/>
+                                <field name="votes_against_members" widget="many2many_tags" attrs="{'readonly': [('can_edit', '=', False)]}"/>
+                                <field name="votes_abstain_members" widget="many2many_tags" attrs="{'readonly': [('can_edit', '=', False)]}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    
+                    <!-- Hidden fields -->
+                    <field name="can_edit" invisible="1"/>
+                    <field name="is_approved" invisible="1"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Board Resolution Kanban View -->
+    <record id="view_board_resolution_kanban" model="ir.ui.view">
+        <field name="name">board.resolution.kanban</field>
+        <field name="model">board.resolution</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column" quick_create="false">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="date"/>
+                <field name="state"/>
+                <field name="result"/>
+                <field name="project_id"/>
+                <field name="present_count"/>
+                <field name="activity_ids"/>
+                <field name="activity_state"/>
+                <progressbar field="activity_state" colors='{"planned": "success", "today": "warning", "overdue": "danger"}'/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/> - <field name="title"/>
+                                    </strong>
+                                    <ul>
+                                        <li><i class="fa fa-calendar"/> <field name="date"/></li>
+                                        <li t-if="record.project_id.value">
+                                            <i class="fa fa-folder"/> <field name="project_id"/>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-users"/> <field name="present_count"/> present
+                                        </li>
+                                        <li>
+                                            <span class="badge" t-att-class="record.result.value == 'passed' ? 'badge-success' : record.result.value == 'rejected' ? 'badge-danger' : 'badge-warning'">
+                                                <field name="result"/>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Board Resolution Search View -->
+    <record id="view_board_resolution_search" model="ir.ui.view">
+        <field name="name">board.resolution.search</field>
+        <field name="model">board.resolution</field>
+        <field name="arch" type="xml">
+            <search string="Board Resolutions">
+                <field name="name" string="Resolution Number"/>
+                <field name="title" string="Title"/>
+                <field name="project_id" string="Project"/>
+                <field name="task_id" string="Task"/>
+                <field name="present_members" string="Present Members"/>
+                <field name="approved_by" string="Approved By"/>
+                
+                <filter name="my_resolutions" string="My Resolutions" 
+                        domain="[('present_members', 'in', [uid])]"/>
+                <separator/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="voted" string="Voted" domain="[('state', '=', 'voted')]"/>
+                <filter name="to_approve" string="To Approve" domain="[('state', '=', 'to_approve')]"/>
+                <filter name="approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+                <filter name="archived" string="Archived" domain="[('state', '=', 'archived')]"/>
+                <separator/>
+                <filter name="passed" string="Passed" domain="[('result', '=', 'passed')]"/>
+                <filter name="rejected" string="Rejected" domain="[('result', '=', 'rejected')]"/>
+                <filter name="tie" string="Tie" domain="[('result', '=', 'tie')]"/>
+                <separator/>
+                <filter name="this_month" string="This Month" 
+                        domain="[('date', '&gt;=', context_today().strftime('%Y-%m-01')), ('date', '&lt;', (context_today() + relativedelta(months=1)).strftime('%Y-%m-01'))]"/>
+                <filter name="this_year" string="This Year" 
+                        domain="[('date', '&gt;=', context_today().strftime('%Y-01-01')), ('date', '&lt;=', context_today().strftime('%Y-12-31'))]"/>
+                
+                <group expand="0" string="Group By">
+                    <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+                    <filter name="group_project" string="Project" context="{'group_by': 'project_id'}"/>
+                    <filter name="group_result" string="Result" context="{'group_by': 'result'}"/>
+                    <filter name="group_date" string="Date" context="{'group_by': 'date'}"/>
+                    <filter name="group_approved_by" string="Approved By" context="{'group_by': 'approved_by'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Board Resolution Calendar View -->
+    <record id="view_board_resolution_calendar" model="ir.ui.view">
+        <field name="name">board.resolution.calendar</field>
+        <field name="model">board.resolution</field>
+        <field name="arch" type="xml">
+            <calendar string="Board Resolutions" date_start="date" color="state" quick_add="False">
+                <field name="title"/>
+                <field name="state"/>
+                <field name="result"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_board_resolution" model="ir.actions.act_window">
+        <field name="name">Board Resolutions</field>
+        <field name="res_model">board.resolution</field>
+        <field name="view_mode">tree,form,kanban,calendar</field>
+        <field name="search_view_id" ref="view_board_resolution_search"/>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first board resolution!
+            </p>
+            <p>
+                Board resolutions help you formally document and track important decisions made by the board of your association.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_board_resolution_draft" model="ir.actions.act_window">
+        <field name="name">Draft Resolutions</field>
+        <field name="res_model">board.resolution</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('state', '=', 'draft')]</field>
+        <field name="search_view_id" ref="view_board_resolution_search"/>
+        <field name="context">{'default_state': 'draft'}</field>
+    </record>
+
+    <record id="action_board_resolution_to_approve" model="ir.actions.act_window">
+        <field name="name">Pending Approval</field>
+        <field name="res_model">board.resolution</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('state', '=', 'to_approve')]</field>
+        <field name="search_view_id" ref="view_board_resolution_search"/>
+        <field name="context">{'default_state': 'to_approve'}</field>
+    </record>
+
+    <record id="action_board_resolution_approved" model="ir.actions.act_window">
+        <field name="name">Approved Resolutions</field>
+        <field name="res_model">board.resolution</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('state', 'in', ['approved', 'archived'])]</field>
+        <field name="search_view_id" ref="view_board_resolution_search"/>
+        <field name="context">{'default_state': 'approved'}</field>
+    </record>
+
+    <!-- Board Members Action -->
+    <record id="action_board_members" model="ir.actions.act_window">
+        <field name="name">Board Members</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('board_member', '=', True)]</field>
+        <field name="context">{'default_board_member': True, 'default_is_company': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your board members!
+            </p>
+            <p>
+                Mark contacts as board members to include them in resolution attendance tracking.
+            </p>
+        </field>
+    </record>
+
+</odoo>

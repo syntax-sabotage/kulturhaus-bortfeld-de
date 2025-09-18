@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Board Resolution Report Template -->
+    <template id="report_board_resolution_document">
+        <t t-call="web.external_layout">
+            <t t-set="doc" t-value="doc.with_context(lang=doc.env.context.get('lang'))"/>
+            <div class="page">
+                <!-- Header -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-center">
+                            <h2>
+                                <strong>Vorstandsbeschluss</strong>
+                            </h2>
+                            <h3 class="text-muted">
+                                Kulturhaus Bortfeld e.V.
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt32">
+                    <div class="col-6">
+                        <strong>Beschluss-Nr.:</strong> <span t-field="doc.name"/>
+                    </div>
+                    <div class="col-6 text-right">
+                        <strong>Datum:</strong> <span t-field="doc.date" t-options="{'widget': 'date'}"/>
+                    </div>
+                </div>
+
+                <!-- Title and Description -->
+                <div class="row mt16">
+                    <div class="col-12">
+                        <h4><span t-field="doc.title"/></h4>
+                        <p t-if="doc.description" class="text-muted">
+                            <span t-field="doc.description"/>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Project/Task Information -->
+                <div class="row mt16" t-if="doc.project_id or doc.task_id">
+                    <div class="col-12">
+                        <div class="alert alert-info">
+                            <strong>Bezug:</strong>
+                            <span t-if="doc.project_id">
+                                Projekt: <span t-field="doc.project_id"/>
+                            </span>
+                            <span t-if="doc.task_id">
+                                <br/>Aufgabe: <span t-field="doc.task_id"/>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resolution Text -->
+                <div class="row mt16">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Beschlusstext</strong>
+                            </div>
+                            <div class="card-body">
+                                <div t-field="doc.resolution_text"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attendance -->
+                <div class="row mt32">
+                    <div class="col-6">
+                        <h5>Anwesenheit</h5>
+                        <table class="table table-sm">
+                            <tr>
+                                <td><strong>Vorstandsmitglieder gesamt:</strong></td>
+                                <td><span t-esc="doc.total_board_members"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anwesend:</strong></td>
+                                <td><span t-esc="doc.present_count"/></td>
+                            </tr>
+                            <tr t-att-class="'text-success' if doc.quorum_met else 'text-danger'">
+                                <td><strong>Beschlussfähig:</strong></td>
+                                <td><span t-esc="'Ja' if doc.quorum_met else 'Nein'"/></td>
+                            </tr>
+                        </table>
+                        
+                        <div class="mt16">
+                            <strong>Anwesende Mitglieder:</strong>
+                            <ul class="list-unstyled mt8">
+                                <li t-foreach="doc.present_members" t-as="member">
+                                    • <span t-field="member.name"/>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-6">
+                        <h5>Abstimmungsergebnis</h5>
+                        <table class="table table-sm">
+                            <tr>
+                                <td><strong>Abstimmungsmodus:</strong></td>
+                                <td><span t-esc="'Offen' if doc.voting_mode == 'open' else 'Geheim'"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dafür:</strong></td>
+                                <td class="text-success"><span t-esc="doc.votes_for"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dagegen:</strong></td>
+                                <td class="text-danger"><span t-esc="doc.votes_against"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Enthaltungen:</strong></td>
+                                <td class="text-warning"><span t-esc="doc.votes_abstain"/></td>
+                            </tr>
+                            <tr class="border-top">
+                                <td><strong>Gesamt:</strong></td>
+                                <td><span t-esc="doc.total_votes"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ergebnis:</strong></td>
+                                <td>
+                                    <span t-if="doc.result == 'passed'" class="badge badge-success">Angenommen</span>
+                                    <span t-if="doc.result == 'rejected'" class="badge badge-danger">Abgelehnt</span>
+                                    <span t-if="doc.result == 'tie'" class="badge badge-warning">Unentschieden</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Open Voting Details -->
+                <div class="row mt32" t-if="doc.voting_mode == 'open'">
+                    <div class="col-12">
+                        <h5>Abstimmungsdetails (Offene Abstimmung)</h5>
+                        <div class="row">
+                            <div class="col-4" t-if="doc.votes_for_members">
+                                <div class="card">
+                                    <div class="card-header bg-success text-white">
+                                        <strong>Dafür gestimmt</strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled">
+                                            <li t-foreach="doc.votes_for_members" t-as="member">
+                                                • <span t-field="member.name"/>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4" t-if="doc.votes_against_members">
+                                <div class="card">
+                                    <div class="card-header bg-danger text-white">
+                                        <strong>Dagegen gestimmt</strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled">
+                                            <li t-foreach="doc.votes_against_members" t-as="member">
+                                                • <span t-field="member.name"/>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4" t-if="doc.votes_abstain_members">
+                                <div class="card">
+                                    <div class="card-header bg-warning text-white">
+                                        <strong>Enthalten</strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled">
+                                            <li t-foreach="doc.votes_abstain_members" t-as="member">
+                                                • <span t-field="member.name"/>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Approval Information -->
+                <div class="row mt32" t-if="doc.approved_by">
+                    <div class="col-12">
+                        <div class="alert alert-success">
+                            <strong>Genehmigung:</strong>
+                            Dieser Beschluss wurde am <span t-field="doc.approved_date" t-options="{'widget': 'datetime'}"/> 
+                            von <span t-field="doc.approved_by"/> genehmigt.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="row mt32">
+                    <div class="col-12">
+                        <div class="text-center text-muted">
+                            <hr/>
+                            <small>
+                                Erstellt am <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d.%m.%Y um %H:%M:%S')"/>
+                                <br/>
+                                Kulturhaus Bortfeld e.V. - Vereinsregister-Nr.: VR 123456
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Board Resolution Report -->
+    <record id="report_board_resolution" model="ir.actions.report">
+        <field name="name">Board Resolution</field>
+        <field name="model">board.resolution</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kulturhaus_board_resolutions.report_board_resolution_document</field>
+        <field name="report_file">kulturhaus_board_resolutions.report_board_resolution_document</field>
+        <field name="binding_model_id" ref="model_board_resolution"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>
