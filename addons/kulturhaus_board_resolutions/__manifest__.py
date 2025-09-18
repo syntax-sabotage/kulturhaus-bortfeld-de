@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Kulturhaus Board Resolutions',
-    'version': '18.0.1.0.0',
+    'version': '18.2.1.0.0',
     'category': 'Project',
     'summary': 'Board resolution management for Kulturhaus Bortfeld e.V.',
     'description': """
@@ -39,10 +39,10 @@ Perfect for managing Vorstandsbeschlüsse in compliance with German association 
         'data/sequence.xml',
         
         # Views
-        'views/menu.xml',
         'views/board_resolution_views.xml',
         'views/project_views.xml',
         'wizards/wizard_views.xml',
+        'views/menu.xml',
         
         # Reports
         'report/board_resolution_report.xml',
