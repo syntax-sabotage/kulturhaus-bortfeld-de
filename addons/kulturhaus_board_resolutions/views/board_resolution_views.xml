@@ -215,24 +215,12 @@
         </field>
     </record>
 
-    <!-- Board Resolution Calendar View -->
-    <record id="view_board_resolution_calendar" model="ir.ui.view">
-        <field name="name">board.resolution.calendar</field>
-        <field name="model">board.resolution</field>
-        <field name="arch" type="xml">
-            <calendar string="Board Resolutions" date_field="date" create="0">
-                <field name="title"/>
-                <field name="state"/>
-                <field name="result"/>
-            </calendar>
-        </field>
-    </record>
 
     <!-- Actions -->
     <record id="action_board_resolution" model="ir.actions.act_window">
         <field name="name">Board Resolutions</field>
         <field name="res_model">board.resolution</field>
-        <field name="view_mode">tree,form,kanban,calendar</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="search_view_id" ref="view_board_resolution_search"/>
         <field name="context">{}</field>
         <field name="help" type="html">
