@@ -124,13 +124,13 @@
         <field name="target">new</field>
     </record>
 
-    <!-- Menu item for the wizard -->
-    <menuitem 
+    <!-- Menu item for the wizard - removed from top menu, wizard can be accessed via action buttons -->
+    <!-- <menuitem 
         id="menu_create_resolution_wizard"
         name="➕ Create New Resolution"
         parent="kulturhaus_board_resolutions.menu_board_resolutions_root"
         action="action_create_resolution_wizard"
         sequence="15"
-        groups="kulturhaus_board_resolutions.group_board_member"/>
+        groups="kulturhaus_board_resolutions.group_board_member"/> -->
 
 </odoo>
