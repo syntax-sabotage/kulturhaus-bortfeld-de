@@ -39,48 +39,10 @@
         </field>
     </record>
 
-    <!-- Add Resolutions tab to Project Form -->
-    <record id="view_project_form_resolutions_tab" model="ir.ui.view">
-        <field name="name">project.project.form.resolutions.tab</field>
-        <field name="model">project.project</field>
-        <field name="inherit_id" ref="project.edit_project"/>
-        <field name="arch" type="xml">
-            <xpath expr="//notebook" position="inside">
-                <page string="Board Resolutions" name="board_resolutions">
-                    <field name="resolution_ids" readonly="1">
-                        <list string="Board Resolutions" create="0" edit="0">
-                            <field name="name"/>
-                            <field name="title"/>
-                            <field name="date"/>
-                            <field name="state" widget="badge"/>
-                            <field name="result" widget="badge"/>
-                        </list>
-                    </field>
-                </page>
-            </xpath>
-        </field>
-    </record>
+    <!-- Remove the broken tab entirely -->
+    <!-- Resolutions should be accessed via the smart button only -->
 
-    <!-- Add Resolutions tab to Task Form -->
-    <record id="view_task_form_resolutions_tab" model="ir.ui.view">
-        <field name="name">project.task.form.resolutions.tab</field>
-        <field name="model">project.task</field>
-        <field name="inherit_id" ref="project.view_task_form2"/>
-        <field name="arch" type="xml">
-            <xpath expr="//notebook" position="inside">
-                <page string="Board Resolutions" name="board_resolutions">
-                    <field name="resolution_ids" readonly="1">
-                        <list string="Board Resolutions" create="0" edit="0">
-                            <field name="name"/>
-                            <field name="title"/>
-                            <field name="date"/>
-                            <field name="state" widget="badge"/>
-                            <field name="result" widget="badge"/>
-                        </list>
-                    </field>
-                </page>
-            </xpath>
-        </field>
-    </record>
+    <!-- Remove the broken tab entirely -->
+    <!-- Resolutions should be accessed via the smart button only -->
 
 </odoo>

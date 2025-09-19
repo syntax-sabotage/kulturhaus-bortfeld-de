@@ -2,5 +2,8 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_board_resolution_public,board.resolution.public,model_board_resolution,base.group_user,1,0,0,0
 access_board_resolution_member,board.resolution.member,model_board_resolution,group_board_member,1,1,1,1
 access_board_resolution_secretary,board.resolution.secretary,model_board_resolution,group_board_secretary,1,1,1,1
+access_board_meeting_type_public,board.meeting.type.public,model_board_meeting_type,base.group_user,1,0,0,0
+access_board_meeting_type_member,board.meeting.type.member,model_board_meeting_type,group_board_member,1,0,0,0
+access_board_meeting_type_secretary,board.meeting.type.secretary,model_board_meeting_type,group_board_secretary,1,1,1,1
 access_create_resolution_wizard_member,create.resolution.wizard.member,model_create_resolution_wizard,group_board_member,1,1,1,1
 access_create_resolution_wizard_secretary,create.resolution.wizard.secretary,model_create_resolution_wizard,group_board_secretary,1,1,1,1

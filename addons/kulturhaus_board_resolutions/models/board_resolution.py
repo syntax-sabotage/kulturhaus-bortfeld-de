@@ -26,6 +26,22 @@ class BoardResolution(models.Model):
     date = fields.Date('Resolution Date', required=True, default=fields.Date.today, tracking=True)
     resolution_text = fields.Html('Resolution Text', required=True)
     
+    # Meeting Type Configuration
+    meeting_type_id = fields.Many2one(
+        'board.meeting.type',
+        string='Meeting Type',
+        required=True,
+        default=lambda self: self._get_default_meeting_type(),
+        tracking=True
+    )
+    
+    # Related Meeting Type Fields (for display in views)
+    meeting_quorum_type = fields.Selection(related='meeting_type_id.quorum_type', readonly=True)
+    meeting_quorum_percentage = fields.Float(related='meeting_type_id.quorum_percentage', readonly=True)
+    meeting_quorum_fixed = fields.Integer(related='meeting_type_id.quorum_fixed', readonly=True)
+    meeting_voting_majority = fields.Selection(related='meeting_type_id.voting_majority', readonly=True)
+    meeting_voting_majority_custom = fields.Float(related='meeting_type_id.voting_majority_custom', readonly=True)
+    
     # Voting Information
     present_members = fields.Many2many(
         'res.partner', 
@@ -109,10 +125,14 @@ class BoardResolution(models.Model):
         for resolution in self:
             resolution.total_board_members = self.env['res.partner'].search_count([('board_member', '=', True)])
 
-    @api.depends('present_count', 'total_board_members')
+    @api.depends('present_count', 'total_board_members', 'meeting_type_id')
     def _compute_quorum_met(self):
         for resolution in self:
-            if resolution.total_board_members > 0:
+            if resolution.total_board_members > 0 and resolution.meeting_type_id:
+                required_quorum = resolution.meeting_type_id.calculate_quorum(resolution.total_board_members)
+                resolution.quorum_met = resolution.present_count >= required_quorum
+            elif resolution.total_board_members > 0:
+                # Fallback to simple majority
                 resolution.quorum_met = resolution.present_count > (resolution.total_board_members / 2)
             else:
                 resolution.quorum_met = False
@@ -122,15 +142,26 @@ class BoardResolution(models.Model):
         for resolution in self:
             resolution.total_votes = resolution.votes_for + resolution.votes_against + resolution.votes_abstain
 
-    @api.depends('votes_for', 'votes_against')
+    @api.depends('votes_for', 'votes_against', 'meeting_type_id')
     def _compute_result(self):
         for resolution in self:
-            if resolution.votes_for > resolution.votes_against:
-                resolution.result = 'passed'
-            elif resolution.votes_against > resolution.votes_for:
-                resolution.result = 'rejected'
+            if resolution.meeting_type_id:
+                votes_cast = resolution.votes_for + resolution.votes_against
+                majority_needed = resolution.meeting_type_id.calculate_majority_needed(votes_cast)
+                if resolution.votes_for >= majority_needed:
+                    resolution.result = 'passed'
+                elif resolution.votes_against > (votes_cast - majority_needed):
+                    resolution.result = 'rejected'
+                else:
+                    resolution.result = 'tie'
             else:
-                resolution.result = 'tie'
+                # Fallback to simple majority
+                if resolution.votes_for > resolution.votes_against:
+                    resolution.result = 'passed'
+                elif resolution.votes_against > resolution.votes_for:
+                    resolution.result = 'rejected'
+                else:
+                    resolution.result = 'tie'
 
     @api.depends('state')
     def _compute_is_approved(self):
@@ -143,17 +174,31 @@ class BoardResolution(models.Model):
             resolution.can_edit = resolution.state in ('draft', 'voted') and not resolution.is_approved
 
     @api.model
-    def create(self, vals):
-        if vals.get('name', _('New')) == _('New'):
-            vals['name'] = self.env['ir.sequence'].next_by_code('board.resolution.sequence') or _('New')
-        return super(BoardResolution, self).create(vals)
+    def _get_default_meeting_type(self):
+        """Get default meeting type from settings or first available"""
+        default = self.env['ir.config_parameter'].sudo().get_param('kulturhaus_board_resolutions.default_meeting_type_id')
+        if default:
+            return int(default)
+        return self.env['board.meeting.type'].search([], limit=1).id
+    
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', _('New')) == _('New'):
+                vals['name'] = self.env['ir.sequence'].next_by_code('board.resolution.sequence') or _('New')
+        return super(BoardResolution, self).create(vals_list)
 
-    @api.constrains('present_count')
+    @api.constrains('present_count', 'meeting_type_id')
     def _check_quorum(self):
         for resolution in self:
             if resolution.state not in ('draft',) and not resolution.quorum_met:
-                raise ValidationError(_('Quorum not met. At least %d board members must be present.') % 
-                                    (resolution.total_board_members // 2 + 1))
+                if resolution.meeting_type_id:
+                    required = resolution.meeting_type_id.calculate_quorum(resolution.total_board_members)
+                    raise ValidationError(_('Quorum not met for %s. At least %d board members must be present.') % 
+                                        (resolution.meeting_type_id.name, required))
+                else:
+                    raise ValidationError(_('Quorum not met. At least %d board members must be present.') % 
+                                        (resolution.total_board_members // 2 + 1))
 
     @api.constrains('votes_for', 'votes_against', 'votes_abstain', 'present_count')
     def _check_vote_count(self):

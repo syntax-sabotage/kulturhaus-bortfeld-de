@@ -37,11 +37,11 @@ Perfect for managing Vorstandsbeschlüsse in compliance with German association 
         
         # Data
         'data/sequence.xml',
-        'data/demo_board_members.xml',
         
         # Views
         'views/res_partner_views.xml',
-        'views/board_resolution_views.xml',
+        'views/meeting_type_views.xml',
+        'views/board_resolution_form_view.xml',
         'views/project_views.xml',
         'wizards/wizard_views.xml',
         'views/menu.xml',

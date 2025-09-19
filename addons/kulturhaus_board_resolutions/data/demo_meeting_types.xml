@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Meeting Type: Regular Board Meeting -->
+        <record id="meeting_type_regular" model="board.meeting.type">
+            <field name="name">Vorstandssitzung (Regular)</field>
+            <field name="sequence">10</field>
+            <field name="active">True</field>
+            <field name="quorum_type">half_plus_one</field>
+            <field name="voting_majority">simple</field>
+            <field name="allow_proxy_voting">False</field>
+            <field name="allow_secret_ballot">True</field>
+            <field name="allow_open_ballot">True</field>
+            <field name="description">Reguläre Vorstandssitzung mit Standardbeschlussfähigkeit (mehr als die Hälfte der Mitglieder anwesend) und einfacher Mehrheit für Beschlüsse.</field>
+            <field name="color">1</field>
+        </record>
+
+        <!-- Meeting Type: Annual General Meeting -->
+        <record id="meeting_type_annual" model="board.meeting.type">
+            <field name="name">Mitgliederversammlung (Annual)</field>
+            <field name="sequence">20</field>
+            <field name="active">True</field>
+            <field name="quorum_type">percentage</field>
+            <field name="quorum_percentage">30</field>
+            <field name="voting_majority">simple</field>
+            <field name="allow_proxy_voting">True</field>
+            <field name="allow_secret_ballot">True</field>
+            <field name="allow_open_ballot">True</field>
+            <field name="description">Jährliche Mitgliederversammlung gemäß Satzung. Mindestens 30% der Mitglieder müssen anwesend sein. Stimmrechtsübertragung ist zulässig.</field>
+            <field name="color">2</field>
+        </record>
+
+        <!-- Meeting Type: Extraordinary Meeting -->
+        <record id="meeting_type_extraordinary" model="board.meeting.type">
+            <field name="name">Außerordentliche Sitzung</field>
+            <field name="sequence">30</field>
+            <field name="active">True</field>
+            <field name="quorum_type">two_thirds</field>
+            <field name="voting_majority">two_thirds</field>
+            <field name="allow_proxy_voting">False</field>
+            <field name="allow_secret_ballot">True</field>
+            <field name="allow_open_ballot">False</field>
+            <field name="description">Außerordentliche Sitzung für wichtige Entscheidungen. Erfordert zwei Drittel der Mitglieder und Zweidrittelmehrheit für Beschlüsse.</field>
+            <field name="color">3</field>
+        </record>
+
+        <!-- Meeting Type: Emergency Resolution -->
+        <record id="meeting_type_emergency" model="board.meeting.type">
+            <field name="name">Eilbeschluss (Emergency)</field>
+            <field name="sequence">40</field>
+            <field name="active">True</field>
+            <field name="quorum_type">fixed</field>
+            <field name="quorum_fixed">3</field>
+            <field name="voting_majority">unanimous</field>
+            <field name="allow_proxy_voting">False</field>
+            <field name="allow_secret_ballot">False</field>
+            <field name="allow_open_ballot">True</field>
+            <field name="description">Eilbeschluss bei dringenden Angelegenheiten. Mindestens 3 Vorstandsmitglieder erforderlich, einstimmiger Beschluss notwendig.</field>
+            <field name="color">5</field>
+        </record>
+
+        <!-- Meeting Type: Working Group -->
+        <record id="meeting_type_working_group" model="board.meeting.type">
+            <field name="name">AG-Sitzung (Working Group)</field>
+            <field name="sequence">50</field>
+            <field name="active">True</field>
+            <field name="quorum_type">percentage</field>
+            <field name="quorum_percentage">40</field>
+            <field name="voting_majority">simple</field>
+            <field name="allow_proxy_voting">True</field>
+            <field name="allow_secret_ballot">False</field>
+            <field name="allow_open_ballot">True</field>
+            <field name="description">Arbeitsgruppensitzung für operative Entscheidungen. 40% der AG-Mitglieder müssen anwesend sein.</field>
+            <field name="color">4</field>
+        </record>
+
+        <!-- Meeting Type: Statute Amendment -->
+        <record id="meeting_type_statute" model="board.meeting.type">
+            <field name="name">Satzungsänderung</field>
+            <field name="sequence">60</field>
+            <field name="active">True</field>
+            <field name="quorum_type">percentage</field>
+            <field name="quorum_percentage">75</field>
+            <field name="voting_majority">three_quarters</field>
+            <field name="allow_proxy_voting">False</field>
+            <field name="allow_secret_ballot">True</field>
+            <field name="allow_open_ballot">False</field>
+            <field name="description">Sitzung zur Satzungsänderung. Erfordert 75% Anwesenheit und Dreiviertelmehrheit für Änderungen.</field>
+            <field name="color">6</field>
+        </record>
+
+    </data>
+</odoo>

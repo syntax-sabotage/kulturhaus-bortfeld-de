@@ -40,6 +40,12 @@ class CreateResolutionWizard(models.TransientModel):
     title = fields.Char('Title', required=True)
     description = fields.Text('Description')
     date = fields.Date('Resolution Date', required=True, default=fields.Date.today)
+    meeting_type_id = fields.Many2one(
+        'board.meeting.type',
+        string='Meeting Type',
+        required=True,
+        default=lambda self: self._get_default_meeting_type()
+    )
     project_id = fields.Many2one('project.project', string='Related Project')
     task_id = fields.Many2one('project.task', string='Related Task')
 
@@ -119,10 +125,21 @@ class CreateResolutionWizard(models.TransientModel):
         for wizard in self:
             wizard.total_board_members = len(wizard.board_members)
 
-    @api.depends('present_count', 'total_board_members')
+    @api.model
+    def _get_default_meeting_type(self):
+        """Get default meeting type from settings or first available"""
+        default = self.env['ir.config_parameter'].sudo().get_param('kulturhaus_board_resolutions.default_meeting_type_id')
+        if default:
+            return int(default)
+        return self.env['board.meeting.type'].search([], limit=1).id
+    
+    @api.depends('present_count', 'total_board_members', 'meeting_type_id')
     def _compute_quorum_met(self):
         for wizard in self:
-            if wizard.total_board_members > 0:
+            if wizard.total_board_members > 0 and wizard.meeting_type_id:
+                required_quorum = wizard.meeting_type_id.calculate_quorum(wizard.total_board_members)
+                wizard.quorum_met = wizard.present_count >= required_quorum
+            elif wizard.total_board_members > 0:
                 wizard.quorum_met = wizard.present_count > (wizard.total_board_members / 2)
             else:
                 wizard.quorum_met = False
@@ -208,6 +225,7 @@ class CreateResolutionWizard(models.TransientModel):
             'title': self.title,
             'description': self.description,
             'date': self.date,
+            'meeting_type_id': self.meeting_type_id.id,
             'resolution_text': self.resolution_text,
             'project_id': self.project_id.id if self.project_id else False,
             'task_id': self.task_id.id if self.task_id else False,
@@ -261,8 +279,13 @@ class CreateResolutionWizard(models.TransientModel):
         if not self.present_members:
             raise ValidationError(_('At least one board member must be present.'))
         if not self.quorum_met:
-            raise ValidationError(_('Quorum not met. At least %d board members must be present.') % 
-                                (self.total_board_members // 2 + 1))
+            if self.meeting_type_id:
+                required = self.meeting_type_id.calculate_quorum(self.total_board_members)
+                raise ValidationError(_('Quorum not met for %s. At least %d board members must be present.') % 
+                                    (self.meeting_type_id.name, required))
+            else:
+                raise ValidationError(_('Quorum not met. At least %d board members must be present.') % 
+                                    (self.total_board_members // 2 + 1))
 
     def _validate_resolution_step(self):
         """Validate resolution text step"""
