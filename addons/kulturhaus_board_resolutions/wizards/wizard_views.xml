@@ -12,7 +12,7 @@
                     <h1 invisible="step != 'attendance'">Step 2: Board Member Attendance</h1>
                     <h1 invisible="step != 'resolution'">Step 3: Resolution Text</h1>
                     <h1 invisible="step != 'voting'">Step 4: Voting</h1>
-                    <h1 invisible="step != 'confirmation'">Step 5: Review & Confirm</h1>
+                    <h1 invisible="step != 'confirmation'">Step 5: Review &amp; Confirm</h1>
                 </header>
                 
                 <!-- Step field (hidden) -->
@@ -124,7 +124,7 @@
 
                     <!-- Step 5: Confirmation -->
                     <notebook invisible="step != 'confirmation'">
-                        <page string="Review & Confirm">
+                        <page string="Review &amp; Confirm">
                             <div class="alert alert-success mb-3" role="alert">
                                 <i class="fa fa-check-circle"/> Review the resolution details and click "Create Resolution" to finalize.
                             </div>
