@@ -2,9 +2,9 @@
 
 spawn ssh khaus@193.30.120.108
 expect "password:"
-send "Basf1\$Khaus\r"
+send "[REMOVED-USE-SSH-KEY]\r"
 expect "$ "
-send "echo 'Basf1\$Khaus' | sudo -S systemctl restart odoo18\r"
+send "echo '[REMOVED-USE-SSH-KEY]' | sudo -S systemctl restart odoo18\r"
 expect "$ "
 send "echo 'Odoo service restarted'\r"
 expect "$ "

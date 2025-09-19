@@ -58,7 +58,7 @@
 
 ### Check Module Status
 ```bash
-ssh kulturhaus "echo 'Basf1\$Khaus' | sudo -S -u odoo18 psql -d kulturhive -c \"SELECT name, state FROM ir_module_module WHERE state='installed' ORDER BY name;\""
+ssh kulturhaus "echo '[REMOVED-USE-SSH-KEY]' | sudo -S -u odoo18 psql -d kulturhive -c \"SELECT name, state FROM ir_module_module WHERE state='installed' ORDER BY name;\""
 ```
 
 ### Update Apps List
@@ -69,8 +69,8 @@ ssh kulturhaus "echo 'Basf1\$Khaus' | sudo -S -u odoo18 psql -d kulturhive -c \"
 
 ### Clear Module Cache
 ```bash
-ssh kulturhaus "echo 'Basf1\$Khaus' | sudo -S rm -rf /opt/odoo18/odoo/.local/share/Odoo/filestore/kulturhive/assets/*"
-ssh kulturhaus "echo 'Basf1\$Khaus' | sudo -S systemctl restart odoo18"
+ssh kulturhaus "echo '[REMOVED-USE-SSH-KEY]' | sudo -S rm -rf /opt/odoo18/odoo/.local/share/Odoo/filestore/kulturhive/assets/*"
+ssh kulturhaus "echo '[REMOVED-USE-SSH-KEY]' | sudo -S systemctl restart odoo18"
 ```
 
 ## 📝 Module Development Notes
@@ -113,7 +113,7 @@ kulturhaus_push (Main Module)
 ### Missing Modules in Apps List
 ```bash
 # Update module list
-ssh kulturhaus "echo 'Basf1\$Khaus' | sudo -S systemctl restart odoo18"
+ssh kulturhaus "echo '[REMOVED-USE-SSH-KEY]' | sudo -S systemctl restart odoo18"
 # Then: Apps > Update Apps List
 ```
 

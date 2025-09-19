@@ -67,7 +67,7 @@ Host kulturhaus
 
 **SSH Credentials:**
 - User: `khaus`
-- Password: `Basf1$Khaus`
+- Password: `[REMOVED - USE SSH KEY]`
 - SSH Key: `~/.ssh/kulturhaus_bortfeld` (ed25519)
 
 ---

@@ -2,10 +2,10 @@
 
 echo "Deploying Kanban fix to Kulturhaus server..."
 echo ""
-echo "Password: Basf1\$Khaus"
+echo "Password: [REMOVED - USE SSH KEY]"
 echo ""
 
-sshpass -p 'Basf1$Khaus' ssh khaus@v2202411240735294743.luckysrv.de << 'EOF'
+# sshpass removed - use SSH key authentication ssh khaus@v2202411240735294743.luckysrv.de << 'EOF'
 echo "Pulling latest changes from GitHub..."
 cd /opt/kulturhaus-docs
 git pull origin main

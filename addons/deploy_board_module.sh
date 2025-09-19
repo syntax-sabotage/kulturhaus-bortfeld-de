@@ -10,7 +10,7 @@ tar -czf kulturhaus_board_resolutions.tar.gz kulturhaus_board_resolutions/
 expect << 'EOF'
 spawn scp kulturhaus_board_resolutions.tar.gz khaus@193.30.120.108:/tmp/
 expect "password:"
-send "Basf1\$Khaus\r"
+send "[REMOVED-USE-SSH-KEY]\r"
 expect eof
 EOF
 
@@ -18,11 +18,11 @@ EOF
 expect << 'EOF'
 spawn ssh khaus@193.30.120.108
 expect "password:"
-send "Basf1\$Khaus\r"
+send "[REMOVED-USE-SSH-KEY]\r"
 expect "$ "
 send "sudo rm -rf /opt/odoo18/odoo/addons/kulturhaus_board_resolutions\r"
 expect "password"
-send "Basf1\$Khaus\r"
+send "[REMOVED-USE-SSH-KEY]\r"
 expect "$ "
 send "sudo tar -xzf /tmp/kulturhaus_board_resolutions.tar.gz -C /opt/odoo18/odoo/addons/\r"
 expect "$ "

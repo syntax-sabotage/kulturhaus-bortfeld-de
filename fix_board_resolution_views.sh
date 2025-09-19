@@ -10,7 +10,7 @@ echo ""
 # SSH connection details
 SSH_USER="khaus"
 SSH_HOST="v2202411240735294743.luckysrv.de"
-SSH_PASS="Basf1\$Khaus"
+SSH_PASS="[REMOVED-USE-SSH-KEY]"
 
 # Use sshpass to connect
 export SSHPASS="$SSH_PASS"

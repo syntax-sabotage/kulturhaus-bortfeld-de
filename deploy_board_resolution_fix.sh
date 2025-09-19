@@ -115,7 +115,7 @@ echo "Copying script to server..."
 scp /tmp/fix_board_resolution.sh khaus@v2202411240735294743.luckysrv.de:/tmp/
 
 echo "Connecting to server to execute fix..."
-echo "You will need to enter the password: Basf1\$Khaus"
+echo "You will need to enter the password: [REMOVED-USE-SSH-KEY]"
 ssh khaus@v2202411240735294743.luckysrv.de 'bash /tmp/fix_board_resolution.sh'
 
 echo "Done!"

@@ -8,7 +8,7 @@ When clicking on a board resolution line item, a broken/empty view opens instead
 ### 1. Connect to Server
 ```bash
 ssh khaus@v2202411240735294743.luckysrv.de
-# Password: Basf1$Khaus
+# Password: [REMOVED-USE-SSH-KEY]
 ```
 
 ### 2. Remove Duplicate Module (CRITICAL STEP)

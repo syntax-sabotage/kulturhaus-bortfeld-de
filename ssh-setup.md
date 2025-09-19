@@ -20,7 +20,7 @@
 
 ## ✅ Authentication Methods
 1. **Primary**: SSH Key authentication (ed25519)
-2. **Backup**: Password authentication (Basf1$Khaus)
+2. **Backup**: Password authentication ([REMOVED-USE-SSH-KEY])
 3. **User**: khaus
 4. **Server**: v2202411240735294743.luckysrv.de
 

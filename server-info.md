@@ -15,7 +15,7 @@
 - **Domain**: ✅ kulturhaus-bortfeld.de (LIVE)
 - **Website**: https://kulturhaus-bortfeld.de
 - **SSH User**: khaus
-- **SSH Password**: Basf1$Khaus
+- **SSH Password**: [REMOVED-USE-SSH-KEY]
 - **SSH Key**: ed25519 (kulturhaus_bortfeld)
 - **Admin Panel**: Odoo Web Interface
 

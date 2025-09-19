@@ -37,7 +37,7 @@ The Kulturhaus Bortfeld e.V. server is a **fully operational production environm
 
 ### SSH Access
 - **SSH User**: `khaus`
-- **SSH Password**: `Basf1$Khaus`
+- **SSH Password**: `[REMOVED-USE-SSH-KEY]`
 - **SSH Port**: 22 (standard)
 - **Key Authentication**: ✅ Enabled (ed25519)
 - **Password Authentication**: ✅ Enabled (backup method)
