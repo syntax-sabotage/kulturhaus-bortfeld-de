@@ -236,7 +236,16 @@
         <field name="res_model">res.partner</field>
         <field name="view_mode">list,form</field>
         <field name="domain">[('board_member', '=', True)]</field>
-        <field name="context">{'default_board_member': True}</field>
+        <field name="context">{'default_board_member': True, 'create': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No board members found
+            </p>
+            <p>
+                Board members should be added through the Contacts module.
+                Mark contacts as board members to see them here.
+            </p>
+        </field>
     </record>
 
     <!-- Menu Structure -->
