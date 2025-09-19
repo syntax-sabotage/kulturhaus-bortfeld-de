@@ -13,13 +13,14 @@ ssh khaus@v2202411240735294743.luckysrv.de
 
 ### 2. Remove Duplicate Module (CRITICAL STEP)
 ```bash
-# Check if duplicate exists
+# Check if duplicate exists in custom-addons (THIS IS THE WRONG LOCATION)
 ls -la /opt/odoo18/custom-addons/kulturhaus_board_resolutions
 
-# If it exists, remove it:
-sudo mv /opt/odoo18/custom-addons/kulturhaus_board_resolutions /opt/odoo18/custom-addons/kulturhaus_board_resolutions.backup
+# If it exists, REMOVE IT - it doesn't belong there:
+sudo rm -rf /opt/odoo18/custom-addons/kulturhaus_board_resolutions
 
-# This removes the conflicting module that's causing the broken views
+# This removes the conflicting duplicate that's causing the broken views
+# The correct module stays in /opt/odoo18/odoo/addons/ where ALL your modules are
 ```
 
 ### 3. Update Main Module
@@ -105,10 +106,10 @@ sudo systemctl restart odoo18
 ## Root Cause
 
 The issue was caused by having the same module installed in two locations:
-1. `/opt/odoo18/odoo/addons/kulturhaus_board_resolutions/` (correct location)
-2. `/opt/odoo18/custom-addons/kulturhaus_board_resolutions/` (duplicate causing conflicts)
+1. `/opt/odoo18/odoo/addons/kulturhaus_board_resolutions/` (CORRECT location - where ALL your modules are)
+2. `/opt/odoo18/custom-addons/kulturhaus_board_resolutions/` (WRONG location - duplicate causing conflicts)
 
-Both were being loaded by Odoo, creating conflicting view definitions. The broken views were being auto-generated when Odoo couldn't resolve the conflicts.
+Both were being loaded by Odoo, creating conflicting view definitions. The broken views were being auto-generated when Odoo couldn't resolve the conflicts. The custom-addons folder should NOT contain this module.
 
 ## If Problem Persists
 
