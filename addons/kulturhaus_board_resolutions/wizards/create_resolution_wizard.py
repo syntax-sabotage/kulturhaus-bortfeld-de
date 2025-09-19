@@ -8,6 +8,25 @@ class CreateResolutionWizard(models.TransientModel):
     _name = 'create.resolution.wizard'
     _description = 'Create Board Resolution Wizard'
 
+    @api.model
+    def default_get(self, fields):
+        """Override to set default values when wizard is opened"""
+        res = super(CreateResolutionWizard, self).default_get(fields)
+        
+        # Check if opened from a task
+        if self.env.context.get('active_model') == 'project.task':
+            task_id = self.env.context.get('active_id')
+            if task_id:
+                task = self.env['project.task'].browse(task_id)
+                if 'title' in fields:
+                    res['title'] = _('Resolution for Task: %s') % task.name
+                if 'task_id' in fields:
+                    res['task_id'] = task_id
+                if 'project_id' in fields:
+                    res['project_id'] = task.project_id.id
+        
+        return res
+
     # Wizard Steps
     step = fields.Selection([
         ('basic', 'Basic Information'),
@@ -231,7 +250,8 @@ class CreateResolutionWizard(models.TransientModel):
 
     def _validate_basic_step(self):
         """Validate basic information step"""
-        if not self.title:
+        # Title validation - check if empty or just whitespace
+        if not self.title or not self.title.strip():
             raise ValidationError(_('Title is required.'))
         if not self.date:
             raise ValidationError(_('Date is required.'))
