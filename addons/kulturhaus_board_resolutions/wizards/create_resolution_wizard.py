@@ -66,7 +66,7 @@ class CreateResolutionWizard(models.TransientModel):
     quorum_met = fields.Boolean('Quorum Met', compute='_compute_quorum_met')
 
     # Step 3: Resolution Text
-    resolution_text = fields.Html('Resolution Text', required=True)
+    resolution_text = fields.Html('Resolution Text')
 
     # Step 4: Voting
     voting_mode = fields.Selection([
