@@ -40,11 +40,8 @@ Perfect for managing Vorstandsbeschlüsse in compliance with German association 
         
         # Views
         'views/res_partner_views.xml',
-        'views/meeting_type_views.xml',
-        'views/board_resolution_form_view.xml',
-        'views/project_views.xml',
+        'views/board_resolution_complete.xml',
         'wizards/wizard_views.xml',
-        'views/menu.xml',
         
         # Reports
         'report/board_resolution_report.xml',

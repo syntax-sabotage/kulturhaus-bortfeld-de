@@ -4,6 +4,7 @@
     <!-- Main Menu -->
     <menuitem id="menu_board_resolutions_main"
               name="Board Resolutions"
+              action="action_board_resolution"
               sequence="85"/>
 
     <!-- Sub Menus -->

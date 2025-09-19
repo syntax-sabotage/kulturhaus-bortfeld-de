@@ -1,5 +1,31 @@
 # CLAUDE.md - Kulturhaus Bortfeld e.V. Project Context
 
+## ⚠️ CRITICAL: ODOO 18 VIEW ISSUES - READ FIRST
+
+### MOST COMMON ERROR: Broken Form View with Wrong Columns
+**SYMPTOM**: Clicking line item shows technical columns ("Dokumenten Name", "Aktivitätstyp", etc.)
+
+**CAUSE & FIX**:
+```xml
+<!-- ❌ NEVER DO THIS - Creates broken embedded lists -->
+<div class="oe_chatter">
+    <field name="message_follower_ids"/>
+    <field name="activity_ids"/>
+    <field name="message_ids"/>
+</div>
+
+<!-- ✅ ALWAYS USE THIS -->
+<chatter/>
+```
+
+### Odoo 18 Breaking Changes:
+1. **Use `<list>` not `<tree>`** - Odoo 18 requires `<list>` elements
+2. **No attrs/states** - Use direct Python expressions: `invisible="state != 'draft'"`
+3. **Set view priorities** - Form=1, List=10, Others=16
+4. **Explicit view bindings** - Always bind views to actions explicitly
+
+See ODOO18_VIEW_FIXES.md for complete debugging guide.
+
 **Version**: 1.2  
 **Date**: 2025-09-17  
 **Project**: Kulturhaus Bortfeld e.V. - Odoo ERP System  

@@ -72,13 +72,13 @@
         <field name="name">board.meeting.type.tree</field>
         <field name="model">board.meeting.type</field>
         <field name="arch" type="xml">
-            <tree string="Meeting Types">
+            <list string="Meeting Types">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="quorum_type"/>
                 <field name="voting_majority"/>
                 <field name="active" widget="boolean_toggle"/>
-            </tree>
+            </list>
         </field>
     </record>
 
