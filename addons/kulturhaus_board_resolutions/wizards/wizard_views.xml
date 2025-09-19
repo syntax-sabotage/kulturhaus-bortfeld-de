@@ -6,147 +6,186 @@
         <field name="name">create.resolution.wizard.form</field>
         <field name="model">create.resolution.wizard</field>
         <field name="arch" type="xml">
-            <form string="Create Board Resolution">
-                <!-- Step field for debugging - hidden later -->
+            <form string="Create Board Resolution" class="o_form_nosheet">
+                <header>
+                    <h1 invisible="step != 'basic'">Step 1: Basic Information</h1>
+                    <h1 invisible="step != 'attendance'">Step 2: Board Member Attendance</h1>
+                    <h1 invisible="step != 'resolution'">Step 3: Resolution Text</h1>
+                    <h1 invisible="step != 'voting'">Step 4: Voting</h1>
+                    <h1 invisible="step != 'confirmation'">Step 5: Review & Confirm</h1>
+                </header>
+                
+                <!-- Step field (hidden) -->
                 <field name="step" invisible="1"/>
                 
-                <!-- Step 1: Basic Information -->
-                <group invisible="step != 'basic'">
-                    <h2>Step 1: Basic Information</h2>
-                    <group>
-                        <group>
-                            <field name="title" required="1"/>
-                            <field name="date" required="1"/>
-                        </group>
-                        <group>
-                            <field name="project_id"/>
-                            <field name="task_id" domain="[('project_id', '=', project_id)]"/>
-                        </group>
-                    </group>
-                    <group>
-                        <field name="description" placeholder="Brief description of what this resolution is about..."/>
-                    </group>
-                </group>
+                <sheet>
+                    <!-- Step 1: Basic Information -->
+                    <notebook invisible="step != 'basic'">
+                        <page string="Resolution Details">
+                            <group col="2">
+                                <group string="General Information">
+                                    <field name="title" placeholder="e.g., Budget Approval 2025" required="1"/>
+                                    <field name="date" required="1"/>
+                                </group>
+                                <group string="Related Items (Optional)">
+                                    <field name="project_id" options="{'no_create': True}"/>
+                                    <field name="task_id" domain="[('project_id', '=', project_id)]" options="{'no_create': True}"/>
+                                </group>
+                            </group>
+                            <group string="Description">
+                                <field name="description" nolabel="1" placeholder="Brief description of what this resolution is about..." widget="text" style="min-height: 100px;"/>
+                            </group>
+                        </page>
+                    </notebook>
 
-                <!-- Step 2: Attendance -->
-                <group invisible="step != 'attendance'">
-                    <h2>Step 2: Board Member Attendance</h2>
-                    <div class="alert alert-info" role="alert">
-                        <strong>Quorum Check:</strong> At least <field name="total_board_members" readonly="1" class="font-weight-bold"/> board members are registered. 
-                        You need more than half present to meet quorum.
-                    </div>
-                    
-                    <group>
-                        <group>
-                            <field name="total_board_members" readonly="1"/>
-                            <field name="present_count" readonly="1"/>
-                        </group>
-                        <group>
-                            <field name="quorum_met" widget="boolean_toggle" readonly="1"/>
-                        </group>
-                    </group>
-                    
-                    <group string="Present Members">
-                        <field name="board_members" invisible="1"/>
-                        <field name="present_members" widget="many2many_checkboxes" domain="[('id', 'in', board_members)]" nolabel="1"/>
-                    </group>
-                    
-                    <div class="alert alert-warning" role="alert" invisible="quorum_met">
-                        <i class="fa fa-warning"/> <strong>Quorum not met!</strong> You must select more than half of the board members to proceed.
-                    </div>
-                </group>
+                    <!-- Step 2: Attendance -->
+                    <notebook invisible="step != 'attendance'">
+                        <page string="Board Member Attendance">
+                            <div class="alert alert-info mb-3" role="alert">
+                                <i class="fa fa-info-circle"/> <strong>Quorum Check:</strong> 
+                                <field name="total_board_members" readonly="1" class="oe_inline"/> board members are registered. 
+                                You need at least <strong><field name="total_board_members" readonly="1" class="oe_inline"/> ÷ 2 + 1</strong> present members for quorum.
+                            </div>
+                            
+                            <group col="4">
+                                <field name="present_count" string="Present Count" readonly="1"/>
+                                <field name="total_board_members" string="Total Members" readonly="1"/>
+                                <field name="quorum_met" string="Quorum Met" widget="boolean_toggle" readonly="1"/>
+                            </group>
+                            
+                            <separator string="Select Present Members"/>
+                            <field name="board_members" invisible="1"/>
+                            <field name="present_members" widget="many2many_tags" domain="[('id', 'in', board_members)]">
+                                <tree>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                            
+                            <div class="alert alert-warning mt-3" role="alert" invisible="quorum_met">
+                                <i class="fa fa-warning"/> <strong>Quorum not met!</strong> 
+                                Please select more board members to proceed.
+                            </div>
+                        </page>
+                    </notebook>
 
-                <!-- Step 3: Resolution Text -->
-                <group invisible="step != 'resolution'">
-                    <h2>Step 3: Resolution Text</h2>
-                    <div class="alert alert-info" role="alert">
-                        Enter the detailed text of the resolution. This will be the official text that appears in the final document.
-                    </div>
-                    <field name="resolution_text" placeholder="BESCHLUSS: Der Vorstand beschließt..." required="1"/>
-                </group>
+                    <!-- Step 3: Resolution Text -->
+                    <notebook invisible="step != 'resolution'">
+                        <page string="Resolution Text">
+                            <div class="alert alert-info mb-3" role="alert">
+                                <i class="fa fa-edit"/> Enter the official resolution text that will appear in the final document.
+                            </div>
+                            <field name="resolution_text" 
+                                   placeholder="BESCHLUSS: Der Vorstand beschließt einstimmig/mit Mehrheit..." 
+                                   required="1" 
+                                   widget="html"
+                                   style="min-height: 300px;"/>
+                        </page>
+                    </notebook>
 
-                <!-- Step 4: Voting -->
-                <group invisible="step != 'voting'">
-                    <h2>Step 4: Voting</h2>
-                    
-                    <group>
-                        <group>
-                            <field name="voting_mode" widget="radio"/>
-                        </group>
-                        <group>
-                            <field name="total_votes" readonly="1"/>
-                            <field name="result" widget="badge" readonly="1"/>
-                        </group>
-                    </group>
-                    
-                    <!-- Secret Voting -->
-                    <group string="Vote Counts" invisible="voting_mode != 'secret'">
-                        <group>
-                            <field name="votes_for"/>
-                            <field name="votes_against"/>
-                            <field name="votes_abstain"/>
-                        </group>
-                    </group>
-                    
-                    <!-- Open Voting -->
-                    <group invisible="voting_mode != 'open'">
-                        <separator string="Votes For"/>
-                        <field name="votes_for_members" widget="many2many_checkboxes" domain="[('id', 'in', present_members)]" nolabel="1"/>
-                        <separator string="Votes Against"/>
-                        <field name="votes_against_members" widget="many2many_checkboxes" domain="[('id', 'in', present_members)]" nolabel="1"/>
-                        <separator string="Abstentions"/>
-                        <field name="votes_abstain_members" widget="many2many_checkboxes" domain="[('id', 'in', present_members)]" nolabel="1"/>
-                    </group>
-                    
-                    <div class="alert alert-warning" role="alert" invisible="voting_mode == 'open' or total_votes == present_count">
-                        <i class="fa fa-warning"/> Total votes (<field name="total_votes" readonly="1"/>) must equal present members (<field name="present_count" readonly="1"/>).
-                    </div>
-                </group>
+                    <!-- Step 4: Voting -->
+                    <notebook invisible="step != 'voting'">
+                        <page string="Voting">
+                            <group col="2">
+                                <group string="Voting Settings">
+                                    <field name="voting_mode" widget="radio_horizontal"/>
+                                    <field name="total_votes" string="Total Votes Cast" readonly="1"/>
+                                </group>
+                                <group string="Result">
+                                    <field name="result" widget="badge" readonly="1" nolabel="1"/>
+                                </group>
+                            </group>
+                            
+                            <!-- Secret Voting -->
+                            <group string="Vote Counts" invisible="voting_mode != 'secret'" col="3">
+                                <field name="votes_for" string="For"/>
+                                <field name="votes_against" string="Against"/>
+                                <field name="votes_abstain" string="Abstain"/>
+                            </group>
+                            
+                            <!-- Open Voting -->
+                            <notebook invisible="voting_mode != 'open'">
+                                <page string="Votes For" name="votes_for_page">
+                                    <field name="votes_for_members" widget="many2many_tags" domain="[('id', 'in', present_members)]" nolabel="1"/>
+                                </page>
+                                <page string="Votes Against" name="votes_against_page">
+                                    <field name="votes_against_members" widget="many2many_tags" domain="[('id', 'in', present_members)]" nolabel="1"/>
+                                </page>
+                                <page string="Abstentions" name="abstentions_page">
+                                    <field name="votes_abstain_members" widget="many2many_tags" domain="[('id', 'in', present_members)]" nolabel="1"/>
+                                </page>
+                            </notebook>
+                            
+                            <div class="alert alert-warning mt-3" role="alert" invisible="voting_mode == 'open' or total_votes == present_count">
+                                <i class="fa fa-warning"/> Total votes (<field name="total_votes" readonly="1" class="oe_inline"/>) 
+                                must equal present members (<field name="present_count" readonly="1" class="oe_inline"/>).
+                            </div>
+                        </page>
+                    </notebook>
 
-                <!-- Step 5: Confirmation -->
-                <group invisible="step != 'confirmation'">
-                    <h2>Step 5: Confirmation</h2>
-                    <div class="alert alert-success" role="alert">
-                        <i class="fa fa-check-circle"/> Ready to create resolution!
-                    </div>
-                    
-                    <group>
-                        <group>
-                            <label for="title" string="Title"/>
-                            <div><field name="title" readonly="1" nolabel="1"/></div>
-                            <label for="date" string="Date"/>
-                            <div><field name="date" readonly="1" nolabel="1"/></div>
-                            <label for="project_id" string="Project" invisible="not project_id"/>
-                            <div invisible="not project_id"><field name="project_id" readonly="1" nolabel="1"/></div>
-                        </group>
-                        <group>
-                            <label for="present_count" string="Present Members"/>
-                            <div><field name="present_count" readonly="1" nolabel="1"/> of <field name="total_board_members" readonly="1" nolabel="1"/></div>
-                            <label for="voting_mode" string="Voting Mode"/>
-                            <div><field name="voting_mode" readonly="1" nolabel="1"/></div>
-                            <label for="result" string="Result"/>
-                            <div><field name="result" widget="badge" readonly="1" nolabel="1"/></div>
-                        </group>
-                    </group>
-                </group>
+                    <!-- Step 5: Confirmation -->
+                    <notebook invisible="step != 'confirmation'">
+                        <page string="Review & Confirm">
+                            <div class="alert alert-success mb-3" role="alert">
+                                <i class="fa fa-check-circle"/> Review the resolution details and click "Create Resolution" to finalize.
+                            </div>
+                            
+                            <group col="2">
+                                <group string="Resolution Summary">
+                                    <field name="title" string="Title" readonly="1"/>
+                                    <field name="date" string="Date" readonly="1"/>
+                                    <field name="project_id" string="Related Project" readonly="1" invisible="not project_id"/>
+                                    <field name="task_id" string="Related Task" readonly="1" invisible="not task_id"/>
+                                </group>
+                                <group string="Voting Summary">
+                                    <field name="present_count" string="Present Members"/>
+                                    <field name="total_board_members" string="Total Board Members"/>
+                                    <field name="voting_mode" string="Voting Mode" readonly="1"/>
+                                    <field name="result" string="Result" widget="badge" readonly="1"/>
+                                </group>
+                            </group>
+                            
+                            <group string="Resolution Text Preview">
+                                <field name="resolution_text" readonly="1" nolabel="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
 
                 <footer>
-                    <button string="Previous" name="action_previous_step" type="object" class="btn-secondary" invisible="step == 'basic'"/>
-                    <button string="Next" name="action_next_step" type="object" class="btn-primary" invisible="step == 'confirmation'"/>
-                    <button string="Create Resolution" name="action_create_resolution" type="object" class="btn-primary" invisible="step != 'confirmation'"/>
-                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    <button string="Previous" 
+                            name="action_previous_step" 
+                            type="object" 
+                            class="btn-secondary" 
+                            icon="fa-arrow-left"
+                            invisible="step == 'basic'"/>
+                    <button string="Next" 
+                            name="action_next_step" 
+                            type="object" 
+                            class="btn-primary" 
+                            icon="fa-arrow-right"
+                            invisible="step == 'confirmation'"/>
+                    <button string="Create Resolution" 
+                            name="action_create_resolution" 
+                            type="object" 
+                            class="btn-success" 
+                            icon="fa-check"
+                            invisible="step != 'confirmation'"/>
+                    <button string="Cancel" 
+                            class="btn-secondary" 
+                            special="cancel"/>
                 </footer>
             </form>
         </field>
     </record>
 
-    <!-- Wizard Action -->
+    <!-- Wizard Action with larger dialog -->
     <record id="action_create_resolution_wizard" model="ir.actions.act_window">
         <field name="name">Create Board Resolution</field>
         <field name="res_model">create.resolution.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
         <field name="view_id" ref="view_create_resolution_wizard_form"/>
+        <field name="context">{'dialog_size': 'large'}</field>
     </record>
 
 </odoo>
