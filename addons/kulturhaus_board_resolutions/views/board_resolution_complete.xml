@@ -169,13 +169,14 @@
         <field name="res_model">board.resolution</field>
         <field name="view_mode">list,kanban,form,activity</field>
         <field name="search_view_id" ref="board_resolution_view_search"/>
-        <field name="context">{'form_view_initial_mode': 'edit'}</field>
+        <field name="context">{'create': False}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create your first board resolution
+                No board resolutions found
             </p>
             <p>
-                Manage board resolutions with voting and approval workflow
+                Board resolutions must be created through the wizard to ensure proper voting and quorum tracking.
+                Use the projects or tasks to create resolutions with proper context.
             </p>
         </field>
     </record>
@@ -250,6 +251,14 @@
               parent="menu_board_resolutions_root"
               action="action_board_resolution"
               sequence="10"/>
+    
+    <!-- Create Resolution via Wizard -->
+    <menuitem id="menu_board_resolution_create_wizard"
+              name="Neuer Beschluss"
+              parent="menu_board_resolutions_root"
+              action="kulturhaus_board_resolutions.action_create_resolution_wizard"
+              sequence="20"
+              groups="kulturhaus_board_resolutions.group_board_member"/>
 
     <!-- Configuration Menu -->
     <menuitem id="menu_board_resolutions_config"
