@@ -42,3 +42,12 @@ class ResPartner(models.Model):
                 ])
             else:
                 partner.resolutions_attended = 0
+    
+    def action_view_resolutions(self):
+        """View all resolutions where this board member was present"""
+        action = self.env["ir.actions.actions"]._for_xml_id("kulturhaus_board_resolutions.action_board_resolution")
+        if self.board_member:
+            action['domain'] = [('present_members', 'in', [self.id])]
+        else:
+            action['domain'] = [('id', '=', False)]  # Show no records if not a board member
+        return action

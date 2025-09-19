@@ -7,6 +7,8 @@
         <field name="model">create.resolution.wizard</field>
         <field name="arch" type="xml">
             <form string="Create Board Resolution">
+                <!-- Step field for debugging - hidden later -->
+                <field name="step" invisible="1"/>
                 
                 <!-- Step 1: Basic Information -->
                 <div invisible="[('step', '!=', 'basic')]">
@@ -131,7 +133,6 @@
                 </div>
 
                 <!-- Hidden fields -->
-                <field name="step" invisible="1"/>
                 <field name="board_members" invisible="1"/>
 
                 <footer>

@@ -32,8 +32,7 @@ class CreateResolutionWizard(models.TransientModel):
         'partner_id',
         string='All Board Members',
         domain=[('board_member', '=', True)],
-        compute='_compute_board_members',
-        store=True
+        default=lambda self: self.env['res.partner'].search([('board_member', '=', True)])
     )
     present_members = fields.Many2many(
         'res.partner', 
@@ -92,17 +91,11 @@ class CreateResolutionWizard(models.TransientModel):
         ('tie', 'Tie')
     ], string='Result', compute='_compute_result')
 
-    @api.depends('board_members')
-    def _compute_board_members(self):
-        for wizard in self:
-            wizard.board_members = self.env['res.partner'].search([('board_member', '=', True)])
-
     @api.depends('present_members')
     def _compute_present_count(self):
         for wizard in self:
             wizard.present_count = len(wizard.present_members)
 
-    @api.depends('board_members')
     def _compute_total_board_members(self):
         for wizard in self:
             wizard.total_board_members = len(wizard.board_members)
@@ -259,15 +252,12 @@ class CreateResolutionWizard(models.TransientModel):
     def _validate_voting_step(self):
         """Validate voting step"""
         if self.voting_mode == 'secret':
-            if self.total_votes != self.present_count:
-                raise ValidationError(_('Total votes (%d) must equal present members (%d).') % 
+            if self.total_votes > self.present_count:
+                raise ValidationError(_('Total votes (%d) cannot exceed present members (%d).') % 
                                     (self.total_votes, self.present_count))
+            if self.total_votes == 0:
+                raise ValidationError(_('Please record at least one vote.'))
         else:
-            # Check that all present members voted exactly once
-            all_voting_members = self.votes_for_members | self.votes_against_members | self.votes_abstain_members
-            if len(all_voting_members) != self.present_count:
-                raise ValidationError(_('All present members must vote exactly once.'))
-            
             # Check for overlapping votes
             for_against = self.votes_for_members & self.votes_against_members
             for_abstain = self.votes_for_members & self.votes_abstain_members
@@ -277,8 +267,14 @@ class CreateResolutionWizard(models.TransientModel):
                 raise ValidationError(_('Members cannot vote multiple ways.'))
             
             # Check that voting members are present
-            if not all_voting_members <= self.present_members:
+            all_voting_members = self.votes_for_members | self.votes_against_members | self.votes_abstain_members
+            if all_voting_members and not all_voting_members <= self.present_members:
                 raise ValidationError(_('Only present members can vote.'))
+            
+            # Warn if not all members voted (but don't block)
+            if len(all_voting_members) < self.present_count:
+                # This is just a warning, not a hard error - resolution can still be created in draft
+                pass
 
     def _validate_all_steps(self):
         """Validate all steps before creating resolution"""

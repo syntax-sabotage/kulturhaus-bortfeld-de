@@ -220,7 +220,7 @@
     <record id="action_board_resolution" model="ir.actions.act_window">
         <field name="name">Board Resolutions</field>
         <field name="res_model">board.resolution</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">list,form,kanban</field>
         <field name="search_view_id" ref="view_board_resolution_search"/>
         <field name="context">{}</field>
         <field name="help" type="html">
@@ -236,7 +236,7 @@
     <record id="action_board_resolution_draft" model="ir.actions.act_window">
         <field name="name">Draft Resolutions</field>
         <field name="res_model">board.resolution</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">list,form,kanban</field>
         <field name="domain">[('state', '=', 'draft')]</field>
         <field name="search_view_id" ref="view_board_resolution_search"/>
         <field name="context">{'default_state': 'draft'}</field>
@@ -245,7 +245,7 @@
     <record id="action_board_resolution_to_approve" model="ir.actions.act_window">
         <field name="name">Pending Approval</field>
         <field name="res_model">board.resolution</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">list,form,kanban</field>
         <field name="domain">[('state', '=', 'to_approve')]</field>
         <field name="search_view_id" ref="view_board_resolution_search"/>
         <field name="context">{'default_state': 'to_approve'}</field>
@@ -254,7 +254,7 @@
     <record id="action_board_resolution_approved" model="ir.actions.act_window">
         <field name="name">Approved Resolutions</field>
         <field name="res_model">board.resolution</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">list,form,kanban</field>
         <field name="domain">[('state', 'in', ['approved', 'archived'])]</field>
         <field name="search_view_id" ref="view_board_resolution_search"/>
         <field name="context">{'default_state': 'approved'}</field>
@@ -264,7 +264,7 @@
     <record id="action_board_members" model="ir.actions.act_window">
         <field name="name">Board Members</field>
         <field name="res_model">res.partner</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[('board_member', '=', True)]</field>
         <field name="context">{'default_board_member': True, 'default_is_company': False}</field>
         <field name="help" type="html">

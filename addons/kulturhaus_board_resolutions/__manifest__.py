@@ -37,8 +37,10 @@ Perfect for managing Vorstandsbeschlüsse in compliance with German association 
         
         # Data
         'data/sequence.xml',
+        'data/demo_board_members.xml',
         
         # Views
+        'views/res_partner_views.xml',
         'views/board_resolution_views.xml',
         'views/project_views.xml',
         'wizards/wizard_views.xml',
@@ -46,13 +48,8 @@ Perfect for managing Vorstandsbeschlüsse in compliance with German association 
         
         # Reports
         'report/board_resolution_report.xml',
-        
-        # Demo data
-        'data/demo.xml',
     ],
-    'demo': [
-        'data/demo.xml',
-    ],
+    'demo': [],
     'installable': True,
     'auto_install': False,
     'application': False,

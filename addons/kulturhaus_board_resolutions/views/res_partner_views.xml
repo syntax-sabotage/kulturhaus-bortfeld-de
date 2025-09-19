@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Inherit Partner Form View to add Board Member field -->
+    <record id="view_partner_form_board_member" model="ir.ui.view">
+        <field name="name">res.partner.form.board.member</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <!-- Add board member field after the function field in contact info -->
+            <xpath expr="//field[@name='function']" position="after">
+                <field name="board_member" string="Ist Vorstandsmitglied"/>
+            </xpath>
+            
+            <!-- Add statistics in button box if board member -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="object" 
+                        name="action_view_resolutions" 
+                        icon="fa-gavel" 
+                        invisible="[('board_member', '=', False)]">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="resolutions_attended"/>/<field name="resolutions_count"/>
+                        </span>
+                        <span class="o_stat_text">Beschlüsse</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit Partner List View to add Board Member field -->
+    <record id="view_partner_list_board_member" model="ir.ui.view">
+        <field name="name">res.partner.list.board.member</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="board_member" column_invisible="False" widget="boolean_toggle"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Search View for Partners with Board Member filter -->
+    <record id="view_partner_search_board_member" model="ir.ui.view">
+        <field name="name">res.partner.search.board.member</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='supplier']" position="after">
+                <separator/>
+                <filter string="Board Members" name="board_members" 
+                        domain="[('board_member', '=', True)]"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter string="Board Member" name="group_board_member" 
+                        context="{'group_by': 'board_member'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

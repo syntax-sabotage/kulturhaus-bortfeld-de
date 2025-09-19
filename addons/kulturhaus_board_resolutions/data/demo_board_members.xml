@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Board Member Partners -->
+        <record id="board_member_1" model="res.partner">
+            <field name="name">Dr. Klaus Schmidt (Vorsitzender)</field>
+            <field name="board_member">True</field>
+            <field name="email">vorsitzender@kulturhaus-bortfeld.de</field>
+            <field name="phone">+49 5307 123456</field>
+            <field name="is_company">False</field>
+        </record>
+
+        <record id="board_member_2" model="res.partner">
+            <field name="name">Maria Weber (Stellv. Vorsitzende)</field>
+            <field name="board_member">True</field>
+            <field name="email">stellvertreter@kulturhaus-bortfeld.de</field>
+            <field name="phone">+49 5307 123457</field>
+            <field name="is_company">False</field>
+        </record>
+
+        <record id="board_member_3" model="res.partner">
+            <field name="name">Thomas Müller (Schatzmeister)</field>
+            <field name="board_member">True</field>
+            <field name="email">schatzmeister@kulturhaus-bortfeld.de</field>
+            <field name="phone">+49 5307 123458</field>
+            <field name="is_company">False</field>
+        </record>
+
+        <record id="board_member_4" model="res.partner">
+            <field name="name">Sabine Fischer (Schriftführerin)</field>
+            <field name="board_member">True</field>
+            <field name="email">schriftfuehrer@kulturhaus-bortfeld.de</field>
+            <field name="phone">+49 5307 123459</field>
+            <field name="is_company">False</field>
+        </record>
+
+        <record id="board_member_5" model="res.partner">
+            <field name="name">Michael Wagner (Beisitzer)</field>
+            <field name="board_member">True</field>
+            <field name="email">beisitzer1@kulturhaus-bortfeld.de</field>
+            <field name="phone">+49 5307 123460</field>
+            <field name="is_company">False</field>
+        </record>
+
+        <record id="board_member_6" model="res.partner">
+            <field name="name">Anna Becker (Beisitzerin)</field>
+            <field name="board_member">True</field>
+            <field name="email">beisitzer2@kulturhaus-bortfeld.de</field>
+            <field name="phone">+49 5307 123461</field>
+            <field name="is_company">False</field>
+        </record>
+
+        <record id="board_member_7" model="res.partner">
+            <field name="name">Peter Hoffmann (Beisitzer)</field>
+            <field name="board_member">True</field>
+            <field name="email">beisitzer3@kulturhaus-bortfeld.de</field>
+            <field name="phone">+49 5307 123462</field>
+            <field name="is_company">False</field>
+        </record>
+
+    </data>
+</odoo>
