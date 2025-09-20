@@ -501,3 +501,213 @@ msgstr "Schriftführer"
 #: model:mail.activity.type,name:kulturhaus_board_resolutions.mail_activity_data_resolution_approval
 msgid "Resolution Approval"
 msgstr "Beschlussgenehmigung"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "General Information"
+msgstr "Allgemeine Informationen"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Status"
+msgstr "Status"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Brief description of the resolution..."
+msgstr "Kurze Beschreibung des Beschlusses..."
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Quorum"
+msgstr "Beschlussfähigkeit"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Required quorum for"
+msgstr "Erforderliches Quorum für"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "% of members"
+msgstr "% der Mitglieder"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "members"
+msgstr "Mitglieder"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "More than half (50% + 1)"
+msgstr "Mehr als die Hälfte (50% + 1)"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Two-thirds of members"
+msgstr "Zwei Drittel der Mitglieder"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "All members"
+msgstr "Alle Mitglieder"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Voting Mode"
+msgstr "Abstimmungsmodus"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Voting Results"
+msgstr "Abstimmungsergebnis"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Detailed Voting"
+msgstr "Detaillierte Abstimmung"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Voted For"
+msgstr "Dafür gestimmt"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Voted Against"
+msgstr "Dagegen gestimmt"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Required Majority"
+msgstr "Erforderliche Mehrheit"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Simple majority (>50%)"
+msgstr "Einfache Mehrheit (>50%)"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Two-thirds majority"
+msgstr "Zweidrittelmehrheit"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Three-quarters majority"
+msgstr "Dreiviertelmehrheit"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Unanimous"
+msgstr "Einstimmig"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "% majority"
+msgstr "% Mehrheit"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Approval"
+msgstr "Genehmigung"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "History"
+msgstr "Historie"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_list
+msgid "Number"
+msgstr "Nummer"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_list
+msgid "Present"
+msgstr "Anwesend"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_kanban
+msgid "present"
+msgstr "anwesend"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_search
+msgid "Resolution Number"
+msgstr "Beschlussnummer"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_search
+msgid "Project"
+msgstr "Projekt"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_search
+msgid "Task"
+msgstr "Aufgabe"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_search
+msgid "Meeting Type"
+msgstr "Sitzungstyp"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_search
+msgid "My Resolutions"
+msgstr "Meine Beschlüsse"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_search
+msgid "This Month"
+msgstr "Dieser Monat"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_search
+msgid "This Year"
+msgstr "Dieses Jahr"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_search
+msgid "Group By"
+msgstr "Gruppieren nach"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_search
+msgid "State"
+msgstr "Status"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_search
+msgid "Date"
+msgstr "Datum"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.actions.act_window,help:kulturhaus_board_resolutions.action_board_resolution
+msgid "Create your first board resolution!"
+msgstr "Erstellen Sie Ihren ersten Vorstandsbeschluss!"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.actions.act_window,help:kulturhaus_board_resolutions.action_board_resolution
+msgid "Board resolutions help you formally document and track important decisions made by the board of your association."
+msgstr "Vorstandsbeschlüsse helfen Ihnen, wichtige Entscheidungen des Vorstands Ihres Vereins formal zu dokumentieren und zu verfolgen."
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.actions.act_window,help:kulturhaus_board_resolutions.action_board_resolution
+msgid "Use the creation wizard to ensure proper voting and quorum tracking."
+msgstr "Verwenden Sie den Erstellungsassistenten, um ordnungsgemäße Abstimmungs- und Quorum-Verfolgung sicherzustellen."
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.menu,name:kulturhaus_board_resolutions.menu_board_resolutions_root
+msgid "Board Resolutions"
+msgstr "Vorstandsbeschlüsse"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.menu,name:kulturhaus_board_resolutions.menu_board_resolutions_all
+msgid "All Resolutions"
+msgstr "Alle Beschlüsse"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.menu,name:kulturhaus_board_resolutions.menu_board_resolution_create_wizard
+msgid "Create Resolution"
+msgstr "Beschluss erstellen"
