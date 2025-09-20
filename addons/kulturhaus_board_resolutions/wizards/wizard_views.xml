@@ -43,7 +43,7 @@
                         <separator string="Anwesende Mitglieder markieren"/>
                         <field name="present_members" widget="many2many_tags" options="{'no_create': True}"/>
                         <div class="alert alert-info" invisible="quorum_met">
-                            <i class="fa fa-info-circle"/> <t t-esc="_('Quorum not met. You need more members present to proceed.')"/>
+                            <i class="fa fa-info-circle"/> Quorum nicht erreicht. Sie benötigen mehr anwesende Mitglieder, um fortzufahren.
                         </div>
                     </page>
 
