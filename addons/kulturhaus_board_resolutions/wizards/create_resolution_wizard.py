@@ -6,7 +6,7 @@ from odoo.exceptions import ValidationError, UserError
 
 class CreateResolutionWizard(models.TransientModel):
     _name = 'create.resolution.wizard'
-    _description = 'Create Board Resolution Wizard'
+    _description = _('Create Board Resolution Wizard')
 
     @api.model
     def default_get(self, fields):
@@ -29,25 +29,25 @@ class CreateResolutionWizard(models.TransientModel):
 
     # Wizard Steps
     step = fields.Selection([
-        ('basic', 'Basic Information'),
-        ('attendance', 'Attendance'),
-        ('resolution', 'Resolution Text'),
-        ('voting', 'Voting'),
-        ('confirmation', 'Confirmation')
-    ], string='Step', default='basic')
+        ('basic', _('Basic Information')),
+        ('attendance', _('Attendance')),
+        ('resolution', _('Resolution Text')),
+        ('voting', _('Voting')),
+        ('confirmation', _('Confirmation'))
+    ], string=_('Step'), default='basic')
 
     # Step 1: Basic Information
-    title = fields.Char('Title', required=True)
-    description = fields.Text('Description')
-    date = fields.Date('Resolution Date', required=True, default=fields.Date.today)
+    title = fields.Char(_('Title'), required=True)
+    description = fields.Text(_('Description'))
+    date = fields.Date(_('Resolution Date'), required=True, default=fields.Date.today)
     meeting_type_id = fields.Many2one(
         'board.meeting.type',
-        string='Meeting Type',
+        string=_('Meeting Type'),
         required=True,
         default=lambda self: self._get_default_meeting_type()
     )
-    project_id = fields.Many2one('project.project', string='Related Project')
-    task_id = fields.Many2one('project.task', string='Related Task')
+    project_id = fields.Many2one('project.project', string=_('Related Project'))
+    task_id = fields.Many2one('project.task', string=_('Related Task'))
 
     # Step 2: Attendance
     board_members = fields.Many2many(
@@ -55,7 +55,7 @@ class CreateResolutionWizard(models.TransientModel):
         'wizard_board_members_rel', 
         'wizard_id', 
         'partner_id',
-        string='All Board Members',
+        string=_('All Board Members'),
         domain=[('board_member', '=', True)],
         default=lambda self: self.env['res.partner'].search([('board_member', '=', True)])
     )
@@ -64,26 +64,26 @@ class CreateResolutionWizard(models.TransientModel):
         'wizard_present_members_rel', 
         'wizard_id', 
         'partner_id',
-        string='Present Members',
+        string=_('Present Members'),
         domain=[('board_member', '=', True)]
     )
-    present_count = fields.Integer('Present Count', compute='_compute_present_count')
-    total_board_members = fields.Integer('Total Board Members', compute='_compute_total_board_members')
-    quorum_met = fields.Boolean('Quorum Met', compute='_compute_quorum_met')
+    present_count = fields.Integer(_('Present Count'), compute='_compute_present_count')
+    total_board_members = fields.Integer(_('Total Board Members'), compute='_compute_total_board_members')
+    quorum_met = fields.Boolean(_('Quorum Met'), compute='_compute_quorum_met')
 
     # Step 3: Resolution Text
-    resolution_text = fields.Html('Resolution Text')
+    resolution_text = fields.Html(_('Resolution Text'))
 
     # Step 4: Voting
     voting_mode = fields.Selection([
-        ('open', 'Open Voting'),
-        ('secret', 'Secret Voting')
-    ], string='Voting Mode', default='open', required=True)
+        ('open', _('Open Voting')),
+        ('secret', _('Secret Voting'))
+    ], string=_('Voting Mode'), default='open', required=True)
     
     # For secret voting
-    votes_for = fields.Integer('Votes For', default=0)
-    votes_against = fields.Integer('Votes Against', default=0)
-    votes_abstain = fields.Integer('Votes Abstain', default=0)
+    votes_for = fields.Integer(_('Votes For'), default=0)
+    votes_against = fields.Integer(_('Votes Against'), default=0)
+    votes_abstain = fields.Integer(_('Votes Abstain'), default=0)
     
     # For open voting
     votes_for_members = fields.Many2many(
@@ -91,30 +91,30 @@ class CreateResolutionWizard(models.TransientModel):
         'wizard_votes_for_rel', 
         'wizard_id', 
         'partner_id',
-        string='Members Voted For'
+        string=_('Members Voted For')
     )
     votes_against_members = fields.Many2many(
         'res.partner', 
         'wizard_votes_against_rel', 
         'wizard_id', 
         'partner_id',
-        string='Members Voted Against'
+        string=_('Members Voted Against')
     )
     votes_abstain_members = fields.Many2many(
         'res.partner', 
         'wizard_votes_abstain_rel', 
         'wizard_id', 
         'partner_id',
-        string='Members Abstained'
+        string=_('Members Abstained')
     )
     
     # Computed fields for voting
-    total_votes = fields.Integer('Total Votes', compute='_compute_total_votes')
+    total_votes = fields.Integer(_('Total Votes'), compute='_compute_total_votes')
     result = fields.Selection([
-        ('passed', 'Passed'),
-        ('rejected', 'Rejected'),
-        ('tie', 'Tie')
-    ], string='Result', compute='_compute_result')
+        ('passed', _('Passed')),
+        ('rejected', _('Rejected')),
+        ('tie', _('Tie'))
+    ], string=_('Result'), compute='_compute_result')
 
     @api.depends('present_members')
     def _compute_present_count(self):

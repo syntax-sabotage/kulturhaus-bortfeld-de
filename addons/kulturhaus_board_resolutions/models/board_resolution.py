@@ -7,29 +7,29 @@ from datetime import datetime, timedelta
 
 class BoardResolution(models.Model):
     _name = 'board.resolution'
-    _description = 'Board Resolution'
+    _description = _('Board Resolution')
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'date desc, name desc'
     _rec_name = 'name'
 
     # Basic Information
     name = fields.Char(
-        'Resolution Number', 
+        _('Resolution Number'), 
         required=True, 
         copy=False, 
         readonly=True, 
         default=lambda self: _('New'),
         tracking=True
     )
-    title = fields.Char('Title', required=True, tracking=True)
-    description = fields.Text('Description')
-    date = fields.Date('Resolution Date', required=True, default=fields.Date.today, tracking=True)
-    resolution_text = fields.Html('Resolution Text', required=True)
+    title = fields.Char(_('Title'), required=True, tracking=True)
+    description = fields.Text(_('Description'))
+    date = fields.Date(_('Resolution Date'), required=True, default=fields.Date.today, tracking=True)
+    resolution_text = fields.Html(_('Resolution Text'), required=True)
     
     # Meeting Type Configuration
     meeting_type_id = fields.Many2one(
         'board.meeting.type',
-        string='Meeting Type',
+        string=_('Meeting Type'),
         required=True,
         default=lambda self: self._get_default_meeting_type(),
         tracking=True
@@ -48,23 +48,23 @@ class BoardResolution(models.Model):
         'resolution_present_members_rel', 
         'resolution_id', 
         'partner_id',
-        string='Present Members',
+        string=_('Present Members'),
         domain=[('board_member', '=', True)],
         tracking=True
     )
-    present_count = fields.Integer('Present Count', compute='_compute_present_count', store=True)
-    total_board_members = fields.Integer('Total Board Members', compute='_compute_total_board_members')
-    quorum_met = fields.Boolean('Quorum Met', compute='_compute_quorum_met', store=True)
+    present_count = fields.Integer(_('Present Count'), compute='_compute_present_count', store=True)
+    total_board_members = fields.Integer(_('Total Board Members'), compute='_compute_total_board_members')
+    quorum_met = fields.Boolean(_('Quorum Met'), compute='_compute_quorum_met', store=True)
     
     voting_mode = fields.Selection([
-        ('open', 'Open Voting'),
-        ('secret', 'Secret Voting')
-    ], string='Voting Mode', default='open', required=True)
+        ('open', _('Open Voting')),
+        ('secret', _('Secret Voting'))
+    ], string=_('Voting Mode'), default='open', required=True)
     
-    votes_for = fields.Integer('Votes For', default=0)
-    votes_against = fields.Integer('Votes Against', default=0)
-    votes_abstain = fields.Integer('Votes Abstain', default=0)
-    total_votes = fields.Integer('Total Votes', compute='_compute_total_votes', store=True)
+    votes_for = fields.Integer(_('Votes For'), default=0)
+    votes_against = fields.Integer(_('Votes Against'), default=0)
+    votes_abstain = fields.Integer(_('Votes Abstain'), default=0)
+    total_votes = fields.Integer(_('Total Votes'), compute='_compute_total_votes', store=True)
     
     # Voting Details (for open voting)
     votes_for_members = fields.Many2many(
@@ -72,48 +72,48 @@ class BoardResolution(models.Model):
         'resolution_votes_for_rel', 
         'resolution_id', 
         'partner_id',
-        string='Members Voted For'
+        string=_('Members Voted For')
     )
     votes_against_members = fields.Many2many(
         'res.partner', 
         'resolution_votes_against_rel', 
         'resolution_id', 
         'partner_id',
-        string='Members Voted Against'
+        string=_('Members Voted Against')
     )
     votes_abstain_members = fields.Many2many(
         'res.partner', 
         'resolution_votes_abstain_rel', 
         'resolution_id', 
         'partner_id',
-        string='Members Abstained'
+        string=_('Members Abstained')
     )
     
     # Project/Task Integration
-    project_id = fields.Many2one('project.project', string='Related Project')
-    task_id = fields.Many2one('project.task', string='Related Task')
+    project_id = fields.Many2one('project.project', string=_('Related Project'))
+    task_id = fields.Many2one('project.task', string=_('Related Task'))
     
     # Workflow
     state = fields.Selection([
-        ('draft', 'Draft'),
-        ('voted', 'Voted'),
-        ('to_approve', 'To Approve'),
-        ('approved', 'Approved'),
-        ('archived', 'Archived')
-    ], string='State', default='draft', required=True, tracking=True)
+        ('draft', _('Draft')),
+        ('voted', _('Voted')),
+        ('to_approve', _('To Approve')),
+        ('approved', _('Approved')),
+        ('archived', _('Archived'))
+    ], string=_('State'), default='draft', required=True, tracking=True)
     
     # Approval
-    approved_by = fields.Many2one('res.users', string='Approved By', readonly=True)
-    approved_date = fields.Datetime('Approved Date', readonly=True)
+    approved_by = fields.Many2one('res.users', string=_('Approved By'), readonly=True)
+    approved_date = fields.Datetime(_('Approved Date'), readonly=True)
     
     # Computed Fields
-    is_approved = fields.Boolean('Is Approved', compute='_compute_is_approved', store=True)
-    can_edit = fields.Boolean('Can Edit', compute='_compute_can_edit')
+    is_approved = fields.Boolean(_('Is Approved'), compute='_compute_is_approved', store=True)
+    can_edit = fields.Boolean(_('Can Edit'), compute='_compute_can_edit')
     result = fields.Selection([
-        ('passed', 'Passed'),
-        ('rejected', 'Rejected'),
-        ('tie', 'Tie')
-    ], string='Result', compute='_compute_result', store=True)
+        ('passed', _('Passed')),
+        ('rejected', _('Rejected')),
+        ('tie', _('Tie'))
+    ], string=_('Result'), compute='_compute_result', store=True)
 
     @api.depends('present_members')
     def _compute_present_count(self):

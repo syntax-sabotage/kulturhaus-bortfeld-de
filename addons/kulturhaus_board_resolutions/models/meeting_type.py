@@ -6,62 +6,62 @@ from odoo.exceptions import ValidationError
 
 class MeetingType(models.Model):
     _name = 'board.meeting.type'
-    _description = 'Board Meeting Type'
+    _description = _('Board Meeting Type')
     _order = 'sequence, name'
     
-    name = fields.Char('Meeting Type', required=True, translate=True)
-    sequence = fields.Integer('Sequence', default=10)
-    active = fields.Boolean('Active', default=True)
+    name = fields.Char(_('Meeting Type'), required=True, translate=True)
+    sequence = fields.Integer(_('Sequence'), default=10)
+    active = fields.Boolean(_('Active'), default=True)
     
     # Quorum Configuration
     quorum_type = fields.Selection([
-        ('percentage', 'Percentage of Members'),
-        ('fixed', 'Fixed Number'),
-        ('half_plus_one', 'Half + 1'),
-        ('two_thirds', 'Two Thirds'),
-        ('all', 'All Members'),
-        ('custom', 'Custom Formula')
-    ], string='Quorum Type', required=True, default='half_plus_one')
+        ('percentage', _('Percentage of Members')),
+        ('fixed', _('Fixed Number')),
+        ('half_plus_one', _('Half + 1')),
+        ('two_thirds', _('Two Thirds')),
+        ('all', _('All Members')),
+        ('custom', _('Custom Formula'))
+    ], string=_('Quorum Type'), required=True, default='half_plus_one')
     
     quorum_percentage = fields.Float(
-        'Quorum Percentage', 
+        _('Quorum Percentage'), 
         default=50,
-        help='Percentage of members required for quorum (when type is Percentage)'
+        help=_('Percentage of members required for quorum (when type is Percentage)')
     )
     
     quorum_fixed = fields.Integer(
-        'Fixed Quorum Number',
+        _('Fixed Quorum Number'),
         default=3,
-        help='Fixed number of members required (when type is Fixed)'
+        help=_('Fixed number of members required (when type is Fixed)')
     )
     
     quorum_custom_formula = fields.Char(
-        'Custom Formula',
-        help='Python expression. Available variables: total_members'
+        _('Custom Formula'),
+        help=_('Python expression. Available variables: total_members')
     )
     
     # Voting Configuration
     voting_majority = fields.Selection([
-        ('simple', 'Simple Majority (>50%)'),
-        ('two_thirds', 'Two Thirds Majority'),
-        ('three_quarters', 'Three Quarters Majority'),
-        ('unanimous', 'Unanimous'),
-        ('custom', 'Custom')
-    ], string='Required Majority', default='simple', required=True)
+        ('simple', _('Simple Majority (>50%)')),
+        ('two_thirds', _('Two Thirds Majority')),
+        ('three_quarters', _('Three Quarters Majority')),
+        ('unanimous', _('Unanimous')),
+        ('custom', _('Custom'))
+    ], string=_('Required Majority'), default='simple', required=True)
     
     voting_majority_custom = fields.Float(
-        'Custom Majority Percentage',
+        _('Custom Majority Percentage'),
         default=60,
-        help='Required percentage for custom majority'
+        help=_('Required percentage for custom majority')
     )
     
-    allow_proxy_voting = fields.Boolean('Allow Proxy Voting', default=False)
-    allow_secret_ballot = fields.Boolean('Allow Secret Ballot', default=True)
-    allow_open_ballot = fields.Boolean('Allow Open Ballot', default=True)
+    allow_proxy_voting = fields.Boolean(_('Allow Proxy Voting'), default=False)
+    allow_secret_ballot = fields.Boolean(_('Allow Secret Ballot'), default=True)
+    allow_open_ballot = fields.Boolean(_('Allow Open Ballot'), default=True)
     
     # Display Configuration
-    description = fields.Text('Description', translate=True)
-    color = fields.Integer('Color Index')
+    description = fields.Text(_('Description'), translate=True)
+    color = fields.Integer(_('Color Index'))
     
     @api.constrains('quorum_percentage')
     def _check_quorum_percentage(self):
@@ -125,6 +125,6 @@ class ResConfigSettings(models.TransientModel):
     
     default_meeting_type_id = fields.Many2one(
         'board.meeting.type',
-        string='Default Meeting Type',
+        string=_('Default Meeting Type'),
         config_parameter='kulturhaus_board_resolutions.default_meeting_type_id'
     )
