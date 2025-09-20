@@ -394,8 +394,7 @@
     <menuitem id="menu_board_resolutions_config"
               name="Konfiguration"
               parent="menu_board_resolutions_root"
-              sequence="100"
-              groups="kulturhaus_board_resolutions.group_board_secretary"/>
+              sequence="100"/>
 
     <menuitem id="menu_board_members"
               name="Vorstandsmitglieder"
