@@ -711,3 +711,188 @@ msgstr "Alle Beschlüsse"
 #: model:ir.ui.menu,name:kulturhaus_board_resolutions.menu_board_resolution_create_wizard
 msgid "Create Resolution"
 msgstr "Beschluss erstellen"
+
+#. module: kulturhaus_board_resolutions
+#: view translated strings
+msgid "Requires"
+msgstr "Erfordert"
+
+#. module: kulturhaus_board_resolutions
+#: view translated strings
+msgid "of members to be present"
+msgstr "der Mitglieder müssen anwesend sein"
+
+#. module: kulturhaus_board_resolutions
+#: view translated strings
+msgid "Requires exactly"
+msgstr "Erfordert genau"
+
+#. module: kulturhaus_board_resolutions
+#: view translated strings
+msgid "members to be present"
+msgstr "Mitglieder müssen anwesend sein"
+
+#. module: kulturhaus_board_resolutions
+#: view translated strings
+msgid "Requires more than half of all members (50% + 1)"
+msgstr "Erfordert mehr als die Hälfte aller Mitglieder (50% + 1)"
+
+#. module: kulturhaus_board_resolutions
+#: view translated strings
+msgid "Requires at least two thirds of all members"
+msgstr "Erfordert mindestens zwei Drittel aller Mitglieder"
+
+#. module: kulturhaus_board_resolutions
+#: view translated strings
+msgid "Requires all members to be present"
+msgstr "Erfordert, dass alle Mitglieder anwesend sind"
+
+#. module: kulturhaus_board_resolutions
+#: view translated strings
+msgid "Custom formula based on total members"
+msgstr "Benutzerdefinierte Formel basierend auf der Gesamtzahl der Mitglieder"
+
+#. module: kulturhaus_board_resolutions
+#: view translated strings
+msgid "Quorum not met. You need more members present to proceed."
+msgstr "Quorum nicht erreicht. Sie benötigen mehr anwesende Mitglieder, um fortzufahren."
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_search
+msgid "Active"
+msgstr "Aktiv"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Approve"
+msgstr "Genehmigen"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Approved"
+msgstr "Genehmigt"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_resolution_config_settings
+msgid "Configure Meeting Types"
+msgstr "Versammlungsarten konfigurieren"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_resolution_config_settings
+msgid "Default Meeting Type"
+msgstr "Standard-Versammlungsart"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.actions.act_window,name:kulturhaus_board_resolutions.action_board_meeting_type
+msgid "Meeting Types"
+msgstr "Versammlungsarten"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_form
+msgid "Quorum Configuration"
+msgstr "Quorum-Konfiguration"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_search
+msgid "Quorum Type"
+msgstr "Quorum-Typ"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_form
+msgid "Voting Configuration"
+msgstr "Abstimmungs-Konfiguration"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_search
+msgid "Voting Majority"
+msgstr "Abstimmungsmehrheit"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Mark Present Members"
+msgstr "Anwesende Mitglieder markieren"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Members Abstaining"
+msgstr "Mitglieder, die sich enthalten"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Members Voting Against"
+msgstr "Mitglieder, die dagegen stimmen"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Members Voting For"
+msgstr "Mitglieder, die dafür stimmen"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Resolution Text Preview"
+msgstr "Beschlusstext-Vorschau"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Summary"
+msgstr "Zusammenfassung"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Vote Count"
+msgstr "Stimmenanzahl"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_search
+msgid "Active meeting types"
+msgstr "Aktive Versammlungsarten"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_search
+msgid "Archived meeting types"
+msgstr "Archivierte Versammlungsarten"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_resolution_config_settings
+msgid "Default meeting type for new resolutions"
+msgstr "Standard-Versammlungsart für neue Beschlüsse"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_resolution_config_settings
+msgid "Manage meeting types and their rules"
+msgstr "Versammlungsarten und deren Regeln verwalten"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Resolution Title"
+msgstr "Beschlusstitel"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Brief description of the resolution..."
+msgstr "Kurze Beschreibung des Beschlusses..."
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_form
+msgid "e.g., total_members * 0.6"
+msgstr "z.B. total_members * 0.6"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "e.g., Approval of Annual Budget"
+msgstr "z.B. Genehmigung des Jahresbudgets"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Enter the full text of the resolution..."
+msgstr "Geben Sie den vollständigen Text des Beschlusses ein..."
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.actions.act_window,name:kulturhaus_board_resolutions.action_board_resolution_draft
+msgid "Draft Resolutions"
+msgstr "Beschlussentwürfe"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.actions.act_window,name:kulturhaus_board_resolutions.action_board_resolution_to_approve
+msgid "Pending Approval"
+msgstr "Genehmigung ausstehend"

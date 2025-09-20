@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Kulturhaus Board Resolutions',
-    'version': '18.2.1.0.0',
+    'version': '18.2.1.0.2',
     'category': 'Project',
     'summary': 'Board resolution management for Kulturhaus Bortfeld e.V.',
     'description': """

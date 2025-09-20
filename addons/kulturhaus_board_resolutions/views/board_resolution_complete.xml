@@ -74,13 +74,13 @@
                                             <field name="meeting_quorum_fixed" readonly="1" nolabel="1"/> members
                                         </span>
                                         <span invisible="meeting_quorum_type != 'half_plus_one'">
-                                            More than half (50% + 1)
+                                            <t t-esc="_('More than half (50% + 1)')"/>
                                         </span>
                                         <span invisible="meeting_quorum_type != 'two_thirds'">
-                                            Two-thirds of members
+                                            <t t-esc="_('Two-thirds of members')"/>
                                         </span>
                                         <span invisible="meeting_quorum_type != 'all'">
-                                            All members
+                                            <t t-esc="_('All members')"/>
                                         </span>
                                     </div>
                                 </group>
@@ -118,16 +118,16 @@
                             <group string="Required Majority" invisible="not meeting_type_id">
                                 <div class="text-muted">
                                     <span invisible="meeting_voting_majority != 'simple'">
-                                        Simple majority (&gt;50%)
+                                        <t t-esc="_('Simple majority (>50%)')"/>
                                     </span>
                                     <span invisible="meeting_voting_majority != 'two_thirds'">
-                                        Two-thirds majority
+                                        <t t-esc="_('Two-thirds majority')"/>
                                     </span>
                                     <span invisible="meeting_voting_majority != 'three_quarters'">
-                                        Three-quarters majority
+                                        <t t-esc="_('Three-quarters majority')"/>
                                     </span>
                                     <span invisible="meeting_voting_majority != 'unanimous'">
-                                        Unanimous
+                                        <t t-esc="_('Unanimous')"/>
                                     </span>
                                     <span invisible="meeting_voting_majority != 'custom'">
                                         <field name="meeting_voting_majority_custom" readonly="1" nolabel="1"/>% majority
@@ -220,7 +220,7 @@
                                             <i class="fa fa-folder"/> <field name="project_id"/>
                                         </li>
                                         <li>
-                                            <i class="fa fa-users"/> <field name="present_count"/> present
+                                            <i class="fa fa-users"/> <field name="present_count"/> <t t-esc="_('present')"/>
                                         </li>
                                         <li>
                                             <span class="badge" t-att-class="record.result.value == 'passed' ? 'badge-success' : record.result.value == 'rejected' ? 'badge-danger' : 'badge-warning'">

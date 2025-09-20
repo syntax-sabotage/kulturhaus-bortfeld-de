@@ -30,22 +30,22 @@
                         <group>
                             <div class="text-muted">
                                 <p invisible="quorum_type != 'percentage'">
-                                    <i class="fa fa-info-circle"/> Requires <field name="quorum_percentage" readonly="1" nolabel="1" style="width: 50px;"/>% of members to be present
+                                    <i class="fa fa-info-circle"/> <t t-esc="_('Requires')"/> <field name="quorum_percentage" readonly="1" nolabel="1" style="width: 50px;"/>% <t t-esc="_('of members to be present')"/>
                                 </p>
                                 <p invisible="quorum_type != 'fixed'">
-                                    <i class="fa fa-info-circle"/> Requires exactly <field name="quorum_fixed" readonly="1" nolabel="1" style="width: 50px;"/> members to be present
+                                    <i class="fa fa-info-circle"/> <t t-esc="_('Requires exactly')"/> <field name="quorum_fixed" readonly="1" nolabel="1" style="width: 50px;"/> <t t-esc="_('members to be present')"/>
                                 </p>
                                 <p invisible="quorum_type != 'half_plus_one'">
-                                    <i class="fa fa-info-circle"/> Requires more than half of all members (50% + 1)
+                                    <i class="fa fa-info-circle"/> <t t-esc="_('Requires more than half of all members (50% + 1)')"/>
                                 </p>
                                 <p invisible="quorum_type != 'two_thirds'">
-                                    <i class="fa fa-info-circle"/> Requires at least two thirds of all members
+                                    <i class="fa fa-info-circle"/> <t t-esc="_('Requires at least two thirds of all members')"/>
                                 </p>
                                 <p invisible="quorum_type != 'all'">
-                                    <i class="fa fa-info-circle"/> Requires all members to be present
+                                    <i class="fa fa-info-circle"/> <t t-esc="_('Requires all members to be present')"/>
                                 </p>
                                 <p invisible="quorum_type != 'custom'">
-                                    <i class="fa fa-info-circle"/> Custom formula based on total members
+                                    <i class="fa fa-info-circle"/> <t t-esc="_('Custom formula based on total members')"/>
                                 </p>
                             </div>
                         </group>
