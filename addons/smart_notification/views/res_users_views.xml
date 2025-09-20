@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- User Preferences Form View -->
+    <record id="view_users_form_smart_notification" model="ir.ui.view">
+        <field name="name">res.users.form.smart.notification</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='preferences']" position="after">
+                <page string="Smart Notifications" name="smart_notifications">
+                    <group>
+                        <group string="Notification Settings">
+                            <field name="smart_notifications_enabled" widget="boolean_toggle"/>
+                            <field name="notification_profile" invisible="not smart_notifications_enabled"/>
+                            <field name="notification_profile_id" invisible="notification_profile != 'custom' or not smart_notifications_enabled"/>
+                        </group>
+                        <group string="Statistics">
+                            <field name="notification_subscriptions_count"/>
+                            <field name="notification_last_applied" invisible="not notification_last_applied"/>
+                            <button name="action_view_subscriptions" 
+                                    type="object" 
+                                    string="View Subscriptions" 
+                                    class="btn-link"/>
+                            <button name="action_apply_preferences" 
+                                    type="object" 
+                                    string="Apply to Existing" 
+                                    class="btn-primary"
+                                    invisible="not smart_notifications_enabled"
+                                    confirm="This will update all your existing subscriptions with your current preferences. Continue?"/>
+                        </group>
+                    </group>
+                    
+                    <notebook invisible="notification_profile != 'custom' or not smart_notifications_enabled">
+                        <page string="Tasks" name="task_notifications">
+                            <group>
+                                <group string="Task Notifications">
+                                    <field name="notify_task_messages"/>
+                                    <field name="notify_task_notes"/>
+                                    <field name="notify_task_state"/>
+                                    <field name="notify_task_assignment"/>
+                                </group>
+                                <group string="Help">
+                                    <div class="alert alert-info" role="alert">
+                                        <p>Configure which task events trigger notifications when you follow a task.</p>
+                                        <ul>
+                                            <li><b>Messages:</b> Customer and team communications</li>
+                                            <li><b>Internal Notes:</b> Internal team notes (usually not for customers)</li>
+                                            <li><b>State Changes:</b> When task moves between stages</li>
+                                            <li><b>Assignments:</b> When task is assigned to someone</li>
+                                        </ul>
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <page string="Sales" name="sale_notifications">
+                            <group>
+                                <group string="Sale Order Notifications">
+                                    <field name="notify_sale_messages"/>
+                                    <field name="notify_sale_notes"/>
+                                    <field name="notify_sale_confirmation"/>
+                                </group>
+                                <group string="Help">
+                                    <div class="alert alert-info" role="alert">
+                                        <p>Configure which sales events trigger notifications when you follow a sale order.</p>
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <page string="Invoicing" name="invoice_notifications">
+                            <group>
+                                <group string="Invoice Notifications">
+                                    <field name="notify_invoice_messages"/>
+                                    <field name="notify_invoice_notes"/>
+                                    <field name="notify_invoice_validation"/>
+                                </group>
+                                <group string="Help">
+                                    <div class="alert alert-info" role="alert">
+                                        <p>Configure which invoice events trigger notifications when you follow an invoice.</p>
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    
+                    <group string="Profile Presets" invisible="notification_profile == 'custom' or not smart_notifications_enabled">
+                        <div class="alert alert-info" role="alert">
+                            <h4 invisible="notification_profile != 'minimal'">Minimal Profile</h4>
+                            <h4 invisible="notification_profile != 'normal'">Normal Profile</h4>
+                            <h4 invisible="notification_profile != 'manager'">Manager Profile</h4>
+                            <h4 invisible="notification_profile != 'board'">Board Member Profile</h4>
+                            
+                            <p invisible="notification_profile != 'minimal'">
+                                You will only receive critical notifications:
+                                <ul>
+                                    <li>Task assignments and state changes</li>
+                                    <li>Sale order confirmations</li>
+                                    <li>Invoice validations</li>
+                                </ul>
+                            </p>
+                            
+                            <p invisible="notification_profile != 'normal'">
+                                You will receive standard notifications:
+                                <ul>
+                                    <li>All messages (but not internal notes)</li>
+                                    <li>Important state changes</li>
+                                    <li>Assignments and confirmations</li>
+                                </ul>
+                            </p>
+                            
+                            <p invisible="notification_profile != 'manager'">
+                                You will receive comprehensive notifications:
+                                <ul>
+                                    <li>All messages and important updates</li>
+                                    <li>State changes and progress updates</li>
+                                    <li>Team assignments and completions</li>
+                                </ul>
+                            </p>
+                            
+                            <p invisible="notification_profile != 'board'">
+                                You will receive ALL notifications:
+                                <ul>
+                                    <li>All messages AND internal notes</li>
+                                    <li>Every state change and update</li>
+                                    <li>Complete visibility of all activities</li>
+                                </ul>
+                            </p>
+                        </div>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    
+    <!-- Simplified Preferences View -->
+    <record id="view_users_simple_form_smart_notification" model="ir.ui.view">
+        <field name="name">res.users.preferences.form.smart.notification</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="after">
+                <group string="Smart Notifications" colspan="2">
+                    <field name="smart_notifications_enabled" widget="boolean_toggle"/>
+                    <field name="notification_profile" invisible="not smart_notifications_enabled"/>
+                    <button name="action_apply_preferences" 
+                            type="object" 
+                            string="Apply Preferences" 
+                            class="btn-sm btn-primary"
+                            invisible="not smart_notifications_enabled"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    
+    <!-- Action for User Notification Preferences -->
+    <record id="action_smart_notification_preferences" model="ir.actions.act_window">
+        <field name="name">My Notification Preferences</field>
+        <field name="res_model">res.users</field>
+        <field name="view_mode">form</field>
+        <field name="res_id" eval="False"/>
+        <field name="context">{'form_view_ref': 'smart_notification.view_users_form_smart_notification'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure Your Smart Notifications
+            </p>
+            <p>
+                Set your notification preferences once, and they'll be applied automatically
+                whenever you follow any record in Odoo.
+            </p>
+        </field>
+    </record>
+</odoo>

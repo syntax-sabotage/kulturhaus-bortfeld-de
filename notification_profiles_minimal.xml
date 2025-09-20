@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Notification Profile Templates -->
+    
+    <!-- Minimal Profile -->
+    <record id="profile_minimal" model="notification.profile">
+        <field name="name">Minimal</field>
+        <field name="code">minimal</field>
+        <field name="description">Only critical notifications - task assignments, order confirmations, invoice validations</field>
+    </record>
+    
+    <!-- Normal Profile -->
+    <record id="profile_normal" model="notification.profile">
+        <field name="name">Normal</field>
+        <field name="code">normal</field>
+        <field name="description">Standard business notifications - messages and important state changes</field>
+    </record>
+    
+    <!-- Manager Profile -->
+    <record id="profile_manager" model="notification.profile">
+        <field name="name">Manager</field>
+        <field name="code">manager</field>
+        <field name="description">Comprehensive notifications for team leaders - all messages and updates</field>
+    </record>
+    
+    <!-- Board Member Profile -->
+    <record id="profile_board" model="notification.profile">
+        <field name="name">Board Member</field>
+        <field name="code">board</field>
+        <field name="description">Everything including internal notes - complete visibility</field>
+    </record>
+</odoo>

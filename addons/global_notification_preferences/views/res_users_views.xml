@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Add notification preferences to user preferences form -->
+    <record id="view_users_form_preferences_notification" model="ir.ui.view">
+        <field name="name">res.users.form.preferences.notification</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+            <!-- Add to preferences page -->
+            <xpath expr="//page[@name='preferences']" position="after">
+                <page string="Notifications" name="notification_preferences">
+                    <group>
+                        <group string="Global Settings" name="global_settings">
+                            <field name="notification_preference_mode" widget="radio"/>
+                            <field name="global_notify_email"/>
+                            <field name="global_notify_inbox"/>
+                            <field name="global_notify_push" groups="base.group_no_one"/>
+                        </group>
+                    </group>
+                    
+                    <separator string="Model-Specific Preferences"/>
+                    <div class="alert alert-info" role="alert">
+                        Configure which types of notifications you want to receive for each model you follow.
+                        These preferences will be applied automatically when you follow new records.
+                    </div>
+                    
+                    <field name="global_notification_preference_ids" nolabel="1">
+                        <list string="Notification Preferences" editable="bottom">
+                            <field name="model_id" options="{'no_create': True}"/>
+                            <field name="notify_on_messages"/>
+                            <field name="notify_on_notes"/>
+                            <field name="notify_on_state_changes"/>
+                            <field name="notify_on_assignments"/>
+                            <field name="notify_on_all"/>
+                        </list>
+                    </field>
+                    
+                    <button name="action_configure_notification_preferences" 
+                            type="object"
+                            string="Advanced Configuration"
+                            class="btn-link"
+                            icon="fa-cog"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add quick access in user preferences -->
+    <record id="view_users_form_mail_preferences" model="ir.ui.view">
+        <field name="name">res.users.form.mail.preferences</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="mail.view_users_form_mail"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='notification_type']" position="after">
+                <label for="notification_preference_mode"/>
+                <div>
+                    <field name="notification_preference_mode" class="oe_inline"/>
+                    <button name="action_configure_notification_preferences"
+                            type="object"
+                            string="Configure Details"
+                            class="btn-link oe_inline"
+                            attrs="{'invisible': [('notification_preference_mode', '!=', 'custom')]}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- User preferences list view -->
+    <record id="view_user_notification_preference_list" model="ir.ui.view">
+        <field name="name">user.notification.preference.list</field>
+        <field name="model">user.notification.preference</field>
+        <field name="arch" type="xml">
+            <list string="Notification Preferences" editable="top">
+                <field name="model_id" options="{'no_create': True}"/>
+                <field name="notify_on_messages"/>
+                <field name="notify_on_notes"/>
+                <field name="notify_on_state_changes"/>
+                <field name="notify_on_assignments"/>
+                <field name="notify_on_all"/>
+                <field name="subtype_ids" widget="many2many_tags" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- User preferences form view -->
+    <record id="view_user_notification_preference_form" model="ir.ui.view">
+        <field name="name">user.notification.preference.form</field>
+        <field name="model">user.notification.preference</field>
+        <field name="arch" type="xml">
+            <form string="Notification Preference">
+                <sheet>
+                    <group>
+                        <group string="Model">
+                            <field name="user_id" invisible="1"/>
+                            <field name="model_id" options="{'no_create': True}"/>
+                            <field name="model_name" invisible="1"/>
+                        </group>
+                        <group string="Quick Settings">
+                            <field name="notify_on_all"/>
+                            <field name="notify_on_messages"/>
+                            <field name="notify_on_notes"/>
+                            <field name="notify_on_state_changes"/>
+                            <field name="notify_on_assignments"/>
+                        </group>
+                    </group>
+                    <separator string="Detailed Subtype Selection"/>
+                    <field name="subtype_ids">
+                        <list>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="internal"/>
+                            <field name="default"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to open notification preferences -->
+    <record id="action_user_notification_preferences" model="ir.actions.act_window">
+        <field name="name">My Notification Preferences</field>
+        <field name="res_model">user.notification.preference</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+        <field name="context">{'default_user_id': uid}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure your notification preferences
+            </p>
+            <p>
+                Set up which types of notifications you want to receive for each model.
+                These preferences will be applied automatically when you follow new records.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu item in preferences -->
+    <menuitem id="menu_user_notification_preferences"
+              name="Notification Preferences"
+              parent="mail.menu_root_discuss"
+              action="action_user_notification_preferences"
+              sequence="99"/>
+</odoo>

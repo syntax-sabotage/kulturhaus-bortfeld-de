@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Mail Followers List View with Smart Defaults Info -->
+    <record id="view_mail_followers_list_smart" model="ir.ui.view">
+        <field name="name">mail.followers.list.smart</field>
+        <field name="model">mail.followers</field>
+        <field name="inherit_id" ref="mail.view_followers_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="uses_smart_defaults" widget="boolean_toggle" optional="show"/>
+                <field name="can_override" widget="boolean_toggle" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+    
+    <!-- Mail Followers Form View with Smart Actions -->
+    <record id="view_mail_followers_form_smart" model="ir.ui.view">
+        <field name="name">mail.followers.form.smart</field>
+        <field name="model">mail.followers</field>
+        <field name="inherit_id" ref="mail.view_followers_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Smart Notification" invisible="not uses_smart_defaults">
+                    <group>
+                        <field name="uses_smart_defaults" readonly="1"/>
+                        <field name="can_override" readonly="1"/>
+                    </group>
+                    <group>
+                        <button name="action_apply_smart_defaults"
+                                type="object"
+                                string="Apply User Defaults"
+                                class="btn-secondary"
+                                icon="fa-magic"/>
+                        <button name="action_override_preferences"
+                                type="object"
+                                string="Override for This Record"
+                                class="btn-link"
+                                invisible="not can_override"
+                                icon="fa-edit"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Add admin buttons to the form header -->
+    <record id="view_board_resolution_form_admin_inherit" model="ir.ui.view">
+        <field name="name">board.resolution.form.admin.inherit</field>
+        <field name="model">board.resolution</field>
+        <field name="inherit_id" ref="board_resolution_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Add admin buttons that are always visible for admins -->
+            <xpath expr="//header" position="inside">
+                <button name="action_admin_reset_to_draft" 
+                        type="object" 
+                        string="Admin: Zurück zu Entwurf" 
+                        class="btn-warning"
+                        groups="kulturhaus_board_resolutions.group_board_resolution_admin"
+                        confirm="Sind Sie sicher, dass Sie diesen Beschluss auf Entwurf zurücksetzen möchten? Dies löscht alle Stimmen und Genehmigungsinformationen."/>
+                <button name="action_admin_delete" 
+                        type="object" 
+                        string="Admin: Löschen" 
+                        class="btn-danger"
+                        groups="kulturhaus_board_resolutions.group_board_resolution_admin"
+                        confirm="Sind Sie sicher, dass Sie diesen Beschluss dauerhaft löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden."/>
+            </xpath>
+        </field>
+    </record>
+    
+    <!-- Also add to Settings menu for easy admin group assignment -->
+    <menuitem id="menu_board_resolution_admin_settings"
+              name="Administrator Einstellungen"
+              parent="menu_board_resolutions_config"
+              action="base.action_res_groups"
+              sequence="100"
+              groups="base.group_system"/>
+</odoo>

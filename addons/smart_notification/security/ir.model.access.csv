@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_notification_profile_user,notification.profile.user,model_notification_profile,base.group_user,1,0,0,0
+access_notification_profile_setting_user,notification.profile.setting.user,model_notification_profile_setting,base.group_user,1,0,0,0
+access_notification_profile_admin,notification.profile.admin,model_notification_profile,base.group_system,1,1,1,1
+access_notification_profile_setting_admin,notification.profile.setting.admin,model_notification_profile_setting,base.group_system,1,1,1,1

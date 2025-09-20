@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Record Rules -->
+    
+    <!-- Users can only modify their own notification preferences -->
+    <record id="rule_res_users_notification_own" model="ir.rule">
+        <field name="name">Users: Own notification preferences</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="domain_force">[('id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="perm_read" eval="False"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    
+    <!-- System admins can modify all notification preferences -->
+    <record id="rule_res_users_notification_admin" model="ir.rule">
+        <field name="name">Admin: All notification preferences</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+        <field name="perm_read" eval="False"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    
+    <!-- Users can only see their own followers -->
+    <record id="rule_mail_followers_own" model="ir.rule">
+        <field name="name">Followers: Own subscriptions</field>
+        <field name="model_id" ref="mail.model_mail_followers"/>
+        <field name="domain_force">[('partner_id', '=', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+</odoo>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_board_resolution_tree" model="ir.ui.view">
+        <field name="name">board.resolution.tree</field>
+        <field name="model">board.resolution</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <list string="Board Resolutions">
+                <field name="reference"/>
+                <field name="title"/>
+                <field name="meeting_type_id"/>
+                <field name="meeting_date"/>
+                <field name="priority" widget="priority"/>
+                <field name="state" widget="badge" 
+                       decoration-success="state == 'approved'" 
+                       decoration-warning="state == 'pending'" 
+                       decoration-info="state == 'draft'" 
+                       decoration-muted="state == 'archived'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_board_resolution_form" model="ir.ui.view">
+        <field name="name">board.resolution.form</field>
+        <field name="model">board.resolution</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <form string="Board Resolution">
+                <header>
+                    <button name="action_submit" string="Submit for Approval" 
+                            type="object" class="btn-primary" 
+                            invisible="state != 'draft'"/>
+                    <button name="action_approve" string="Approve" 
+                            type="object" class="btn-success" 
+                            invisible="state != 'pending'"/>
+                    <button name="action_archive" string="Archive" 
+                            type="object" class="btn-warning" 
+                            invisible="state != 'approved'"/>
+                    <button name="action_reject" string="Reject" 
+                            type="object" class="btn-danger" 
+                            invisible="state != 'pending'"/>
+                    <button name="action_reset_to_draft" string="Set to Draft" 
+                            type="object" invisible="state != 'pending'"/>
+                    <button name="action_admin_reset_to_draft" string="Admin: Reset to Draft" 
+                            type="object" class="btn-warning"
+                            groups="kulturhaus_board_resolutions.group_board_resolution_admin"
+                            invisible="state == 'draft'"/>
+                    <button name="action_admin_delete" string="Admin: Delete" 
+                            type="object" class="btn-danger"
+                            groups="kulturhaus_board_resolutions.group_board_resolution_admin"
+                            confirm="Are you sure you want to delete this resolution? This action cannot be undone."/>
+                    <field name="state" widget="statusbar" 
+                           statusbar_visible="draft,pending,approved,archived"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="reference" readonly="1"/>
+                        </h1>
+                        <h2>
+                            <field name="title" placeholder="Resolution Title" required="1"/>
+                        </h2>
+                    </div>
+                    
+                    <group>
+                        <group string="Meeting Information">
+                            <field name="meeting_type_id" required="1"/>
+                            <field name="meeting_date" required="1"/>
+                            <field name="priority" widget="priority"/>
+                        </group>
+                        <group string="Voting Details">
+                            <field name="quorum_present" invisible="state == 'draft'"/>
+                            <field name="quorum_required" invisible="state == 'draft'"/>
+                            <field name="has_quorum" invisible="state == 'draft'"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Description">
+                            <field name="description" nolabel="1" 
+                                   placeholder="Enter the detailed description of this resolution..."/>
+                        </page>
+                        
+                        <page string="Voting Results" invisible="state == 'draft'">
+                            <group>
+                                <group>
+                                    <field name="votes_for"/>
+                                    <field name="votes_against"/>
+                                    <field name="votes_abstain"/>
+                                </group>
+                                <group>
+                                    <field name="is_approved" readonly="1"/>
+                                    <field name="approved_by" readonly="1" invisible="not approved_by"/>
+                                    <field name="approved_date" readonly="1" invisible="not approved_date"/>
+                                </group>
+                            </group>
+                        </page>
+                        
+                        <page string="Attachments">
+                            <field name="attachment_ids" widget="many2many_binary" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_board_resolution_search" model="ir.ui.view">
+        <field name="name">board.resolution.search</field>
+        <field name="model">board.resolution</field>
+        <field name="arch" type="xml">
+            <search string="Board Resolutions">
+                <field name="reference"/>
+                <field name="title"/>
+                <field name="meeting_type_id"/>
+                <field name="description"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="pending" string="Pending" domain="[('state', '=', 'pending')]"/>
+                <filter name="approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+                <filter name="archived" string="Archived" domain="[('state', '=', 'archived')]"/>
+                <separator/>
+                <filter name="has_quorum" string="Has Quorum" domain="[('has_quorum', '=', True)]"/>
+                <filter name="is_approved" string="Voting Approved" domain="[('is_approved', '=', True)]"/>
+                <separator/>
+                <filter name="this_month" string="This Month" 
+                        domain="[('meeting_date', '&gt;=', (datetime.datetime.now().replace(day=1)).strftime('%Y-%m-%d')),
+                                ('meeting_date', '&lt;', (datetime.datetime.now().replace(day=1) + relativedelta(months=1)).strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_state" string="State" context="{'group_by': 'state'}"/>
+                    <filter name="group_by_meeting_type" string="Meeting Type" context="{'group_by': 'meeting_type_id'}"/>
+                    <filter name="group_by_meeting_date" string="Meeting Date" context="{'group_by': 'meeting_date:month'}"/>
+                    <filter name="group_by_priority" string="Priority" context="{'group_by': 'priority'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="view_board_resolution_kanban" model="ir.ui.view">
+        <field name="name">board.resolution.kanban</field>
+        <field name="model">board.resolution</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" default_group_by="state">
+                <field name="state"/>
+                <field name="title"/>
+                <field name="meeting_date"/>
+                <field name="priority"/>
+                <field name="is_approved"/>
+                <field name="has_quorum"/>
+                <field name="color"/>
+                <progressbar field="state" 
+                            colors='{"approved": "success", "pending": "warning", "draft": "info", "archived": "muted"}'/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="title"/>
+                                    </strong>
+                                </div>
+                                <field name="priority" widget="priority" groups="base.group_user"/>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <field name="reference" class="fw-bold"/>
+                                <div class="text-muted">
+                                    <field name="meeting_type_id"/>
+                                    <span> - </span>
+                                    <field name="meeting_date" widget="date"/>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <span t-if="record.has_quorum.raw_value" class="badge text-bg-success">Quorum</span>
+                                    <span t-if="record.is_approved.raw_value" class="badge text-bg-info">Approved</span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Calendar View -->
+    <record id="view_board_resolution_calendar" model="ir.ui.view">
+        <field name="name">board.resolution.calendar</field>
+        <field name="model">board.resolution</field>
+        <field name="arch" type="xml">
+            <calendar string="Board Resolutions" date_start="meeting_date" color="meeting_type_id" mode="month">
+                <field name="title"/>
+                <field name="meeting_type_id"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_board_resolution" model="ir.actions.act_window">
+        <field name="name">Board Resolutions</field>
+        <field name="res_model">board.resolution</field>
+        <field name="view_mode">list,kanban,form,calendar</field>
+        <field name="context">{'search_default_draft': 1, 'search_default_pending': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first board resolution
+            </p>
+            <p>
+                Manage board resolutions with voting tracking and approval workflow.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_board_resolutions_root"
+              name="Board Resolutions"
+              sequence="50"
+              web_icon="kulturhaus_board_resolutions,static/description/icon.png"/>
+              
+    <menuitem id="menu_board_resolutions"
+              name="Resolutions"
+              parent="menu_board_resolutions_root"
+              sequence="10"/>
+              
+    <menuitem id="menu_board_resolution_list"
+              name="All Resolutions"
+              parent="menu_board_resolutions"
+              action="action_board_resolution"
+              sequence="10"/>
+              
+    <menuitem id="menu_board_resolution_config"
+              name="Configuration"
+              parent="menu_board_resolutions_root"
+              sequence="99"/>
+</odoo>

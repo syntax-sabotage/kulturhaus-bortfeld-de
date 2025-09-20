@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Meeting Type Form View -->
+    <record id="view_board_meeting_type_form" model="ir.ui.view">
+        <field name="name">board.meeting.type.form</field>
+        <field name="model">board.meeting.type</field>
+        <field name="arch" type="xml">
+            <form string="Meeting Type">
+                <sheet>
+                    <group>
+                        <group string="General Information">
+                            <field name="name"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="color" widget="color_picker"/>
+                        </group>
+                        <group string="Description">
+                            <field name="description" nolabel="1" colspan="2"/>
+                        </group>
+                    </group>
+                    
+                    <group string="Quorum Configuration">
+                        <group>
+                            <field name="quorum_type"/>
+                            <field name="quorum_percentage" invisible="quorum_type != 'percentage'"/>
+                            <field name="quorum_fixed" invisible="quorum_type != 'fixed'"/>
+                            <field name="quorum_custom_formula" invisible="quorum_type != 'custom'" placeholder="e.g., total_members * 0.6"/>
+                        </group>
+                        <group>
+                            <div class="text-muted">
+                                <p invisible="quorum_type != 'percentage'">
+                                    <i class="fa fa-info-circle"/> Requires <field name="quorum_percentage" readonly="1" nolabel="1" style="width: 50px;"/>% of members to be present
+                                </p>
+                                <p invisible="quorum_type != 'fixed'">
+                                    <i class="fa fa-info-circle"/> Requires exactly <field name="quorum_fixed" readonly="1" nolabel="1" style="width: 50px;"/> members to be present
+                                </p>
+                                <p invisible="quorum_type != 'half_plus_one'">
+                                    <i class="fa fa-info-circle"/> Requires more than half of all members (50% + 1)
+                                </p>
+                                <p invisible="quorum_type != 'two_thirds'">
+                                    <i class="fa fa-info-circle"/> Requires at least two thirds of all members
+                                </p>
+                                <p invisible="quorum_type != 'all'">
+                                    <i class="fa fa-info-circle"/> Requires all members to be present
+                                </p>
+                                <p invisible="quorum_type != 'custom'">
+                                    <i class="fa fa-info-circle"/> Custom formula based on total members
+                                </p>
+                            </div>
+                        </group>
+                    </group>
+                    
+                    <group string="Voting Configuration">
+                        <group>
+                            <field name="voting_majority"/>
+                            <field name="voting_majority_custom" invisible="voting_majority != 'custom'"/>
+                        </group>
+                        <group>
+                            <field name="allow_proxy_voting"/>
+                            <field name="allow_secret_ballot"/>
+                            <field name="allow_open_ballot"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Meeting Type Tree View -->
+    <record id="view_board_meeting_type_tree" model="ir.ui.view">
+        <field name="name">board.meeting.type.tree</field>
+        <field name="model">board.meeting.type</field>
+        <field name="arch" type="xml">
+            <list string="Meeting Types">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="quorum_type"/>
+                <field name="voting_majority"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Meeting Type Search View -->
+    <record id="view_board_meeting_type_search" model="ir.ui.view">
+        <field name="name">board.meeting.type.search</field>
+        <field name="model">board.meeting.type</field>
+        <field name="arch" type="xml">
+            <search string="Meeting Types">
+                <field name="name"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]" help="Active meeting types"/>
+                <filter string="Archived" name="archived" domain="[('active', '=', False)]" help="Archived meeting types"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Quorum Type" name="group_quorum" domain="[]" context="{'group_by': 'quorum_type'}"/>
+                    <filter string="Voting Majority" name="group_majority" domain="[]" context="{'group_by': 'voting_majority'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Meeting Type Action -->
+    <record id="action_board_meeting_type" model="ir.actions.act_window">
+        <field name="name">Meeting Types</field>
+        <field name="res_model">board.meeting.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first meeting type
+            </p>
+            <p>
+                Configure different types of board meetings with their specific quorum and voting requirements.
+            </p>
+        </field>
+    </record>
+
+    <!-- Settings View Extension -->
+    <record id="view_board_resolution_config_settings" model="ir.ui.view">
+        <field name="name">res.config.settings.board.resolutions</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Board Resolutions" string="Board Resolutions" name="kulturhaus_board_resolutions">
+                    <block title="Meeting Configuration" name="meeting_config">
+                        <setting string="Default Meeting Type" help="Default meeting type for new resolutions">
+                            <field name="default_meeting_type_id"/>
+                        </setting>
+                        <setting string="Configure Meeting Types" help="Manage meeting types and their rules">
+                            <button name="%(action_board_meeting_type)d" 
+                                    type="action"
+                                    string="Configure Meeting Types" 
+                                    class="btn-link"
+                                    icon="fa-arrow-right"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem
+        id="menu_board_meeting_type_config"
+        name="Versammlungsarten"
+        parent="kulturhaus_board_resolutions.menu_board_resolutions_config"
+        action="action_board_meeting_type"
+        sequence="20"/>
+
+</odoo>

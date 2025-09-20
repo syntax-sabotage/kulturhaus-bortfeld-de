@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Inherit Project Form View to add Resolution button -->
+    <record id="view_project_form_inherit_board_resolution" model="ir.ui.view">
+        <field name="name">project.project.form.inherit.board.resolution</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="object" name="action_view_resolutions" icon="fa-gavel">
+                    <field string="Resolutions" name="resolution_count" widget="statinfo"/>
+                </button>
+                <button name="action_create_resolution" type="object" class="oe_stat_button" icon="fa-plus">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Create Resolution</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit Task Form View to add Resolution button -->
+    <record id="view_task_form_inherit_board_resolution" model="ir.ui.view">
+        <field name="name">project.task.form.inherit.board.resolution</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="object" name="action_view_resolutions" icon="fa-gavel">
+                    <field string="Resolutions" name="resolution_count" widget="statinfo"/>
+                </button>
+                <button name="action_create_resolution" type="object" class="oe_stat_button" icon="fa-plus">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Create Resolution</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Remove the broken tab entirely -->
+    <!-- Resolutions should be accessed via the smart button only -->
+
+    <!-- Remove the broken tab entirely -->
+    <!-- Resolutions should be accessed via the smart button only -->
+
+</odoo>

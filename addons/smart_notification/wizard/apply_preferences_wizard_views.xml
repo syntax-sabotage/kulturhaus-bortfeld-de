@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Apply Preferences Wizard Form -->
+    <record id="view_smart_notification_apply_wizard_form" model="ir.ui.view">
+        <field name="name">smart.notification.apply.wizard.form</field>
+        <field name="model">smart.notification.apply.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Apply Notification Preferences">
+                <group>
+                    <group string="Current Settings">
+                        <field name="user_id"/>
+                        <field name="notification_profile"/>
+                        <field name="subscription_count"/>
+                    </group>
+                    <group string="Apply Options">
+                        <field name="apply_to_models" widget="radio"/>
+                        <field name="model_ids" widget="many2many_tags" 
+                               invisible="apply_to_models != 'selected'"
+                               options="{'no_create': True}"/>
+                    </group>
+                </group>
+                
+                <div class="alert alert-warning" role="alert">
+                    <strong>This action will update all your existing subscriptions!</strong>
+                    <p>Your current notification preferences will be applied to all selected subscriptions. 
+                       This will override any custom settings you may have configured for individual records.</p>
+                </div>
+                
+                <footer>
+                    <button name="action_apply" 
+                            type="object" 
+                            string="Apply Preferences" 
+                            class="btn-primary"/>
+                    <button name="action_preview" 
+                            type="object" 
+                            string="Preview Subscriptions" 
+                            class="btn-secondary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Action to open wizard -->
+    <record id="action_smart_notification_apply_wizard" model="ir.actions.act_window">
+        <field name="name">Apply Notification Preferences</field>
+        <field name="res_model">smart.notification.apply.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_user_id': uid}</field>
+    </record>
+</odoo>

@@ -1,0 +1,49 @@
+// Styles for group mentions
+.o_mail_mention_all {
+    background-color: #17a2b8 !important;
+    color: white !important;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: bold;
+    
+    &:hover {
+        background-color: #138496 !important;
+    }
+}
+
+.o_mail_mention_vorstand {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: bold;
+    
+    &:hover {
+        background-color: #e0a800 !important;
+    }
+}
+
+// Visual indicator in composer when typing group mentions
+.o_mail_composer {
+    .o_group_mention_hint {
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        background: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        padding: 8px 12px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        font-size: 12px;
+        color: #6c757d;
+        margin-bottom: 4px;
+        
+        &.o_mention_all {
+            border-left: 3px solid #17a2b8;
+        }
+        
+        &.o_mention_vorstand {
+            border-left: 3px solid #ffc107;
+        }
+    }
+}

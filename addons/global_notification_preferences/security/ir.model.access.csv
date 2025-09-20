@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_user_notification_preference_user,user.notification.preference.user,model_user_notification_preference,base.group_user,1,1,1,1
+access_user_notification_preference_portal,user.notification.preference.portal,model_user_notification_preference,base.group_portal,1,0,0,0

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Add admin buttons to the form header -->
+    <record id="view_board_resolution_form_admin_inherit" model="ir.ui.view">
+        <field name="name">board.resolution.form.admin.inherit</field>
+        <field name="model">board.resolution</field>
+        <field name="inherit_id" ref="board_resolution_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Add admin buttons after the archive button -->
+            <xpath expr="//header/button[@name='action_archive']" position="after">
+                <button name="action_admin_reset_to_draft" 
+                        type="object" 
+                        string="Admin: Reset to Draft" 
+                        class="btn-warning"
+                        groups="kulturhaus_board_resolutions.group_board_resolution_admin"
+                        confirm="Are you sure you want to reset this resolution to draft? This will clear all votes and approval information."/>
+                <button name="action_admin_delete" 
+                        type="object" 
+                        string="Admin: Delete" 
+                        class="btn-danger"
+                        groups="kulturhaus_board_resolutions.group_board_resolution_admin"
+                        confirm="Are you sure you want to permanently delete this resolution? This action cannot be undone."/>
+            </xpath>
+            
+            <!-- Also make regular reset to draft visible for admins on approved resolutions -->
+            <xpath expr="//header/button[@name='action_reset_to_draft']" position="attributes">
+                <attribute name="invisible">state not in ('draft', 'voted') and not env.user.has_group('kulturhaus_board_resolutions.group_board_resolution_admin')</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

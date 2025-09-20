@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View with Chatter -->
+    <record id="board_resolution_view_form" model="ir.ui.view">
+        <field name="name">board.resolution.form</field>
+        <field name="model">board.resolution</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <form string="Board Resolution">
+                <header>
+                    <button name="action_vote" string="Mark as Voted" type="object" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_submit_approval" string="Submit for Approval" type="object" class="btn-primary" invisible="state != 'voted'"/>
+                    <button name="action_approve" string="Approve" type="object" class="btn-success" invisible="state != 'to_approve'" groups="kulturhaus_board_resolutions.group_board_secretary"/>
+                    <button name="action_archive" string="Archive" type="object" invisible="state != 'approved'"/>
+                    <button name="action_reset_to_draft" string="Reset to Draft" type="object" invisible="state == 'draft' or is_approved == True"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,voted,to_approve,approved"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Approved" bg_color="bg-success" invisible="state != 'approved'"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-secondary" invisible="state != 'archived'"/>
+                    
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                        <h2><field name="title" placeholder="Resolution Title" readonly="state in ('approved', 'archived')"/></h2>
+                    </div>
+                    
+                    <group>
+                        <group>
+                            <field name="date" readonly="state in ('approved', 'archived')"/>
+                            <field name="project_id" readonly="state in ('approved', 'archived')"/>
+                            <field name="task_id" domain="[('project_id', '=', project_id)]" readonly="state in ('approved', 'archived')"/>
+                        </group>
+                        <group>
+                            <field name="result" readonly="1" widget="badge"/>
+                            <field name="quorum_met" readonly="1"/>
+                            <field name="approved_by" readonly="1" invisible="not approved_by"/>
+                            <field name="approved_date" readonly="1" invisible="not approved_date"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Description">
+                            <field name="description" placeholder="Brief description..." readonly="state in ('approved', 'archived')"/>
+                        </page>
+                        <page string="Resolution Text">
+                            <field name="resolution_text" readonly="state in ('approved', 'archived')"/>
+                        </page>
+                        <page string="Attendance">
+                            <group>
+                                <group>
+                                    <field name="total_board_members" readonly="1"/>
+                                    <field name="present_count" readonly="1"/>
+                                </group>
+                            </group>
+                            <field name="present_members" widget="many2many_tags" readonly="state != 'draft'"/>
+                        </page>
+                        <page string="Voting">
+                            <group>
+                                <group>
+                                    <field name="voting_mode" readonly="state != 'draft'"/>
+                                    <field name="votes_for" readonly="state not in ('draft', 'voted')"/>
+                                    <field name="votes_against" readonly="state not in ('draft', 'voted')"/>
+                                    <field name="votes_abstain" readonly="state not in ('draft', 'voted')"/>
+                                    <field name="total_votes" readonly="1"/>
+                                </group>
+                            </group>
+                            <group string="Open Voting Details" invisible="voting_mode != 'open'">
+                                <field name="votes_for_members" widget="many2many_tags" readonly="state not in ('draft', 'voted')"/>
+                                <field name="votes_against_members" widget="many2many_tags" readonly="state not in ('draft', 'voted')"/>
+                                <field name="votes_abstain_members" widget="many2many_tags" readonly="state not in ('draft', 'voted')"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    
+                    <!-- Hidden fields -->
+                    <field name="can_edit" invisible="1"/>
+                    <field name="is_approved" invisible="1"/>
+                </sheet>
+                <!-- Chatter -->
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="board_resolution_view_list" model="ir.ui.view">
+        <field name="name">board.resolution.list</field>
+        <field name="model">board.resolution</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <list string="Board Resolutions">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="date"/>
+                <field name="project_id" optional="show"/>
+                <field name="present_count"/>
+                <field name="result" widget="badge"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-warning="state == 'to_approve'" decoration-success="state == 'approved'"/>
+                <field name="activity_ids" widget="list_activity"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="board_resolution_view_kanban" model="ir.ui.view">
+        <field name="name">board.resolution.kanban</field>
+        <field name="model">board.resolution</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="date"/>
+                <field name="state"/>
+                <field name="result"/>
+                <field name="activity_ids"/>
+                <field name="activity_state"/>
+                <progressbar field="activity_state" colors='{"planned": "success", "today": "warning", "overdue": "danger"}'/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <strong><field name="name"/> - <field name="title"/></strong>
+                                <div>
+                                    <i class="fa fa-calendar"/> <field name="date"/>
+                                </div>
+                                <div>
+                                    <span t-att-class="'badge ' + (record.result.value == 'passed' ? 'badge-success' : record.result.value == 'rejected' ? 'badge-danger' : 'badge-warning')">
+                                        <field name="result"/>
+                                    </span>
+                                </div>
+                                <div class="oe_kanban_footer">
+                                    <field name="activity_ids" widget="kanban_activity"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="board_resolution_view_search" model="ir.ui.view">
+        <field name="name">board.resolution.search</field>
+        <field name="model">board.resolution</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="title"/>
+                <field name="project_id"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="to_approve" string="To Approve" domain="[('state', '=', 'to_approve')]"/>
+                <filter name="approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+                <separator/>
+                <filter name="passed" string="Passed" domain="[('result', '=', 'passed')]"/>
+                <filter name="rejected" string="Rejected" domain="[('result', '=', 'rejected')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+                    <filter name="group_project" string="Project" context="{'group_by': 'project_id'}"/>
+                    <filter name="group_result" string="Result" context="{'group_by': 'result'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Main Action with all view modes -->
+    <record id="action_board_resolution" model="ir.actions.act_window">
+        <field name="name">Board Resolutions</field>
+        <field name="res_model">board.resolution</field>
+        <field name="view_mode">list,kanban,form,activity</field>
+        <field name="search_view_id" ref="board_resolution_view_search"/>
+        <field name="context">{'create': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No board resolutions found
+            </p>
+            <p>
+                Board resolutions must be created through the wizard to ensure proper voting and quorum tracking.
+                Use the projects or tasks to create resolutions with proper context.
+            </p>
+        </field>
+    </record>
+
+    <!-- Explicit View Bindings -->
+    <record id="action_board_resolution_list" model="ir.actions.act_window.view">
+        <field name="sequence">1</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="board_resolution_view_list"/>
+        <field name="act_window_id" ref="action_board_resolution"/>
+    </record>
+
+    <record id="action_board_resolution_kanban" model="ir.actions.act_window.view">
+        <field name="sequence">2</field>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="board_resolution_view_kanban"/>
+        <field name="act_window_id" ref="action_board_resolution"/>
+    </record>
+
+    <record id="action_board_resolution_form" model="ir.actions.act_window.view">
+        <field name="sequence">3</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="board_resolution_view_form"/>
+        <field name="act_window_id" ref="action_board_resolution"/>
+    </record>
+
+    <!-- Additional Actions -->
+    <record id="action_board_resolution_draft" model="ir.actions.act_window">
+        <field name="name">Draft Resolutions</field>
+        <field name="res_model">board.resolution</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="domain">[('state', '=', 'draft')]</field>
+        <field name="search_view_id" ref="board_resolution_view_search"/>
+        <field name="context">{'default_state': 'draft'}</field>
+    </record>
+
+    <record id="action_board_resolution_to_approve" model="ir.actions.act_window">
+        <field name="name">Pending Approval</field>
+        <field name="res_model">board.resolution</field>
+        <field name="view_mode">list,kanban,form,activity</field>
+        <field name="domain">[('state', '=', 'to_approve')]</field>
+        <field name="search_view_id" ref="board_resolution_view_search"/>
+        <field name="context">{'default_state': 'to_approve'}</field>
+    </record>
+
+    <record id="action_board_resolution_approved" model="ir.actions.act_window">
+        <field name="name">Approved Resolutions</field>
+        <field name="res_model">board.resolution</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="domain">[('state', 'in', ['approved', 'archived'])]</field>
+        <field name="search_view_id" ref="board_resolution_view_search"/>
+    </record>
+
+    <!-- Board Members Action -->
+    <record id="action_board_members" model="ir.actions.act_window">
+        <field name="name">Board Members</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('board_member', '=', True)]</field>
+        <field name="context">{'default_board_member': True, 'create': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No board members found
+            </p>
+            <p>
+                Board members should be added through the Contacts module.
+                Mark contacts as board members to see them here.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Structure -->
+    <menuitem id="menu_board_resolutions_root"
+              name="Vorstandsbeschlüsse"
+              action="action_board_resolution"
+              sequence="50"/>
+
+    <!-- Main view - Alle Beschlüsse (no submenu, direct action) -->
+    <menuitem id="menu_board_resolutions_all"
+              name="Alle Beschlüsse"
+              parent="menu_board_resolutions_root"
+              action="action_board_resolution"
+              sequence="10"/>
+    
+    <!-- Create Resolution via Wizard -->
+    <menuitem id="menu_board_resolution_create_wizard"
+              name="Neuer Beschluss"
+              parent="menu_board_resolutions_root"
+              action="kulturhaus_board_resolutions.action_create_resolution_wizard"
+              sequence="20"
+              groups="kulturhaus_board_resolutions.group_board_member"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_board_resolutions_config"
+              name="Konfiguration"
+              parent="menu_board_resolutions_root"
+              sequence="100"
+              groups="kulturhaus_board_resolutions.group_board_secretary"/>
+
+    <menuitem id="menu_board_members"
+              name="Vorstandsmitglieder"
+              parent="menu_board_resolutions_config"
+              action="action_board_members"
+              sequence="10"/>
+
+</odoo>

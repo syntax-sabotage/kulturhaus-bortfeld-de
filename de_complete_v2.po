@@ -1,0 +1,208 @@
+# German translation for Kulturhaus Board Resolutions
+# This file contains the translation of the following modules:
+# * kulturhaus_board_resolutions
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-19 21:00+0000\n"
+"PO-Revision-Date: 2025-01-19 21:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_meeting_type__name
+msgid "Meeting Type"
+msgstr "Versammlungsart"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_meeting_type__sequence
+msgid "Sequence"
+msgstr "Reihenfolge"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_meeting_type__active
+msgid "Active"
+msgstr "Aktiv"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_meeting_type__color
+msgid "Color Index"
+msgstr "Farbindex"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_meeting_type__description
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_form
+msgid "General Information"
+msgstr "Allgemeine Informationen"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_form
+msgid "Quorum Configuration"
+msgstr "Beschlussfähigkeits-Konfiguration"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_meeting_type__quorum_type
+msgid "Quorum Type"
+msgstr "Beschlussfähigkeits-Typ"
+
+#. module: kulturhaus_board_resolutions
+#: selection:board.meeting.type,quorum_type:0
+msgid "Simple Majority (>50%)"
+msgstr "Einfache Mehrheit (>50%)"
+
+#. module: kulturhaus_board_resolutions
+#: selection:board.meeting.type,quorum_type:0
+msgid "Two Thirds"
+msgstr "Zweidrittelmehrheit"
+
+#. module: kulturhaus_board_resolutions
+#: selection:board.meeting.type,quorum_type:0
+msgid "Custom Formula"
+msgstr "Benutzerdefinierte Formel"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_meeting_type__custom_formula
+msgid "Custom Formula"
+msgstr "Benutzerdefinierte Formel"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,help:kulturhaus_board_resolutions.field_board_meeting_type__custom_formula
+msgid "Python expression using total_members variable. Example: total_members>1"
+msgstr "Python-Ausdruck mit total_members Variable. Beispiel: total_members>1"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_form
+msgid "Voting Configuration"
+msgstr "Abstimmungs-Konfiguration"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_meeting_type__required_majority
+msgid "Required Majority"
+msgstr "Erforderliche Mehrheit"
+
+#. module: kulturhaus_board_resolutions
+#: selection:board.meeting.type,required_majority:0
+msgid "Unanimous"
+msgstr "Einstimmig"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_meeting_type__allow_proxy_voting
+msgid "Allow Proxy Voting"
+msgstr "Stimmrechtsübertragung erlauben"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_meeting_type__allow_secret_ballot
+msgid "Allow Secret Ballot"
+msgstr "Geheime Abstimmung erlauben"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_meeting_type__allow_open_ballot
+msgid "Allow Open Ballot"
+msgstr "Offene Abstimmung erlauben"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_form
+msgid "GENERAL INFORMATION"
+msgstr "ALLGEMEINE INFORMATIONEN"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_form
+msgid "DESCRIPTION"
+msgstr "BESCHREIBUNG"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_form
+msgid "QUORUM CONFIGURATION"
+msgstr "BESCHLUSSFÄHIGKEITS-KONFIGURATION"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_form
+msgid "VOTING CONFIGURATION"
+msgstr "ABSTIMMUNGS-KONFIGURATION"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_form
+msgid "Custom formula based on total members"
+msgstr "Benutzerdefinierte Formel basierend auf der Gesamtanzahl der Mitglieder"
+
+#. module: kulturhaus_board_resolutions
+#: code:addons/kulturhaus_board_resolutions/models/meeting_type.py:0
+#, python-format
+msgid "Invalid custom formula"
+msgstr "Ungültige benutzerdefinierte Formel"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model,name:kulturhaus_board_resolutions.model_board_meeting_type
+msgid "Board Meeting Type"
+msgstr "Versammlungsart"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.actions.act_window,name:kulturhaus_board_resolutions.action_board_meeting_type
+msgid "Meeting Types"
+msgstr "Versammlungsarten"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.menu,name:kulturhaus_board_resolutions.menu_board_meeting_type_config
+msgid "Meeting Types"
+msgstr "Versammlungsarten"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_meeting_type__code
+msgid "Code"
+msgstr "Code"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_tree
+msgid "Meeting Types"
+msgstr "Versammlungsarten"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_search
+msgid "Meeting Types"
+msgstr "Versammlungsarten"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_search
+msgid "Active"
+msgstr "Aktiv"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_search
+msgid "Archived"
+msgstr "Archiviert"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_search
+msgid "Group By"
+msgstr "Gruppieren nach"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_search
+msgid "Quorum Type"
+msgstr "Beschlussfähigkeits-Typ"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_search
+msgid "Voting Majority"
+msgstr "Abstimmungsmehrheit"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_search
+msgid "Active meeting types"
+msgstr "Aktive Versammlungsarten"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_search
+msgid "Archived meeting types"
+msgstr "Archivierte Versammlungsarten"

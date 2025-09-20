@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend mail followers form to show global preference option -->
+    <record id="view_mail_followers_form_global_prefs" model="ir.ui.view">
+        <field name="name">mail.followers.form.global.prefs</field>
+        <field name="model">mail.followers</field>
+        <field name="inherit_id" ref="mail.mail_followers_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="use_global_preferences"/>
+            </xpath>
+            <xpath expr="//field[@name='subtype_ids']" position="before">
+                <div attrs="{'invisible': [('use_global_preferences', '=', False)]}" 
+                     class="alert alert-info">
+                    <i class="fa fa-info-circle"/> Using global notification preferences. 
+                    <button name="action_override_preferences" 
+                            type="object" 
+                            string="Override for this record"
+                            class="btn-link"/>
+                </div>
+                <div attrs="{'invisible': [('use_global_preferences', '=', True)]}"
+                     class="alert alert-warning">
+                    <i class="fa fa-exclamation-triangle"/> Custom preferences for this record. 
+                    <button name="action_apply_global_preferences" 
+                            type="object" 
+                            string="Reset to global"
+                            class="btn-link"/>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='subtype_ids']" position="attributes">
+                <attribute name="attrs">{'readonly': [('use_global_preferences', '=', True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add bulk action to apply global preferences -->
+    <record id="action_apply_global_prefs_to_followers" model="ir.actions.server">
+        <field name="name">Apply Global Notification Preferences</field>
+        <field name="model_id" ref="mail.model_mail_followers"/>
+        <field name="binding_model_id" ref="mail.model_mail_followers"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    records.action_apply_global_preferences()
+        </field>
+    </record>
+</odoo>

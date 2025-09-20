@@ -1,0 +1,76 @@
+#!/usr/bin/expect -f
+
+set timeout 30
+set password "khaus"
+
+# Copy meeting_type.py
+spawn scp meeting_type_fixed.py khaus@v2202411240735294743.luckysrv.de:/tmp/meeting_type.py
+expect {
+    "password:" {
+        send "$password\r"
+        expect eof
+    }
+    "yes/no" {
+        send "yes\r"
+        expect "password:"
+        send "$password\r"
+        expect eof
+    }
+}
+
+# Copy view files
+spawn scp meeting_type_views_fixed.xml khaus@v2202411240735294743.luckysrv.de:/tmp/meeting_type_views.xml
+expect "password:"
+send "$password\r"
+expect eof
+
+spawn scp board_resolution_views_fixed.xml khaus@v2202411240735294743.luckysrv.de:/tmp/board_resolution_views.xml
+expect "password:"
+send "$password\r"
+expect eof
+
+# Copy translation files
+spawn scp de_full_v3.po khaus@v2202411240735294743.luckysrv.de:/tmp/de_DE.po
+expect "password:"
+send "$password\r"
+expect eof
+
+spawn scp de_complete_v2.po khaus@v2202411240735294743.luckysrv.de:/tmp/de.po
+expect "password:"
+send "$password\r"
+expect eof
+
+# Move files to correct location and restart
+spawn ssh khaus@v2202411240735294743.luckysrv.de
+expect "password:"
+send "$password\r"
+expect "$ "
+
+send "sudo mkdir -p /opt/odoo18/odoo/addons/kulturhaus_board_resolutions/i18n\r"
+expect "$ "
+
+send "sudo mv /tmp/meeting_type.py /opt/odoo18/odoo/addons/kulturhaus_board_resolutions/models/meeting_type.py\r"
+expect "$ "
+
+send "sudo mv /tmp/meeting_type_views.xml /opt/odoo18/odoo/addons/kulturhaus_board_resolutions/views/meeting_type_views.xml\r"
+expect "$ "
+
+send "sudo mv /tmp/board_resolution_views.xml /opt/odoo18/odoo/addons/kulturhaus_board_resolutions/views/board_resolution_views.xml\r"
+expect "$ "
+
+send "sudo mv /tmp/de_DE.po /opt/odoo18/odoo/addons/kulturhaus_board_resolutions/i18n/de_DE.po\r"
+expect "$ "
+
+send "sudo mv /tmp/de.po /opt/odoo18/odoo/addons/kulturhaus_board_resolutions/i18n/de.po\r"
+expect "$ "
+
+send "sudo chown -R odoo18:odoo18 /opt/odoo18/odoo/addons/kulturhaus_board_resolutions\r"
+expect "$ "
+
+send "sudo systemctl restart odoo18\r"
+expect "$ "
+
+send "exit\r"
+expect eof
+
+puts "Deployment complete!"

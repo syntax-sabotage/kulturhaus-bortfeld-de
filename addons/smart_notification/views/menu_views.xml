@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu for Smart Notifications -->
+    
+    <!-- Main menu item under Settings -->
+    <menuitem id="menu_smart_notification_root"
+              name="Smart Notifications"
+              parent="base.menu_administration"
+              sequence="90"/>
+    
+    <!-- My Preferences -->
+    <menuitem id="menu_smart_notification_my_preferences"
+              name="My Preferences"
+              parent="menu_smart_notification_root"
+              action="action_smart_notification_preferences"
+              sequence="10"/>
+    
+    <!-- Apply to Existing -->
+    <menuitem id="menu_smart_notification_apply"
+              name="Apply to Existing"
+              parent="menu_smart_notification_root"
+              action="action_smart_notification_apply_wizard"
+              sequence="20"/>
+    
+    <!-- Configuration submenu -->
+    <menuitem id="menu_smart_notification_config"
+              name="Configuration"
+              parent="menu_smart_notification_root"
+              sequence="100"
+              groups="base.group_system"/>
+    
+    <!-- Notification Profiles -->
+    <record id="action_notification_profiles" model="ir.actions.act_window">
+        <field name="name">Notification Profiles</field>
+        <field name="res_model">notification.profile</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Notification Profiles
+            </p>
+            <p>
+                Define notification profile templates that users can select.
+                Each profile defines default notification preferences for different models.
+            </p>
+        </field>
+    </record>
+    
+    <menuitem id="menu_notification_profiles"
+              name="Notification Profiles"
+              parent="menu_smart_notification_config"
+              action="action_notification_profiles"
+              sequence="10"
+              groups="base.group_system"/>
+    
+    <!-- Profile Settings -->
+    <record id="action_notification_profile_settings" model="ir.actions.act_window">
+        <field name="name">Profile Settings</field>
+        <field name="res_model">notification.profile.setting</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure Profile Settings
+            </p>
+            <p>
+                Define notification settings for specific models within profiles.
+            </p>
+        </field>
+    </record>
+    
+    <menuitem id="menu_notification_profile_settings"
+              name="Profile Settings"
+              parent="menu_smart_notification_config"
+              action="action_notification_profile_settings"
+              sequence="20"
+              groups="base.group_system"/>
+    
+    <!-- User Subscriptions Overview -->
+    <record id="action_user_subscriptions_overview" model="ir.actions.act_window">
+        <field name="name">User Subscriptions</field>
+        <field name="res_model">mail.followers</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'create': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                View All User Subscriptions
+            </p>
+            <p>
+                Monitor and manage notification subscriptions across the system.
+            </p>
+        </field>
+    </record>
+    
+    <menuitem id="menu_user_subscriptions_overview"
+              name="User Subscriptions"
+              parent="menu_smart_notification_config"
+              action="action_user_subscriptions_overview"
+              sequence="30"
+              groups="base.group_system"/>
+</odoo>

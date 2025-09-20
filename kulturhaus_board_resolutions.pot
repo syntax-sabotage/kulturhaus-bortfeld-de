@@ -1,0 +1,287 @@
+# Translation of Odoo Module.
+# This file contains the translation of the following modules:
+# * kulturhaus_board_resolutions
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-19 20:00+0000\n"
+"PO-Revision-Date: 2025-01-19 20:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__name
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Resolution Number"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__title
+msgid "Title"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__description
+msgid "Description"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__date
+msgid "Date"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__state
+msgid "State"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields.selection,name:kulturhaus_board_resolutions.selection__board_resolution__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields.selection,name:kulturhaus_board_resolutions.selection__board_resolution__state__voted
+msgid "Voted"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields.selection,name:kulturhaus_board_resolutions.selection__board_resolution__state__to_approve
+msgid "To Approve"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields.selection,name:kulturhaus_board_resolutions.selection__board_resolution__state__approved
+msgid "Approved"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields.selection,name:kulturhaus_board_resolutions.selection__board_resolution__state__archived
+msgid "Archived"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__resolution_text
+msgid "Resolution Text"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__project_id
+msgid "Related Project"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__task_id
+msgid "Related Task"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Attendance"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Voting"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__total_board_members
+msgid "Total Board Members"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__present_count
+msgid "Present Count"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__present_members
+msgid "Present Members"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__quorum_met
+msgid "Quorum Met"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__voting_mode
+msgid "Voting Mode"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields.selection,name:kulturhaus_board_resolutions.selection__board_resolution__voting_mode__open
+msgid "Open"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields.selection,name:kulturhaus_board_resolutions.selection__board_resolution__voting_mode__secret
+msgid "Secret"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__votes_for
+msgid "Votes For"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__votes_against
+msgid "Votes Against"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__votes_abstain
+msgid "Abstentions"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__result
+msgid "Result"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields.selection,name:kulturhaus_board_resolutions.selection__board_resolution__result__passed
+msgid "Passed"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields.selection,name:kulturhaus_board_resolutions.selection__board_resolution__result__rejected
+msgid "Rejected"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields.selection,name:kulturhaus_board_resolutions.selection__board_resolution__result__tie
+msgid "Tie"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__approved_by
+msgid "Approved By"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model.fields,field_description:kulturhaus_board_resolutions.field_board_resolution__approved_date
+msgid "Approved Date"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Submit for Voting"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Submit for Approval"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Approve"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Archive"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Reset to Draft"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Print"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.actions.act_window,name:kulturhaus_board_resolutions.action_board_resolution
+#: model:ir.ui.menu,name:kulturhaus_board_resolutions.menu_board_resolution
+msgid "Board Resolutions"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.menu,name:kulturhaus_board_resolutions.menu_board_resolutions_root
+msgid "Board Resolutions"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.menu,name:kulturhaus_board_resolutions.menu_board_resolutions_all
+msgid "All Resolutions"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.menu,name:kulturhaus_board_resolutions.menu_board_resolutions_new
+msgid "New Resolution"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.menu,name:kulturhaus_board_resolutions.menu_board_resolutions_config
+msgid "Configuration"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.menu,name:kulturhaus_board_resolutions.menu_board_meeting_type_config
+msgid "Meeting Types"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model,name:kulturhaus_board_resolutions.model_board_resolution
+msgid "Board Resolution"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.model,name:kulturhaus_board_resolutions.model_board_meeting_type
+msgid "Board Meeting Type"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: code:addons/kulturhaus_board_resolutions/models/board_resolution.py:0
+#, python-format
+msgid "Only Beschluss Administrators can reset approved resolutions to draft."
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: code:addons/kulturhaus_board_resolutions/models/board_resolution.py:0
+#, python-format
+msgid "Only Beschluss Administrators can delete resolutions."
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: code:addons/kulturhaus_board_resolutions/models/board_resolution.py:0
+#, python-format
+msgid "Resolution administratively reset to draft by %s."
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: code:addons/kulturhaus_board_resolutions/models/board_resolution.py:0
+#, python-format
+msgid "Resolution scheduled for deletion by %s."
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_resolution_form_admin_inherit
+msgid "Admin: Reset to Draft"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_resolution_form_admin_inherit
+msgid "Admin: Delete"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:res.groups,name:kulturhaus_board_resolutions.group_board_resolution_admin
+msgid "Beschluss Administrator"
+msgstr ""
+
+#. module: kulturhaus_board_resolutions
+#: model:res.groups,comment:kulturhaus_board_resolutions.group_board_resolution_admin
+msgid "Administrators can reset board resolutions to draft and delete them."
+msgstr ""

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Create a category for Board Resolutions -->
+        <record id="module_category_board_resolutions" model="ir.module.category">
+            <field name="name">Vorstandsbeschlüsse</field>
+            <field name="description">Berechtigungen für Vorstandsbeschlüsse</field>
+            <field name="sequence">100</field>
+        </record>
+        
+        <!-- Beschluss Administrator Group -->
+        <record id="group_board_resolution_admin" model="res.groups">
+            <field name="name">Beschluss Administrator</field>
+            <field name="category_id" ref="module_category_board_resolutions"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Administratoren können Vorstandsbeschlüsse auf Entwurf zurücksetzen und löschen.</field>
+        </record>
+    </data>
+</odoo>

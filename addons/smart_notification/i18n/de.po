@@ -1,0 +1,316 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* smart_notification
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00:00\n"
+"PO-Revision-Date: 2024-01-01 00:00:00\n"
+"Last-Translator: Syntax & Sabotage <info@syntaxandsabotage.io>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: smart_notification
+#: model:ir.model.fields,field_description:smart_notification.field_res_users__smart_notifications_enabled
+msgid "Smart Notifications Enabled"
+msgstr "Intelligente Benachrichtigungen aktiviert"
+
+#. module: smart_notification
+#: model:ir.model.fields,field_description:smart_notification.field_res_users__notification_profile
+msgid "Notification Profile"
+msgstr "Benachrichtigungsprofil"
+
+#. module: smart_notification
+#: selection:res.users,notification_profile:0
+msgid "Minimal"
+msgstr "Minimal"
+
+#. module: smart_notification
+#: selection:res.users,notification_profile:0
+msgid "Normal"
+msgstr "Normal"
+
+#. module: smart_notification
+#: selection:res.users,notification_profile:0
+msgid "Manager"
+msgstr "Manager"
+
+#. module: smart_notification
+#: selection:res.users,notification_profile:0
+msgid "Board Member"
+msgstr "Vorstandsmitglied"
+
+#. module: smart_notification
+#: selection:res.users,notification_profile:0
+msgid "Custom"
+msgstr "Benutzerdefiniert"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Smart Notifications"
+msgstr "Intelligente Benachrichtigungen"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Notification Settings"
+msgstr "Benachrichtigungseinstellungen"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Statistics"
+msgstr "Statistiken"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "View Subscriptions"
+msgstr "Abonnements anzeigen"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Apply to Existing"
+msgstr "Auf Bestehende anwenden"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "This will update all your existing subscriptions with your current preferences. Continue?"
+msgstr "Dies wird alle Ihre bestehenden Abonnements mit Ihren aktuellen Einstellungen aktualisieren. Fortfahren?"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Tasks"
+msgstr "Aufgaben"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Task Notifications"
+msgstr "Aufgabenbenachrichtigungen"
+
+#. module: smart_notification
+#: model:ir.model.fields,field_description:smart_notification.field_res_users__notify_task_messages
+msgid "Messages"
+msgstr "Nachrichten"
+
+#. module: smart_notification
+#: model:ir.model.fields,field_description:smart_notification.field_res_users__notify_task_notes
+msgid "Internal Notes"
+msgstr "Interne Notizen"
+
+#. module: smart_notification
+#: model:ir.model.fields,field_description:smart_notification.field_res_users__notify_task_state
+msgid "State Changes"
+msgstr "Statusänderungen"
+
+#. module: smart_notification
+#: model:ir.model.fields,field_description:smart_notification.field_res_users__notify_task_assignment
+msgid "Assignments"
+msgstr "Zuweisungen"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Configure which task events trigger notifications when you follow a task."
+msgstr "Konfigurieren Sie, welche Aufgabenereignisse Benachrichtigungen auslösen, wenn Sie einer Aufgabe folgen."
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Customer and team communications"
+msgstr "Kunden- und Teamkommunikation"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Internal team notes (usually not for customers)"
+msgstr "Interne Teamnotizen (normalerweise nicht für Kunden)"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "When task moves between stages"
+msgstr "Wenn Aufgabe zwischen Stufen wechselt"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "When task is assigned to someone"
+msgstr "Wenn Aufgabe jemandem zugewiesen wird"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Sales"
+msgstr "Verkäufe"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Sale Order Notifications"
+msgstr "Verkaufsauftragsbenachrichtigungen"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Invoicing"
+msgstr "Rechnungsstellung"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Invoice Notifications"
+msgstr "Rechnungsbenachrichtigungen"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Profile Presets"
+msgstr "Profilvoreinstellungen"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Minimal Profile"
+msgstr "Minimales Profil"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Normal Profile"
+msgstr "Normales Profil"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Manager Profile"
+msgstr "Manager-Profil"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Board Member Profile"
+msgstr "Vorstandsmitglied-Profil"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "You will only receive critical notifications:"
+msgstr "Sie erhalten nur kritische Benachrichtigungen:"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Task assignments and state changes"
+msgstr "Aufgabenzuweisungen und Statusänderungen"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Sale order confirmations"
+msgstr "Verkaufsauftragsbestätigungen"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Invoice validations"
+msgstr "Rechnungsvalidierungen"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "You will receive standard notifications:"
+msgstr "Sie erhalten Standardbenachrichtigungen:"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "All messages (but not internal notes)"
+msgstr "Alle Nachrichten (aber keine internen Notizen)"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Important state changes"
+msgstr "Wichtige Statusänderungen"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Assignments and confirmations"
+msgstr "Zuweisungen und Bestätigungen"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "You will receive comprehensive notifications:"
+msgstr "Sie erhalten umfassende Benachrichtigungen:"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "All messages and important updates"
+msgstr "Alle Nachrichten und wichtige Updates"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "State changes and progress updates"
+msgstr "Statusänderungen und Fortschrittsaktualisierungen"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Team assignments and completions"
+msgstr "Teamzuweisungen und Abschlüsse"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "You will receive ALL notifications:"
+msgstr "Sie erhalten ALLE Benachrichtigungen:"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "All messages AND internal notes"
+msgstr "Alle Nachrichten UND interne Notizen"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Every state change and update"
+msgstr "Jede Statusänderung und Aktualisierung"
+
+#. module: smart_notification
+#: model_terms:ir.ui.view,arch_db:smart_notification.view_users_form_smart_notification
+msgid "Complete visibility of all activities"
+msgstr "Vollständige Sichtbarkeit aller Aktivitäten"
+
+#. module: smart_notification
+#: code:addons/smart_notification/models/res_users.py:0
+msgid "Preferences Updated"
+msgstr "Einstellungen aktualisiert"
+
+#. module: smart_notification
+#: code:addons/smart_notification/models/res_users.py:0
+msgid "Your notification preferences have been applied to %d existing subscriptions."
+msgstr "Ihre Benachrichtigungseinstellungen wurden auf %d bestehende Abonnements angewendet."
+
+#. module: smart_notification
+#: code:addons/smart_notification/models/mail_followers.py:0
+msgid "Smart Defaults Applied"
+msgstr "Intelligente Standards angewendet"
+
+#. module: smart_notification
+#: code:addons/smart_notification/models/mail_followers.py:0
+msgid "Notification preferences have been updated."
+msgstr "Benachrichtigungseinstellungen wurden aktualisiert."
+
+#. module: smart_notification
+#: model:ir.ui.menu,name:smart_notification.menu_smart_notification_root
+msgid "Smart Notifications"
+msgstr "Intelligente Benachrichtigungen"
+
+#. module: smart_notification
+#: model:ir.ui.menu,name:smart_notification.menu_smart_notification_my_preferences
+msgid "My Preferences"
+msgstr "Meine Einstellungen"
+
+#. module: smart_notification
+#: model:ir.ui.menu,name:smart_notification.menu_smart_notification_apply
+msgid "Apply to Existing"
+msgstr "Auf Bestehende anwenden"
+
+#. module: smart_notification
+#: model:ir.ui.menu,name:smart_notification.menu_smart_notification_config
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#. module: smart_notification
+#: model:ir.ui.menu,name:smart_notification.menu_notification_profiles
+msgid "Notification Profiles"
+msgstr "Benachrichtigungsprofile"
+
+#. module: smart_notification
+#: model:ir.ui.menu,name:smart_notification.menu_notification_profile_settings
+msgid "Profile Settings"
+msgstr "Profilkonfiguration"
+
+#. module: smart_notification
+#: model:ir.ui.menu,name:smart_notification.menu_user_subscriptions_overview
+msgid "User Subscriptions"
+msgstr "Benutzerabonnements"

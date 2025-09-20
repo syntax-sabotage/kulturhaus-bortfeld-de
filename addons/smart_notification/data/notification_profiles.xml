@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Notification Profile Templates -->
+    
+    <!-- Minimal Profile -->
+    <record id="profile_minimal" model="notification.profile">
+        <field name="name">Minimal</field>
+        <field name="code">minimal</field>
+        <field name="description">Only critical notifications - task assignments, order confirmations, invoice validations</field>
+    </record>
+    
+    <record id="profile_minimal_task" model="notification.profile.setting">
+        <field name="profile_id" ref="profile_minimal"/>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="notify_messages" eval="False"/>
+        <field name="notify_notes" eval="False"/>
+        <field name="notify_state_changes" eval="True"/>
+        <field name="notify_assignments" eval="True"/>
+    </record>
+    
+    <record id="profile_minimal_sale" model="notification.profile.setting">
+        <field name="profile_id" ref="profile_minimal"/>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="notify_messages" eval="False"/>
+        <field name="notify_notes" eval="False"/>
+        <field name="notify_confirmations" eval="True"/>
+    </record>
+    
+    <record id="profile_minimal_invoice" model="notification.profile.setting">
+        <field name="profile_id" ref="profile_minimal"/>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="notify_messages" eval="False"/>
+        <field name="notify_notes" eval="False"/>
+        <field name="notify_validations" eval="True"/>
+    </record>
+    
+    <!-- Normal Profile -->
+    <record id="profile_normal" model="notification.profile">
+        <field name="name">Normal</field>
+        <field name="code">normal</field>
+        <field name="description">Standard business notifications - messages and important state changes</field>
+    </record>
+    
+    <record id="profile_normal_task" model="notification.profile.setting">
+        <field name="profile_id" ref="profile_normal"/>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="notify_messages" eval="True"/>
+        <field name="notify_notes" eval="False"/>
+        <field name="notify_state_changes" eval="True"/>
+        <field name="notify_assignments" eval="True"/>
+    </record>
+    
+    <record id="profile_normal_sale" model="notification.profile.setting">
+        <field name="profile_id" ref="profile_normal"/>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="notify_messages" eval="True"/>
+        <field name="notify_notes" eval="False"/>
+        <field name="notify_confirmations" eval="True"/>
+    </record>
+    
+    <record id="profile_normal_invoice" model="notification.profile.setting">
+        <field name="profile_id" ref="profile_normal"/>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="notify_messages" eval="True"/>
+        <field name="notify_notes" eval="False"/>
+        <field name="notify_validations" eval="True"/>
+    </record>
+    
+    <!-- Manager Profile -->
+    <record id="profile_manager" model="notification.profile">
+        <field name="name">Manager</field>
+        <field name="code">manager</field>
+        <field name="description">Comprehensive notifications for team leaders - all messages and updates</field>
+    </record>
+    
+    <record id="profile_manager_task" model="notification.profile.setting">
+        <field name="profile_id" ref="profile_manager"/>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="notify_messages" eval="True"/>
+        <field name="notify_notes" eval="False"/>
+        <field name="notify_state_changes" eval="True"/>
+        <field name="notify_assignments" eval="True"/>
+    </record>
+    
+    <record id="profile_manager_sale" model="notification.profile.setting">
+        <field name="profile_id" ref="profile_manager"/>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="notify_messages" eval="True"/>
+        <field name="notify_notes" eval="False"/>
+        <field name="notify_confirmations" eval="True"/>
+    </record>
+    
+    <record id="profile_manager_invoice" model="notification.profile.setting">
+        <field name="profile_id" ref="profile_manager"/>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="notify_messages" eval="True"/>
+        <field name="notify_notes" eval="False"/>
+        <field name="notify_validations" eval="True"/>
+    </record>
+    
+    <!-- Board Member Profile -->
+    <record id="profile_board" model="notification.profile">
+        <field name="name">Board Member</field>
+        <field name="code">board</field>
+        <field name="description">Everything including internal notes - complete visibility</field>
+    </record>
+    
+    <record id="profile_board_task" model="notification.profile.setting">
+        <field name="profile_id" ref="profile_board"/>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="notify_messages" eval="True"/>
+        <field name="notify_notes" eval="True"/>
+        <field name="notify_state_changes" eval="True"/>
+        <field name="notify_assignments" eval="True"/>
+    </record>
+    
+    <record id="profile_board_sale" model="notification.profile.setting">
+        <field name="profile_id" ref="profile_board"/>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="notify_messages" eval="True"/>
+        <field name="notify_notes" eval="True"/>
+        <field name="notify_confirmations" eval="True"/>
+    </record>
+    
+    <record id="profile_board_invoice" model="notification.profile.setting">
+        <field name="profile_id" ref="profile_board"/>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="notify_messages" eval="True"/>
+        <field name="notify_notes" eval="True"/>
+        <field name="notify_validations" eval="True"/>
+    </record>
+</odoo>
