@@ -6,35 +6,35 @@
         <field name="model">board.resolution</field>
         <field name="priority">1</field>
         <field name="arch" type="xml">
-            <form string="Board Resolution">
+            <form string="Vorstandsbeschluss">
                 <header>
-                    <button name="action_vote" string="Mark as Voted" type="object" class="btn-primary" invisible="state != 'draft'" groups="kulturhaus_board_resolutions.group_board_member"/>
-                    <button name="action_submit_approval" string="Submit for Approval" type="object" class="btn-primary" invisible="state != 'voted'" groups="kulturhaus_board_resolutions.group_board_member"/>
-                    <button name="action_approve" string="Approve" type="object" class="btn-success" invisible="state != 'to_approve'" groups="kulturhaus_board_resolutions.group_board_secretary"/>
-                    <button name="action_archive" string="Archive" type="object" invisible="state != 'approved'" groups="kulturhaus_board_resolutions.group_board_secretary"/>
-                    <button name="action_reset_to_draft" string="Reset to Draft" type="object" invisible="state not in ('voted', 'to_approve')" groups="kulturhaus_board_resolutions.group_board_secretary"/>
-                    <button name="action_print_report" string="Print PDF" type="object" icon="fa-print" invisible="state == 'draft'"/>
+                    <button name="action_vote" string="Als abgestimmt markieren" type="object" class="btn-primary" invisible="state != 'draft'" groups="kulturhaus_board_resolutions.group_board_member"/>
+                    <button name="action_submit_approval" string="Zur Genehmigung einreichen" type="object" class="btn-primary" invisible="state != 'voted'" groups="kulturhaus_board_resolutions.group_board_member"/>
+                    <button name="action_approve" string="Genehmigen" type="object" class="btn-success" invisible="state != 'to_approve'" groups="kulturhaus_board_resolutions.group_board_secretary"/>
+                    <button name="action_archive" string="Archivieren" type="object" invisible="state != 'approved'" groups="kulturhaus_board_resolutions.group_board_secretary"/>
+                    <button name="action_reset_to_draft" string="Auf Entwurf zurücksetzen" type="object" invisible="state not in ('voted', 'to_approve')" groups="kulturhaus_board_resolutions.group_board_secretary"/>
+                    <button name="action_print_report" string="PDF drucken" type="object" icon="fa-print" invisible="state == 'draft'"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,voted,to_approve,approved"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button class="oe_stat_button" type="object" name="action_print_report" icon="fa-print" invisible="state == 'draft'">
                             <div class="o_field_widget o_stat_info">
-                                <span class="o_stat_text">Print PDF</span>
+                                <span class="o_stat_text">PDF drucken</span>
                             </div>
                         </button>
                     </div>
 
-                    <widget name="web_ribbon" title="Approved" bg_color="bg-success" invisible="state != 'approved'"/>
-                    <widget name="web_ribbon" title="Archived" bg_color="bg-secondary" invisible="state != 'archived'"/>
+                    <widget name="web_ribbon" title="Genehmigt" bg_color="bg-success" invisible="state != 'approved'"/>
+                    <widget name="web_ribbon" title="Archiviert" bg_color="bg-secondary" invisible="state != 'archived'"/>
                     
                     <div class="oe_title">
                         <h1><field name="name" readonly="1"/></h1>
-                        <h2><field name="title" placeholder="Resolution Title" readonly="can_edit == False"/></h2>
+                        <h2><field name="title" placeholder="Beschluss-Titel" readonly="can_edit == False"/></h2>
                     </div>
                     
                     <group>
-                        <group string="General Information">
+                        <group string="Allgemeine Informationen">
                             <field name="date" readonly="can_edit == False"/>
                             <field name="meeting_type_id" readonly="state != 'draft'" options="{'no_create': True, 'no_open': True}"/>
                             <field name="project_id" readonly="can_edit == False" options="{'no_create': True}"/>
@@ -49,15 +49,15 @@
                     </group>
                     
                     <notebook>
-                        <page string="Description" name="description">
-                            <field name="description" placeholder="Brief description of the resolution..." readonly="can_edit == False"/>
+                        <page string="Beschreibung" name="description">
+                            <field name="description" placeholder="Kurze Beschreibung des Beschlusses..." readonly="can_edit == False"/>
                         </page>
                         
-                        <page string="Resolution Text" name="resolution">
+                        <page string="Beschlusstext" name="resolution">
                             <field name="resolution_text" readonly="can_edit == False"/>
                         </page>
 
-                        <page string="Attendance" name="attendance">
+                        <page string="Anwesenheit" name="attendance">
                             <group>
                                 <group string="Quorum">
                                     <field name="total_board_members" readonly="1"/>
@@ -66,12 +66,12 @@
                                     <field name="meeting_quorum_percentage" invisible="1"/>
                                     <field name="meeting_quorum_fixed" invisible="1"/>
                                     <div class="text-muted" colspan="2" invisible="not meeting_type_id">
-                                        <span>Required quorum for </span><field name="meeting_type_id" readonly="1" nolabel="1" options="{'no_open': True}"/>:
+                                        <span>Erforderliches Quorum für </span><field name="meeting_type_id" readonly="1" nolabel="1" options="{'no_open': True}"/>:
                                         <span invisible="meeting_quorum_type != 'percentage'">
-                                            <field name="meeting_quorum_percentage" readonly="1" nolabel="1"/>% of members
+                                            <field name="meeting_quorum_percentage" readonly="1" nolabel="1"/>% der Mitglieder
                                         </span>
                                         <span invisible="meeting_quorum_type != 'fixed'">
-                                            <field name="meeting_quorum_fixed" readonly="1" nolabel="1"/> members
+                                            <field name="meeting_quorum_fixed" readonly="1" nolabel="1"/> Mitglieder
                                         </span>
                                         <span invisible="meeting_quorum_type != 'half_plus_one'">
                                             <t t-esc="_('More than half (50% + 1)')"/>
@@ -85,16 +85,16 @@
                                     </div>
                                 </group>
                             </group>
-                            <separator string="Present Members"/>
+                            <separator string="Anwesende Mitglieder"/>
                             <field name="present_members" readonly="state != 'draft'" widget="many2many_tags" options="{'color_field': 'color'}"/>
                         </page>
 
-                        <page string="Voting" name="voting">
+                        <page string="Abstimmung" name="voting">
                             <group>
-                                <group string="Voting Mode">
+                                <group string="Abstimmungsmodus">
                                     <field name="voting_mode" readonly="state != 'draft'" widget="radio" options="{'horizontal': true}"/>
                                 </group>
-                                <group string="Voting Results">
+                                <group string="Abstimmungsergebnisse">
                                     <field name="votes_for" readonly="state not in ('draft', 'voted')"/>
                                     <field name="votes_against" readonly="state not in ('draft', 'voted')"/>
                                     <field name="votes_abstain" readonly="state not in ('draft', 'voted')"/>
@@ -103,19 +103,19 @@
                             </group>
                             
                             <!-- Open Voting Details -->
-                            <group invisible="voting_mode != 'open'" string="Detailed Voting">
-                                <separator string="Voted For"/>
+                            <group invisible="voting_mode != 'open'" string="Detaillierte Abstimmung">
+                                <separator string="Dafür gestimmt"/>
                                 <field name="votes_for_members" readonly="state not in ('draft', 'voted')" widget="many2many_tags" nolabel="1" options="{'color_field': 'color'}"/>
-                                <separator string="Voted Against"/>
+                                <separator string="Dagegen gestimmt"/>
                                 <field name="votes_against_members" readonly="state not in ('draft', 'voted')" widget="many2many_tags" nolabel="1" options="{'color_field': 'color'}"/>
-                                <separator string="Abstentions"/>
+                                <separator string="Enthaltungen"/>
                                 <field name="votes_abstain_members" readonly="state not in ('draft', 'voted')" widget="many2many_tags" nolabel="1" options="{'color_field': 'color'}"/>
                             </group>
 
                             <!-- Voting Requirements Info -->
                             <field name="meeting_voting_majority" invisible="1"/>
                             <field name="meeting_voting_majority_custom" invisible="1"/>
-                            <group string="Required Majority" invisible="not meeting_type_id">
+                            <group string="Erforderliche Mehrheit" invisible="not meeting_type_id">
                                 <div class="text-muted">
                                     <span invisible="meeting_voting_majority != 'simple'">
                                         <t t-esc="_('Simple majority (>50%)')"/>
@@ -130,14 +130,14 @@
                                         <t t-esc="_('Unanimous')"/>
                                     </span>
                                     <span invisible="meeting_voting_majority != 'custom'">
-                                        <field name="meeting_voting_majority_custom" readonly="1" nolabel="1"/>% majority
+                                        <field name="meeting_voting_majority_custom" readonly="1" nolabel="1"/>% Mehrheit
                                     </span>
                                 </div>
                             </group>
                         </page>
 
                         <!-- Approval Tab -->
-                        <page string="Approval" invisible="state in ('draft', 'voted')" name="approval">
+                        <page string="Genehmigung" invisible="state in ('draft', 'voted')" name="approval">
                             <group>
                                 <group>
                                     <field name="approved_by" readonly="1"/>
@@ -147,7 +147,7 @@
                         </page>
 
                         <!-- History Tab -->
-                        <page string="History" name="history">
+                        <page string="Verlauf" name="history">
                             <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
                         </page>
                     </notebook>
@@ -173,14 +173,14 @@
         <field name="model">board.resolution</field>
         <field name="priority">10</field>
         <field name="arch" type="xml">
-            <list string="Board Resolutions" decoration-info="state=='draft'" decoration-warning="state in ['voted','to_approve']" decoration-success="state=='approved'" decoration-muted="state=='archived'">
-                <field name="name" string="Number"/>
+            <list string="Vorstandsbeschlüsse" decoration-info="state=='draft'" decoration-warning="state in ['voted','to_approve']" decoration-success="state=='approved'" decoration-muted="state=='archived'">
+                <field name="name" string="Nummer"/>
                 <field name="title"/>
                 <field name="date"/>
                 <field name="meeting_type_id" optional="show"/>
                 <field name="project_id" optional="show"/>
                 <field name="task_id" optional="hide"/>
-                <field name="present_count" string="Present"/>
+                <field name="present_count" string="Anwesend"/>
                 <field name="quorum_met" widget="boolean_toggle" optional="show"/>
                 <field name="result" widget="badge" decoration-success="result=='passed'" decoration-danger="result=='rejected'" decoration-warning="result=='tie'"/>
                 <field name="state" widget="badge" decoration-info="state=='draft'" decoration-warning="state in ['voted','to_approve']" decoration-success="state=='approved'" decoration-muted="state=='archived'"/>
@@ -245,40 +245,40 @@
         <field name="name">board.resolution.search</field>
         <field name="model">board.resolution</field>
         <field name="arch" type="xml">
-            <search string="Board Resolutions">
-                <field name="name" string="Resolution Number"/>
-                <field name="title" string="Title"/>
-                <field name="project_id" string="Project"/>
-                <field name="task_id" string="Task"/>
-                <field name="meeting_type_id" string="Meeting Type"/>
-                <field name="present_members" string="Present Members"/>
-                <field name="approved_by" string="Approved By"/>
+            <search string="Vorstandsbeschlüsse">
+                <field name="name" string="Beschluss-Nummer"/>
+                <field name="title" string="Titel"/>
+                <field name="project_id" string="Projekt"/>
+                <field name="task_id" string="Aufgabe"/>
+                <field name="meeting_type_id" string="Versammlungsart"/>
+                <field name="present_members" string="Anwesende Mitglieder"/>
+                <field name="approved_by" string="Genehmigt von"/>
                 
-                <filter name="my_resolutions" string="My Resolutions" 
+                <filter name="my_resolutions" string="Meine Beschlüsse" 
                         domain="[('present_members', 'in', [uid])]"/>
                 <separator/>
-                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
-                <filter name="voted" string="Voted" domain="[('state', '=', 'voted')]"/>
-                <filter name="to_approve" string="To Approve" domain="[('state', '=', 'to_approve')]"/>
-                <filter name="approved" string="Approved" domain="[('state', '=', 'approved')]"/>
-                <filter name="archived" string="Archived" domain="[('state', '=', 'archived')]"/>
+                <filter name="draft" string="Entwurf" domain="[('state', '=', 'draft')]"/>
+                <filter name="voted" string="Abgestimmt" domain="[('state', '=', 'voted')]"/>
+                <filter name="to_approve" string="Zu genehmigen" domain="[('state', '=', 'to_approve')]"/>
+                <filter name="approved" string="Genehmigt" domain="[('state', '=', 'approved')]"/>
+                <filter name="archived" string="Archiviert" domain="[('state', '=', 'archived')]"/>
                 <separator/>
-                <filter name="passed" string="Passed" domain="[('result', '=', 'passed')]"/>
-                <filter name="rejected" string="Rejected" domain="[('result', '=', 'rejected')]"/>
-                <filter name="tie" string="Tie" domain="[('result', '=', 'tie')]"/>
+                <filter name="passed" string="Angenommen" domain="[('result', '=', 'passed')]"/>
+                <filter name="rejected" string="Abgelehnt" domain="[('result', '=', 'rejected')]"/>
+                <filter name="tie" string="Unentschieden" domain="[('result', '=', 'tie')]"/>
                 <separator/>
-                <filter name="this_month" string="This Month" 
+                <filter name="this_month" string="Dieser Monat" 
                         domain="[('date', '&gt;=', context_today().strftime('%Y-%m-01')), ('date', '&lt;', (context_today() + relativedelta(months=1)).strftime('%Y-%m-01'))]"/>
-                <filter name="this_year" string="This Year" 
+                <filter name="this_year" string="Dieses Jahr" 
                         domain="[('date', '&gt;=', context_today().strftime('%Y-01-01')), ('date', '&lt;=', context_today().strftime('%Y-12-31'))]"/>
                 
-                <group expand="0" string="Group By">
-                    <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
-                    <filter name="group_project" string="Project" context="{'group_by': 'project_id'}"/>
-                    <filter name="group_result" string="Result" context="{'group_by': 'result'}"/>
-                    <filter name="group_meeting_type" string="Meeting Type" context="{'group_by': 'meeting_type_id'}"/>
-                    <filter name="group_date" string="Date" context="{'group_by': 'date'}"/>
-                    <filter name="group_approved_by" string="Approved By" context="{'group_by': 'approved_by'}"/>
+                <group expand="0" string="Gruppieren nach">
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_project" string="Projekt" context="{'group_by': 'project_id'}"/>
+                    <filter name="group_result" string="Ergebnis" context="{'group_by': 'result'}"/>
+                    <filter name="group_meeting_type" string="Versammlungsart" context="{'group_by': 'meeting_type_id'}"/>
+                    <filter name="group_date" string="Datum" context="{'group_by': 'date'}"/>
+                    <filter name="group_approved_by" string="Genehmigt von" context="{'group_by': 'approved_by'}"/>
                 </group>
             </search>
         </field>
@@ -286,18 +286,18 @@
 
     <!-- Main Action with all view modes -->
     <record id="action_board_resolution" model="ir.actions.act_window">
-        <field name="name">Board Resolutions</field>
+        <field name="name">Vorstandsbeschlüsse</field>
         <field name="res_model">board.resolution</field>
         <field name="view_mode">list,kanban,form,activity</field>
         <field name="search_view_id" ref="board_resolution_view_search"/>
         <field name="context">{}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create your first board resolution!
+                Erstellen Sie Ihren ersten Vorstandsbeschluss!
             </p>
             <p>
-                Board resolutions help you formally document and track important decisions made by the board of your association.
-                Use the creation wizard to ensure proper voting and quorum tracking.
+                Vorstandsbeschlüsse helfen Ihnen, wichtige Entscheidungen des Vorstands Ihres Vereins formal zu dokumentieren und zu verfolgen.
+                Verwenden Sie den Erstellungsassistenten, um ordnungsgemäße Abstimmungs- und Quorum-Verfolgung sicherzustellen.
             </p>
         </field>
     </record>
@@ -326,7 +326,7 @@
 
     <!-- Additional Actions -->
     <record id="action_board_resolution_draft" model="ir.actions.act_window">
-        <field name="name">Draft Resolutions</field>
+        <field name="name">Entwürfe</field>
         <field name="res_model">board.resolution</field>
         <field name="view_mode">list,kanban,form</field>
         <field name="domain">[('state', '=', 'draft')]</field>
@@ -335,7 +335,7 @@
     </record>
 
     <record id="action_board_resolution_to_approve" model="ir.actions.act_window">
-        <field name="name">Pending Approval</field>
+        <field name="name">Ausstehende Genehmigung</field>
         <field name="res_model">board.resolution</field>
         <field name="view_mode">list,kanban,form,activity</field>
         <field name="domain">[('state', '=', 'to_approve')]</field>
@@ -344,7 +344,7 @@
     </record>
 
     <record id="action_board_resolution_approved" model="ir.actions.act_window">
-        <field name="name">Approved Resolutions</field>
+        <field name="name">Genehmigte Beschlüsse</field>
         <field name="res_model">board.resolution</field>
         <field name="view_mode">list,kanban,form</field>
         <field name="domain">[('state', 'in', ['approved', 'archived'])]</field>
@@ -353,38 +353,38 @@
 
     <!-- Board Members Action -->
     <record id="action_board_members" model="ir.actions.act_window">
-        <field name="name">Board Members</field>
+        <field name="name">Vorstandsmitglieder</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">list,form</field>
         <field name="domain">[('board_member', '=', True)]</field>
         <field name="context">{'default_board_member': True, 'create': False}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                No board members found
+                Keine Vorstandsmitglieder gefunden
             </p>
             <p>
-                Board members should be added through the Contacts module.
-                Mark contacts as board members to see them here.
+                Vorstandsmitglieder sollten über das Kontakte-Modul hinzugefügt werden.
+                Markieren Sie Kontakte als Vorstandsmitglieder, um sie hier zu sehen.
             </p>
         </field>
     </record>
 
     <!-- Menu Structure -->
     <menuitem id="menu_board_resolutions_root"
-              name="Board Resolutions"
+              name="Vorstandsbeschlüsse"
               action="action_board_resolution"
               sequence="50"/>
 
     <!-- Main view - All Resolutions (no submenu, direct action) -->
     <menuitem id="menu_board_resolutions_all"
-              name="All Resolutions"
+              name="Alle Beschlüsse"
               parent="menu_board_resolutions_root"
               action="action_board_resolution"
               sequence="10"/>
     
     <!-- Create Resolution via Wizard -->
     <menuitem id="menu_board_resolution_create_wizard"
-              name="Create Resolution"
+              name="Beschluss erstellen"
               parent="menu_board_resolutions_root"
               action="kulturhaus_board_resolutions.action_create_resolution_wizard"
               sequence="20"
@@ -392,13 +392,13 @@
 
     <!-- Configuration Menu -->
     <menuitem id="menu_board_resolutions_config"
-              name="Configuration"
+              name="Konfiguration"
               parent="menu_board_resolutions_root"
               sequence="100"
               groups="kulturhaus_board_resolutions.group_board_secretary"/>
 
     <menuitem id="menu_board_members"
-              name="Board Members"
+              name="Vorstandsmitglieder"
               parent="menu_board_resolutions_config"
               action="action_board_members"
               sequence="10"/>

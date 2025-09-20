@@ -6,21 +6,21 @@
         <field name="name">board.meeting.type.form</field>
         <field name="model">board.meeting.type</field>
         <field name="arch" type="xml">
-            <form string="Meeting Type">
+            <form string="Versammlungsart">
                 <sheet>
                     <group>
-                        <group string="General Information">
+                        <group string="Allgemeine Informationen">
                             <field name="name"/>
                             <field name="sequence"/>
                             <field name="active"/>
                             <field name="color" widget="color_picker"/>
                         </group>
-                        <group string="Description">
+                        <group string="Beschreibung">
                             <field name="description" nolabel="1" colspan="2"/>
                         </group>
                     </group>
                     
-                    <group string="Quorum Configuration">
+                    <group string="Quorum-Konfiguration">
                         <group>
                             <field name="quorum_type"/>
                             <field name="quorum_percentage" invisible="quorum_type != 'percentage'"/>
@@ -51,7 +51,7 @@
                         </group>
                     </group>
                     
-                    <group string="Voting Configuration">
+                    <group string="Abstimmungs-Konfiguration">
                         <group>
                             <field name="voting_majority"/>
                             <field name="voting_majority_custom" invisible="voting_majority != 'custom'"/>
@@ -72,7 +72,7 @@
         <field name="name">board.meeting.type.tree</field>
         <field name="model">board.meeting.type</field>
         <field name="arch" type="xml">
-            <list string="Meeting Types">
+            <list string="Versammlungsarten">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="quorum_type"/>
@@ -87,14 +87,14 @@
         <field name="name">board.meeting.type.search</field>
         <field name="model">board.meeting.type</field>
         <field name="arch" type="xml">
-            <search string="Meeting Types">
+            <search string="Versammlungsarten">
                 <field name="name"/>
-                <filter string="Active" name="active" domain="[('active', '=', True)]" help="Active meeting types"/>
-                <filter string="Archived" name="archived" domain="[('active', '=', False)]" help="Archived meeting types"/>
+                <filter string="Aktiv" name="active" domain="[('active', '=', True)]" help="Aktive Versammlungsarten"/>
+                <filter string="Archiviert" name="archived" domain="[('active', '=', False)]" help="Archivierte Versammlungsarten"/>
                 <separator/>
-                <group expand="0" string="Group By">
-                    <filter string="Quorum Type" name="group_quorum" domain="[]" context="{'group_by': 'quorum_type'}"/>
-                    <filter string="Voting Majority" name="group_majority" domain="[]" context="{'group_by': 'voting_majority'}"/>
+                <group expand="0" string="Gruppieren nach">
+                    <filter string="Quorum-Typ" name="group_quorum" domain="[]" context="{'group_by': 'quorum_type'}"/>
+                    <filter string="Abstimmungsmehrheit" name="group_majority" domain="[]" context="{'group_by': 'voting_majority'}"/>
                 </group>
             </search>
         </field>
@@ -102,15 +102,15 @@
 
     <!-- Meeting Type Action -->
     <record id="action_board_meeting_type" model="ir.actions.act_window">
-        <field name="name">Meeting Types</field>
+        <field name="name">Versammlungsarten</field>
         <field name="res_model">board.meeting.type</field>
         <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create your first meeting type
+                Erstellen Sie Ihre erste Versammlungsart
             </p>
             <p>
-                Configure different types of board meetings with their specific quorum and voting requirements.
+                Konfigurieren Sie verschiedene Arten von Vorstandssitzungen mit ihren spezifischen Quorum- und Abstimmungsanforderungen.
             </p>
         </field>
     </record>
@@ -122,15 +122,15 @@
         <field name="inherit_id" ref="base.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//form" position="inside">
-                <app data-string="Board Resolutions" string="Board Resolutions" name="kulturhaus_board_resolutions">
-                    <block title="Meeting Configuration" name="meeting_config">
-                        <setting string="Default Meeting Type" help="Default meeting type for new resolutions">
+                <app data-string="Vorstandsbeschlüsse" string="Vorstandsbeschlüsse" name="kulturhaus_board_resolutions">
+                    <block title="Versammlungs-Konfiguration" name="meeting_config">
+                        <setting string="Standard-Versammlungsart" help="Standard-Versammlungsart für neue Beschlüsse">
                             <field name="default_meeting_type_id"/>
                         </setting>
-                        <setting string="Configure Meeting Types" help="Manage meeting types and their rules">
+                        <setting string="Versammlungsarten konfigurieren" help="Verwalten Sie Versammlungsarten und ihre Regeln">
                             <button name="%(action_board_meeting_type)d" 
                                     type="action"
-                                    string="Configure Meeting Types" 
+                                    string="Versammlungsarten konfigurieren" 
                                     class="btn-link"
                                     icon="fa-arrow-right"/>
                         </setting>

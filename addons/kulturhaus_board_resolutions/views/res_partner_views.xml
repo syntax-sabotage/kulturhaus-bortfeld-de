@@ -50,11 +50,11 @@
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='supplier']" position="after">
                 <separator/>
-                <filter string="Board Members" name="board_members" 
+                <filter string="Vorstandsmitglieder" name="board_members" 
                         domain="[('board_member', '=', True)]"/>
             </xpath>
             <xpath expr="//group" position="inside">
-                <filter string="Board Member" name="group_board_member" 
+                <filter string="Vorstandsmitglied" name="group_board_member" 
                         context="{'group_by': 'board_member'}"/>
             </xpath>
         </field>

@@ -6,15 +6,15 @@
         <field name="name">create.resolution.wizard.form</field>
         <field name="model">create.resolution.wizard</field>
         <field name="arch" type="xml">
-            <form string="Create Board Resolution" dialog_size="large">
+            <form string="Vorstandsbeschluss erstellen" dialog_size="large">
                 <field name="step" invisible="1"/>
                 
                 <notebook>
                     <!-- Step 1: Basic Information -->
-                    <page string="Basic Information" invisible="step != 'basic'">
+                    <page string="Grundinformationen" invisible="step != 'basic'">
                         <group>
                             <group>
-                                <field name="title" placeholder="e.g., Approval of Annual Budget" required="1"/>
+                                <field name="title" placeholder="z.B. Genehmigung des Jahresbudgets" required="1"/>
                                 <field name="date"/>
                                 <field name="meeting_type_id" options="{'no_create': True}"/>
                             </group>
@@ -24,23 +24,23 @@
                             </group>
                         </group>
                         <group>
-                            <field name="description" placeholder="Brief description of the resolution..." nolabel="1" colspan="2"/>
+                            <field name="description" placeholder="Kurze Beschreibung des Beschlusses..." nolabel="1" colspan="2"/>
                         </group>
                     </page>
 
                     <!-- Step 2: Attendance -->
-                    <page string="Attendance" invisible="step != 'attendance'">
+                    <page string="Anwesenheit" invisible="step != 'attendance'">
                         <group>
-                            <group string="Board Members">
+                            <group string="Vorstandsmitglieder">
                                 <field name="board_members" invisible="1"/>
                                 <field name="total_board_members" readonly="1"/>
                                 <field name="quorum_met" readonly="1" widget="boolean_toggle"/>
                             </group>
-                            <group string="Present Members">
+                            <group string="Anwesende Mitglieder">
                                 <field name="present_count" readonly="1"/>
                             </group>
                         </group>
-                        <separator string="Mark Present Members"/>
+                        <separator string="Anwesende Mitglieder markieren"/>
                         <field name="present_members" widget="many2many_tags" options="{'no_create': True}"/>
                         <div class="alert alert-info" invisible="quorum_met">
                             <i class="fa fa-info-circle"/> <t t-esc="_('Quorum not met. You need more members present to proceed.')"/>
@@ -48,38 +48,38 @@
                     </page>
 
                     <!-- Step 3: Resolution Text -->
-                    <page string="Resolution Text" invisible="step != 'resolution'">
-                        <field name="resolution_text" placeholder="Enter the full text of the resolution..."/>
+                    <page string="Beschlusstext" invisible="step != 'resolution'">
+                        <field name="resolution_text" placeholder="Geben Sie den vollständigen Text des Beschlusses ein..."/>
                     </page>
 
                     <!-- Step 4: Voting -->
-                    <page string="Voting" invisible="step != 'voting'">
+                    <page string="Abstimmung" invisible="step != 'voting'">
                         <group>
                             <field name="voting_mode" widget="radio" options="{'horizontal': true}"/>
                         </group>
                         
                         <!-- Secret Voting -->
                         <group invisible="voting_mode != 'secret'">
-                            <group string="Vote Count">
+                            <group string="Stimmanzählung">
                                 <field name="votes_for"/>
                                 <field name="votes_against"/>
                                 <field name="votes_abstain"/>
                                 <field name="total_votes" readonly="1"/>
                             </group>
-                            <group string="Result">
+                            <group string="Ergebnis">
                                 <field name="result" readonly="1" widget="badge"/>
                             </group>
                         </group>
                         
                         <!-- Open Voting -->
                         <group invisible="voting_mode != 'open'">
-                            <separator string="Members Voting For"/>
+                            <separator string="Mitglieder, die dafür stimmen"/>
                             <field name="votes_for_members" widget="many2many_tags" options="{'no_create': True}" nolabel="1"/>
-                            <separator string="Members Voting Against"/>
+                            <separator string="Mitglieder, die dagegen stimmen"/>
                             <field name="votes_against_members" widget="many2many_tags" options="{'no_create': True}" nolabel="1"/>
-                            <separator string="Members Abstaining"/>
+                            <separator string="Sich enthaltende Mitglieder"/>
                             <field name="votes_abstain_members" widget="many2many_tags" options="{'no_create': True}" nolabel="1"/>
-                            <group string="Result">
+                            <group string="Ergebnis">
                                 <field name="total_votes" readonly="1"/>
                                 <field name="result" readonly="1" widget="badge"/>
                             </group>
@@ -87,8 +87,8 @@
                     </page>
 
                     <!-- Step 5: Confirmation -->
-                    <page string="Confirmation" invisible="step != 'confirmation'">
-                        <group string="Summary">
+                    <page string="Bestätigung" invisible="step != 'confirmation'">
+                        <group string="Zusammenfassung">
                             <group>
                                 <field name="title" readonly="1"/>
                                 <field name="date" readonly="1"/>
@@ -100,16 +100,16 @@
                                 <field name="result" readonly="1" widget="badge"/>
                             </group>
                         </group>
-                        <separator string="Resolution Text Preview"/>
+                        <separator string="Beschlusstext-Vorschau"/>
                         <field name="resolution_text" readonly="1" nolabel="1"/>
                     </page>
                 </notebook>
 
                 <footer>
-                    <button name="action_previous_step" string="Previous" type="object" class="btn-secondary" invisible="step == 'basic'"/>
-                    <button name="action_next_step" string="Next" type="object" class="btn-primary" invisible="step == 'confirmation'"/>
-                    <button name="action_create_resolution" string="Create Resolution" type="object" class="btn-success" invisible="step != 'confirmation'"/>
-                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    <button name="action_previous_step" string="Zurück" type="object" class="btn-secondary" invisible="step == 'basic'"/>
+                    <button name="action_next_step" string="Weiter" type="object" class="btn-primary" invisible="step == 'confirmation'"/>
+                    <button name="action_create_resolution" string="Beschluss erstellen" type="object" class="btn-success" invisible="step != 'confirmation'"/>
+                    <button string="Abbrechen" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
         </field>
@@ -117,7 +117,7 @@
 
     <!-- Create Resolution Wizard Action -->
     <record id="action_create_resolution_wizard" model="ir.actions.act_window">
-        <field name="name">Create Board Resolution</field>
+        <field name="name">Vorstandsbeschluss erstellen</field>
         <field name="res_model">create.resolution.wizard</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="view_create_resolution_wizard_form"/>

@@ -896,3 +896,178 @@ msgstr "Beschlussentwürfe"
 #: model:ir.actions.act_window,name:kulturhaus_board_resolutions.action_board_resolution_to_approve
 msgid "Pending Approval"
 msgstr "Genehmigung ausstehend"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_form
+msgid "Meeting Type"
+msgstr "Versammlungsart"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_list
+msgid "Meeting Types"
+msgstr "Versammlungsarten"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_search
+msgid "Archived"
+msgstr "Archiviert"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_meeting_type_search
+msgid "Group By"
+msgstr "Gruppieren nach"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.actions.act_window,help:kulturhaus_board_resolutions.action_board_meeting_type
+msgid "Create your first meeting type"
+msgstr "Erstellen Sie Ihre erste Versammlungsart"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.actions.act_window,help:kulturhaus_board_resolutions.action_board_meeting_type
+msgid "Configure different types of board meetings with their specific quorum and voting requirements."
+msgstr "Konfigurieren Sie verschiedene Arten von Vorstandssitzungen mit ihren spezifischen Quorum- und Abstimmungsanforderungen."
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_resolution_config_settings
+msgid "Board Resolutions"
+msgstr "Vorstandsbeschlüsse"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_board_resolution_config_settings
+msgid "Meeting Configuration"
+msgstr "Versammlungs-Konfiguration"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Board Resolution"
+msgstr "Vorstandsbeschluss"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Mark as Voted"
+msgstr "Als abgestimmt markieren"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Submit for Approval"
+msgstr "Zur Genehmigung einreichen"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Archive"
+msgstr "Archivieren"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Reset to Draft"
+msgstr "Auf Entwurf zurücksetzen"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Resolution Title"
+msgstr "Beschluss-Titel"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Attendance"
+msgstr "Anwesenheit"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Present Members"
+msgstr "Anwesende Mitglieder"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Detailed Voting"
+msgstr "Detaillierte Abstimmung"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Voted For"
+msgstr "Dafür gestimmt"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Voted Against"
+msgstr "Dagegen gestimmt"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_form
+msgid "Abstentions"
+msgstr "Enthaltungen"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.board_resolution_view_list
+msgid "Board Resolutions"
+msgstr "Vorstandsbeschlüsse"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.actions.act_window,help:kulturhaus_board_resolutions.action_board_members
+msgid "No board members found"
+msgstr "Keine Vorstandsmitglieder gefunden"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.actions.act_window,help:kulturhaus_board_resolutions.action_board_members
+msgid "Board members should be added through the Contacts module."
+msgstr "Vorstandsmitglieder sollten über das Kontakte-Modul hinzugefügt werden."
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.actions.act_window,help:kulturhaus_board_resolutions.action_board_members
+msgid "Mark contacts as board members to see them here."
+msgstr "Markieren Sie Kontakte als Vorstandsmitglieder, um sie hier zu sehen."
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_partner_search_board_member
+msgid "Board Members"
+msgstr "Vorstandsmitglieder"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Create Board Resolution"
+msgstr "Vorstandsbeschluss erstellen"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Basic Information"
+msgstr "Grundinformationen"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Attendance"
+msgstr "Anwesenheit"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Board Members"
+msgstr "Vorstandsmitglieder"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Resolution Text"
+msgstr "Beschlusstext"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Confirmation"
+msgstr "Bestätigung"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Previous"
+msgstr "Zurück"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Next"
+msgstr "Weiter"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Create Resolution"
+msgstr "Beschluss erstellen"
+
+#. module: kulturhaus_board_resolutions
+#: model:ir.ui.view,arch_db:kulturhaus_board_resolutions.view_create_resolution_wizard_form
+msgid "Cancel"
+msgstr "Abbrechen"
