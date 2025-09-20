@@ -402,4 +402,10 @@
               action="action_board_members"
               sequence="10"/>
 
+    <menuitem id="menu_board_meeting_type_config"
+              name="Versammlungsarten"
+              parent="menu_board_resolutions_config"
+              action="action_board_meeting_type"
+              sequence="20"/>
+
 </odoo>
